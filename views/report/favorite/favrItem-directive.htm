@@ -1,0 +1,11 @@
+﻿<div class="report-component">
+    <div class="report-element">
+        <a ng-href="#/report/detail/{{item.reportGroupId}}/{{item.reportId}}//1"> <i class="icon icon-report"></i> </a>
+        <div class="report-item">
+            <a ng-href="#/report/detail/{{item.reportGroupId}}/{{item.reportId}}//1" class="report-name common-overflow" title="{{item.reportName}}">{{item.reportName}}</a>
+            <br>
+            <span class="title-list common-overflow" title="{{item.reportGroupName}}">{{item.reportGroupName}}</span>
+        </div>
+    </div>
+    <i class="picture picture-del" ng-click="remove()" ng-if="delAuth"></i>
+</div>

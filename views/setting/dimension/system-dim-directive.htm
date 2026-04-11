@@ -1,0 +1,56 @@
+﻿<div class="system-dimension">
+    <div class="dimension-system-list">
+        <div class="dimension-zdy-search">
+            <input type="text" class="zdy-search-input" ng-model="keySystemName" placeholder="请输入搜索内容" ng-keyup="enterSystemKey($event)">
+            <i class="picture picture-search-unactive" ng-click="getSysDim()"></i>
+        </div>
+        <div class="zdy-list">
+            <ul>
+                <li ng-repeat="item in systenDim">
+                    <a ng-click="showSysDetail(item)" title="{{item.showName}}" ng-class="{'item-selected':item.id === systenItem.id}">{{item.showName}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="dimension-system-add" ng-if="systenItem">
+        <div class="zdy-item-btn">
+            <input type="button" class="dimension-opt-btn save" ng-click="saveOrUpdateItem()" ng-if="saveAuth" value="保&nbsp;&nbsp;存">
+        </div>
+        <div class="dimension-zdy-item-detail">
+            <div class="dimension-zdy-item">
+                <label class="item-label-list">
+                    维度名称：
+                </label>
+                <input type="text" class="dimension-item-name" ng-model="systenItem.showName">
+            </div>
+            <div class="dimension-zdy-item">
+                <label class="item-label-list">
+                    传入名称：
+                </label>
+                <input type="text" class="dimension-item-other-sys" ng-model="systenItem.showCode" readonly>
+            </div>
+            <div class="dimension-zdy-item">
+                <label class="item-label-list">
+                    值：
+                </label>
+                <input type="text" class="dimension-item-other-sys" ng-model="systenItem.dataType" readonly>
+            </div>
+            <div class="dimension-zdy-item">
+                <label class="item-label-list">
+                    展现方式：
+                </label>
+                <input type="text" class="dimension-item-other-sys" ng-model="systenItem.typeName" readonly>
+            </div>
+            <div class="dimension-zdy-item" ng-if="systenItem.showType==='mulSel'">
+                <label class="item-label-list">
+                    枚举项输入：
+                </label>
+                <div class="enum-value-item">
+                    <div title="{{item}}" class="enum-value-opt" ng-repeat="item in systenItem.shouValue">
+                        {{item}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

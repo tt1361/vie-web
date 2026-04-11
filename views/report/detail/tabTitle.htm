@@ -1,0 +1,1 @@
+﻿<span> <input class="title-input" ng-if="showInput && item.type !=='blank'" ng-click="altD($event)" ng-model="item.title"> <a ng-if="!showInput && item.type != 'blank'" ng-click="altD($event)" ng-dblclick="altName($event)" href="" title="{{item.title}}">{{item.title | subData: 5}}</a> <a ng-if="item.type=='blank'" href="">新建报表</a> </span>

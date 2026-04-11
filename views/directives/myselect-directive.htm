@@ -1,0 +1,18 @@
+﻿<div class="my-select">
+    <input class="ell" type="text" readonly ng-click="showOpen()" placeholder="--请选择--" ng-model="selvalue">
+    <i class="picture picture-select-down newtab" ng-class="{'active': isOpen}" ng-click="showOpen()"></i>
+    <ul ng-class="{'active':isOpen}">
+        <li ng-if="type==='xAxis' " class="ell" ng-repeat="item in list" ng-class="{'selected':sel === item.id}" ng-click="select(item)">
+            {{item.text}}
+        </li>
+        <li ng-if="type==='yAxis' " class="ell" ng-repeat="item in list" ng-class="{'selected':sel === item.measure}" ng-click="select(item)">
+            {{item.text}}
+        </li>
+        <li ng-if="type==='timeDim' " class="ell" ng-repeat="item in list" ng-class="{'selected':sel === item.key}" ng-click="select(item)">
+            {{item.value}}
+        </li>
+        <li ng-if="type==='group' " class="ell" ng-repeat="item in list" ng-class="{'selected':sel === item.id}" ng-click="select(item)">
+            {{item.name}}
+        </li>
+    </ul>
+</div>

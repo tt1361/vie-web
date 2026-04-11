@@ -1,0 +1,157 @@
+<div class="wholeFilter" style="z-index: 665;">
+    <div class="fliter-frist-part">
+        <!-- 筛选下拉框 -->
+        <div style="float: left;">
+            <input type="text" readonly class="input-fliter ell vocabulary-type-fliter" value="{{fliterNames}}" ng-click="fliterSelectShow()" style="background:white">
+            <i class="picture picture-select-down-fliter newtab-fliter vocabulary-fliter" ng-class="{'active': selectShow}" ng-click="fliterSelectShow()" style="position: relative;"></i>
+            <ul class="select-fliter vocabulary-options-fliter hidden" ng-class="{'show': selectShow}">
+                <li class="select-fliter-li" ng-repeat="fliterNames in fliterNameSelect" ng-click="selectFliterName(fliterNames)">
+                    <span>{{fliterNames.name}}</span>
+                    <i class="select-fliter-edit" ng-click="editSelectFliter(fliterNames)"></i>
+                </li>
+            </ul>
+        </div>
+        <div class="fliterSwitch" ng-show="!showOrHeddens" ng-click="showOrHedden(0)">
+            展开筛选器∨
+        </div>
+        <div class="fliterSwitch" ng-show="showOrHeddens" ng-click="showOrHedden(1)">
+            收起筛选器∧
+        </div>
+    </div>
+    <div class="fliter-sec-part" style="display: none">
+        <div>
+            <!-- <label><input class="fliter-Basics" name="Fliter-Basics" type="radio" value="1" ng-checked="isChecked">基础筛选</label>
+			<label><input class="fliter-Senior" name="Fliter-Senior" type="radio" value="2" ng-checked="!isChecked">高级筛选</label> -->
+            <span class="fliter-Basics"><span ng-class="{'isChecked': !isChecked}">●</span>基础筛选</span>
+            <span class="fliter-Senior"><span ng-class="{'isChecked': isChecked}">●</span>高级筛选</span>
+        </div>
+        <div class="body-filter">
+            <div class="andOr-filter" ng-show="isChecked">
+                <div ng-show="!ruleShow" ng-click="filterRule(0)">
+                    {{filterRuleValue}}
+                </div>
+                <div ng-show="ruleShow" ng-click="filterRule(1)">
+                    {{filterRuleValue}}
+                </div>
+            </div>
+            <div class="andOr-filter-2" ng-show="!isChecked">
+            </div>
+            <div class="basics">
+                <div class="content-fliter">
+                    <div ng-repeat="filter in filters track by $index" class="clear-fliter everyFilter">
+                        <div class="left-fliter index-fliter" ng-show="!isChecked">
+                            <span>{{$index+1}}</span>
+                        </div>
+                        <!--维度下拉框-->
+                        <div class="left-fliter" style="width: 213px;">
+                            <div class="dingwei">
+                                <input type="text" readonly class="input-fliter ell vocabulary-type-fliter  vocabulary-type-fliter-1" ng-click="dimChangetoggle($index,$event)" ng-model="filter.showName">
+                                <input type="text" class="hidden" ng-model="filter.key">
+                                <input type="text" class="hidden" ng-model="filter.type">
+                                <input type="text" class="hidden" ng-model="filter.showType">
+                                <input type="text" class="hidden" ng-model="filter.durationFlag">
+                                <i class="picture picture-select-down-fliter newtab-fliter vocabulary-fliter" ng-class="{'active': filter.dimSelectShow}" ng-click="dimChangetoggle($index,$event)" style="right: 8px;"></i>
+                                <ul class="select-fliter vocabulary-options-fliter hidden" ng-class="{'show': filter.dimSelectShow}" style="position: absolute;top:27px">
+                                    <li style="word-wrap: normal;" value="{{Culumns.key}}" ng-repeat="Culumns in fliterCulumnsSelect" ng-click="dimChangedropClick(Culumns,filter)">
+                                        {{Culumns.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--维度下拉框-->
+                        <!--规则下拉框-->
+                        <div class="left-fliter" style="width: 213px;">
+                            <div class="dingwei">
+                                <input type="text" readonly class="input-fliter ell vocabulary-type-fliter vocabulary-type-fliter-1" ng-click="ruleChangetoggle($index,$event)" ng-model="filter.optName">
+                                <input type="text" class="hidden" ng-model="filter.opt">
+                                <i class="picture picture-select-down-fliter newtab-fliter vocabulary-fliter" ng-class="{'active': filter.ruleSelectShow}" ng-click="ruleChangetoggle($index,$event)" style="right: 8px;"></i>
+                                <ul class="select-fliter vocabulary-options-fliter hidden" ng-class="{'show': filter.ruleSelectShow}" style="position: absolute;top:27px">
+                                    <li style="word-wrap: normal;" value="{{Culumns.key}}" ng-repeat="Rules in filter.filterRule" ng-click="ruleChangedropClick(Rules,filter)">
+                                        {{Rules.text}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--规则下拉框-->
+                        <!--取值下拉框或者其他-->
+                        <!--时长类信息(除区间)-->
+                        <input ng-if="filter.showWhich == '1' " type="text" style="width: 213px;font-size: 12px;margin-left: 10px;height: 30px;border: none;margin-top: 4px;background: rgb(240,240,240)" placeholder="请输入筛选条件" ng-model="filter.value" class="search-input-model ng-pristine ng-valid filter-size-font justHover" ng-class="{'check-text': filter.isNull}" ng-change="filterRuleCheck(filter)">
+                        <!--时长类信息(区间)-->
+                        <div ng-if="filter.showWhich == '2' " class="filter-rang justHover-2">
+                            <input type="text" style="width: 106px;font-size: 12px;margin-left: 8px;height: 30px;border: none;margin-top: 4px;background: rgb(240,240,240)" placeholder="请输入筛选条件" ng-model="filter.value[0]" class="search-input-model ng-pristine ng-valid filter-size-font justHover" ng-class="{'check-text': filter.isNull}" ng-change="filterRuleCheck(filter)">
+                            <input ng-if="filter.showWhich == '2' " type="text" style="width: 106px;font-size: 12px;height: 30px;border: none;margin-top: 4px;background: rgb(240,240,240)" placeholder="请输入筛选条件" ng-model="filter.value[1]" class="search-input-model ng-pristine ng-valid filter-size-font" ng-class="{'check-text': filter.isNull}" ng-change="filterRuleCheck(filter)">
+                        </div>
+                        <!--来电时间-->
+                        <!-- <div ng-if="filter.showWhich == '3' " class="time-filter justHover-3">
+							<advance-time item="timeRange"></advance-time>
+						</div> -->
+                        <!--文本-->
+                        <!--文本单选-->
+                        <div ng-if="filter.showWhich == '4' " class="wordRadio justHover-4">
+                            <input type="text" class="input-fliter ell vocabulary-type-fliter vocabulary-type-fliter-1" ng-click="textChangetoggle($index)" ng-model="filter.value[0]" placeholder="输入/选择亦可">
+                            <i class="picture picture-select-down-fliter newtab-fliter vocabulary-fliter" style="position: relative;" ng-class="{'active': filter.textRadioShow}" ng-click="textChangetoggle($index)"></i>
+                            <ul class="select-fliter vocabulary-options-fliter hidden" ng-class="{'show': filter.textRadioShow}" style="position: absolute;top:27px">
+                                <li style="word-wrap: normal;" ng-repeat="textValue in filter.filterTextValue track by $index" ng-click="textChangedropClick(textValue,filter)">
+                                    {{textValue}}
+                                </li>
+                            </ul>
+                        </div>
+                        <!--文本之模型-->
+                        <div class="condition-list condition-list-filter justHover-5" ng-if="filter.showWhich == '5' ">
+                            <input type="text" class="hidden" ng-model="filter.value">
+                            <ul class="condition-wrapper">
+                                <li class="value-list">
+                                    <off-line-tag-id-dimension class="dimension-condition" item="filter.dimension" condition="filter.condition"></off-line-tag-id-dimension>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--文本之除模型-->
+                        <div class="condition-list condition-list-filter justHover-5" ng-if="filter.showWhich == '6' ">
+                            <input type="text" class="hidden" ng-model="filter.value">
+                            <ul class="condition-wrapper">
+                                <li class="value-list">
+                                    <mul-sel-model-dimension class="dimension-condition" item="filter.dimension" condition="filter.condition"></mul-sel-model-dimension>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--取值下拉框或者其他-->
+                        <!--删除该条件-->
+                        <!-- <button class="btn btn-primary" style="height: 27px;" ng-click="deleteFilter($index)">删除</button> -->
+                        <i ng-if="filter.showWhich == '1' " class="delete-filter" ng-click="deleteFilter($index)"></i>
+                        <i ng-if="filter.showWhich == '2' " class="delete-filter-2" ng-click="deleteFilter($index)"></i>
+                        <i ng-if="filter.showWhich == '3' " class="delete-filter-3" ng-click="deleteFilter($index)"></i>
+                        <i ng-if="filter.showWhich == '4' " class="delete-filter-4" ng-click="deleteFilter($index)"></i>
+                        <i ng-if="filter.showWhich == '5' || filter.showWhich == '6' " class="delete-filter-5" ng-click="deleteFilter($index)"></i>
+                        <!--删除该条件-->
+                    </div>
+                </div>
+                <div class="shaixuancss">
+                    <span ng-click="addFliter()" style="float: left;">＋筛选条件</span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="senior" ng-show="!isChecked">
+            <input class="text" type="text" ng-model="expression" ng-class="{'check-text': noPassRule}" ng-change="expressionCheck()" placeholder="请输入条件组合规则，支持通过序号进行简单的&,|逻辑组合，如(1|2)&3">
+        </div>
+        <div class="foot-fliter">
+            <div style="float: left;line-height: 24px;color: red">
+                <span ng-click="deleteFilterById()" ng-show="!!id">删除该筛选器</span>
+            </div>
+            <div style="float: right;">
+                <button class="btn btn-primary" style="height: 27px;" ng-click="saveFilter(0)">
+                    另存为模板
+                </button>
+                <button class="btn btn-primary-filter" style="height: 27px;" ng-click="saveFilter(1)" ng-show="!!id">
+                    保存
+                </button>
+                <button class="btn btn-primary-filter" style="height: 27px;" ng-click="applicationFilter()" ng-style="{'background-color':showClick ? '#07b2b1' : '','color':showClick ? '#fff' : ''}">
+                    应用
+                </button>
+                <button class="btn btn-primary-filter" style="height: 27px;margin-right: 12px" ng-click="clearFilter()" ng-style="{'background-color':clearClick ? '#07b2b1' : '','color':clearClick ? '#fff' : ''}">
+                    重置
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

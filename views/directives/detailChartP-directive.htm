@@ -1,0 +1,18 @@
+﻿<div class="report-outter-panel">
+    <div class="detail_condition_wrapper">
+        <button class="show-button pie" ng-click="setView()">
+            预览
+        </button>
+        <addtoindex type="pie" config="viewConfig" op-type="opType" default-page="pageId" report-name="moduleName" record-id="moduleId" table-default="tableDefault" isPreview="isPreview"></addtoindex>
+        <adddimension class="pie" items="dimensions" default-index="defaultDimensionIndex" table-default="tableDefault" value="类别"></adddimension>
+        <adddimension class="pie" items="measures" default-index="measureIndex" table-default="tableDefault" computers="computers" value="参数"></adddimension>
+        <div ng-if="tableDefault.legend=='timeDim' " class="detail_chart_condition condition_sort">
+            统计周期 :
+            <myselect class="timedim" selvalue="tableDefault.timeDimText" sel="tableDefault.timeDimKey" list="timeDimList" type="timeDim"></myselect>
+        </div>
+    </div>
+    <div class="detail_chart" style="overflow-y: auto;overflow-x: hidden;">
+        <div id="cl_chart" class="pie"></div>
+    </div>
+    <div class="detail_chart_footer"></div>
+</div>

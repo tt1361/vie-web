@@ -1,0 +1,232 @@
+﻿<div class="data-panel-content">
+    <div class="mark-library" ng-click="markerLibShow()" ng-class="marker-lib-show" ng-if="markAuth">
+        <i class="picture picture-mark"></i>
+        <button>
+            标记库
+        </button>
+    </div>
+    <div class="data-analyse-header">
+        <div class="title">
+            <span>匹配通话</span>
+            <!--ng-if="assignAuth"-->
+            <span title="维度项选择" class="opt-list_set" ng-click="setDimension()" ng-if="assignAuth"></span>
+        </div>
+    </div>
+    <div ng-if="!isAnalysisTask" class="task-wrap">
+        <div class="data-table-list" ng-if="counts">
+            <!-- 2017-08-11 llyu 产品确认去除列冻结 -->
+            <!-- <ul class="idCulumn-list">
+                <li ng-repeat="idItem in idCulumns" class="column-header-analyse">
+                    <span title="{{idItem.columnName}}">{{idItem.columnName | subData: 8}}</span>
+
+                    <div class="sort-btn">
+                            <span class="btn-up" ng-class="{'btn-up-selected':btnUp==='voiceId'}"
+                                  ng-click="remarkSort(idItem.column,'asc')"></span>
+                            <span class="btn-down" ng-class="{'btn-down-selected':btnDown==='voiceId'}"
+                                  ng-click="remarkSort(idItem.column,'desc')"></span>
+                    </div>
+                </li>
+                <li ng-repeat="item in callLists" ng-class-even="'color-even'" class="column-content-analyse">
+                    <p title="{{'id' | celData : item.dataMaps}}" class="data-overflow voice_id_call">
+                        <a ng-if="browser === 'chrome'" class="item-id"
+                           ng-href="playH5.html#?voiceId={{item.dataMaps.id}}" target="_blank"
+                           ng-click="markListView($event)">{{'id' | celData :
+                            item.dataMaps}}</a>
+                        <a ng-if="browser === 'msie'" class="item-id"
+                           ng-href="play.html#?voiceId={{item.dataMaps.id}}" target="_blank"
+                           ng-click="markListView($event)">{{'id' | celData :
+                            item.dataMaps}}</a>
+                    </p>
+                </li>
+            </ul> -->
+            <div class="dimColumn-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <td ng-repeat="dimItem in headColums">
+                                <div>
+                                    <span title="{{dimItem.columnName}}">{{dimItem.columnName | subData: 8}}</span>
+                                    <div class="sort-btn" ng-if="dimItem.column!=='keyword'&&dimItem.column!=='modelName'&&dimItem.column!=='mark'">
+                                        <span class="btn-up" ng-class="{'btn-up-selected':btnUp==='{{dimItem.column}}'}" ng-click="remarkSort(dimItem.column,'asc')"></span>
+                                        <span class="btn-down" ng-class="{'btn-down-selected':btnDown==='{{dimItem.column}}'}" ng-click="remarkSort(dimItem.column,'desc')"></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="height:33px" ng-repeat="item in callLists" ng-class-even="'color-even'">
+                            <td ng-repeat="column in headColums">
+                                <!-- 流水号的渲染 -->
+                                <div class="column-content-analyse" ng-if="column.column === 'voiceId'">
+                                    <p title="{{item.dataMaps.id}}" class="data-overflow voice_id_call">
+                                        <a ng-if="browser === 'chrome'" class="item-id" ng-href="playH5.html#?voiceId={{item.dataMaps.id}}" target="_blank" ng-click="markListView($event)">{{item.dataMaps.id}}</a>
+                                        <a ng-if="browser === 'msie'" class="item-id" ng-href="play.html#?voiceId={{item.dataMaps.id}}" target="_blank" ng-click="markListView($event)">{{item.dataMaps.id}}</a>
+                                        <a ng-if="browser === 'other'" class="item-id" ng-href="play.html#?voiceId={{item.dataMaps.id}}" target="_blank" ng-click="markListView($event)">{{item.dataMaps.id}}</a>
+                                    </p>
+                                </div>
+                                <!--关键字的渲染-->
+                                <div class="keyword-show-inner" ng-if="column.column === 'keyword'">
+                                    <bubble ng-repeat="keyword in item.keywordInfos | subList:4" item="keyword" call-id="item.dataMaps.id" tr-index="{{p_index}}"></bubble>
+                                    <span ng-if="item.keywordInfos | showKeyLength:4">...</span>
+                                    <more-key item="item.keywordInfos" call-id="item.dataMaps.id" ng-if="item.keywordInfos | showKeyLength:4"></more-key>
+                                </div>
+                                <!--非流水号、关键字、标记的渲染-->
+                                <span ng-if="column.column !== 'keyword'&&column.column !== 'voiceId'&&column.column !== 'mark'"> <p class="data-overflow" title="{{column.column | celData : item.dataMaps}}">
+                                        {{column.column | celData : item.dataMaps}}
+                                    </p> </span>
+                                <!-- 标记的渲染 -->
+                                <div class="column-content-analyse" ng-if="column.column === 'mark'">
+                                    <a ng-if="item.dataMaps.isHaveRemark" class="mark active" ng-click="openRemark(item)"> <div class="mark-hover">
+                                            <span class="mark-title">备注：</span>
+                                            <span class="mark-content">{{item.dataMaps.remark}}</span>
+                                        </div> </a>
+                                    <i class="mark" ng-click="openRemark(item)" ng-if="!item.dataMaps.isHaveRemark"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- <ul class="idCulumn-list">
+                <li ng-repeat="markItem in markCulumns" class="column-header-analyse">
+                    <span title="{{markItem.columnName}}">{{markItem.columnName | subData: 8}}</span>
+
+                    <div class="sort-btn">
+                            <span class="btn-up" ng-class="{'btn-up-selected':btnUp==='mark'}"
+                                  ng-click="remarkSort(markItem.column,'asc')"></span>
+                            <span class="btn-down" ng-class="{'btn-down-selected':btnDown==='mark'}"
+                                  ng-click="remarkSort(markItem.column,'desc')"></span>
+                    </div>
+                </li>
+                <li ng-repeat="item in callLists" ng-class-even="'color-even'" class="column-content-analyse">
+                    <a ng-if="item.dataMaps.isHaveRemark" class="mark active" ng-click="openRemark(item)">
+                        <div class="mark-hover">
+                            <span class="mark-title">备注：</span>
+                            <span class="mark-content">{{item.dataMaps.remark}}</span>
+                        </div>
+                    </a>
+                    <i class="mark" ng-click="openRemark(item)" ng-if="!item.dataMaps.isHaveRemark"></i>
+                </li>
+            </ul> -->
+        </div>
+        <newpaging ng-if="counts" page-options="pageOptions" total-counts="counts" update="getCallList(pageOptions)"></newpaging>
+        <div class="empty-data" ng-if="!counts"></div>
+    </div>
+    <div ng-if="isAnalysisTask" class="task-wrap">
+        <div class="task-table-wrap" ng-if="counts">
+            <table class="task-table">
+                <thead class="task-thead">
+                    <tr>
+                        <th class="task-id" ng-repeat="headColum in headColums">
+                            <div class="column-width ell">
+                                <span ng-bind="headColum.columnName">任务ID</span>
+                                <div class="task-sort" ng-if="headColum.column!='mark'&&headColum.column!='modelName'&&headColum.column!='keyword'">
+                                    <span class="task-up" ng-class="{'btn-up-selected':btnUp==='{{headColum.column}}'}" ng-click="remarkSort(headColum.column,'asc')"></span>
+                                    <span class="task-down" ng-class="{'btn-down-selected':btnDown==='{{headColum.column}}'}" ng-click="remarkSort(headColum.column,'desc')"></span>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="task-tbody" ng-repeat="callList in callLists">
+                    <tr class="task-parent-tr" ng-class-even="'color-even'">
+                        <td class="task-id" ng-repeat="headColum in headColums">
+                            <div class="task-id-detail column-width" ng-if="headColum.column == 'taskId'" title="{{'id' | celData :callList.dataMaps}}">
+                                <span class="triangle triangle-right" ng-click="onGetTaskOfCallList(callList,headColums,$event)"></span>
+                                <div class="task-id-href-wrap ell">
+                                    <a ng-if="browser === 'chrome'" class="item-id" ng-href="playH5.html#?taskId={{callList.dataMaps.id}}" target="_blank" ng-click="markListView($event)">{{'id' | celData : callList.dataMaps}}</a>
+                                    <a ng-if="browser === 'msie'" class="item-id" ng-href="play.html#?taskId={{callList.dataMaps.id}}" target="_blank" ng-click="markListView($event)">{{'id' | celData : callList.dataMaps}}</a>
+                                </div>
+                            </div>
+                            <div class="column-width ell" ng-if="headColum.column != 'taskId' && headColum.column != 'mark' && headColum.column != 'keyword'" ng-bind="headColum.column | celData : callList.dataMaps" title="{{headColum.column | celData : callList.dataMaps}}"></div>
+                            <!--关键字的处理-->
+                            <div class="keyword-show-inner" ng-if="headColum.column === 'keyword'">
+                                <bubble ng-repeat="keyword in callList.keywordInfos | subList:4" item="keyword" voice-id="keyword.voiceId" call-id="callList.dataMaps.id" tr-index="{{p_index}}"></bubble>
+                                <span ng-if="callList.keywordInfos | showKeyLength:4">...</span>
+                                <more-key item="callList.keywordInfos" call-id="callList.dataMaps.id" ng-if="callList.keywordInfos | showKeyLength:4"></more-key>
+                            </div>
+                            <div class="column-width ell" ng-if="headColum.column == 'mark'">
+                                <a ng-if="callList.dataMaps.isHaveRemark" class="task-mark active" ng-click="openRemark(callList)"> <div class="task-mark-hover">
+                                        <span class="mark-title">备注：</span>
+                                        <span class="mark-content">{{callList.dataMaps.remark}}</span>
+                                    </div> </a>
+                                <i class="task-mark" ng-click="openRemark(callList)" ng-if="!callList.dataMaps.isHaveRemark"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <!--二级table"-->
+                    <tr class="childTable" ng-if="callList.dataMaps.id==curTaskId">
+                        <td class="childTable-wrap-td" colspan="{{taskCallColumns.length}}">
+                            <div class="task-child-table">
+                                <table class="task-child-voice-table" ng-if="taskCallListsCount">
+                                    <thead class="child-thead">
+                                        <tr class="child-tr">
+                                            <th ng-repeat="taskCallColumn in taskCallColumns" ng-class="taskCallColumn.column=='sequence'?'child-td-index':'child-td'" ng-bind="taskCallColumn.columnName"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="taskCallList in taskCallLists" ng-class-even="'color-even'">
+                                            <td ng-repeat="taskCallColumn in taskCallColumns">
+                                                <div ng-if="taskCallColumn.column!='keyword'&&taskCallColumn.column!='voiceId'" ng-bind="taskCallColumn.column | celData : taskCallList" title="{{taskCallColumn.column | celData : taskCallList}}" ng-class="taskCallColumn.column==='sequence'?'child-td-index':'child-td'" class="ell"></div>
+                                                <!--录音编号的处理-->
+                                                <div ng-if="taskCallColumn.column==='voiceId'" ng-class="taskCallColumn.column==='sequence'?'child-td-index':'child-td'" class="ell">
+                                                    <a ng-if="browser === 'chrome'" class="item-id" title="{{taskCallList.voiceId}}" ng-href="playH5.html#?taskId={{callList.dataMaps.id}}&voiceId={{taskCallList.voiceId}}" target="_blank" ng-click="markListView($event)">{{taskCallList.voiceId}}</a>
+                                                    <a ng-if="browser === 'msie'" class="item-id" title="{{taskCallList.voiceId}}" ng-href="play.html#?taskId={{callList.dataMaps.id}}&voiceId={{taskCallList.voiceId}}" target="_blank" ng-click="markListView($event)">{{taskCallList.voiceId}}</a>
+                                                </div>
+                                                <!--关键字部分的处理-->
+                                                <div class="keyword-show-inner child-keyword" style="padding-right: 0" ng-if="taskCallColumn.column==='keyword'">
+                                                    <bubble ng-repeat="keyword in taskCallList.keyword | subList:4" item="keyword" voice-id="keyword.voiceId" call-id="callList.dataMaps.id" tr-index="{{p_index}}"></bubble>
+                                                    <span ng-if="taskCallList.keyword | showKeyLength:4">...</span>
+                                                    <more-key item="taskCallList.keyword" task-id="callList.dataMaps.id" call-id="taskCallList.keyword.voiceId" ng-if="taskCallList.keyword | showKeyLength:4"></more-key>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <newpaging ng-if="taskCallListsCount>=10" page-options="childPageOptions" total-counts="taskCallListsCount" update="getTaskOfCallList(childPageOptions)"></newpaging>
+                                <div class="empty-data" ng-if="taskCallListsCount===0"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--分页-->
+        <newpaging ng-if="counts" page-options="pageOptions" total-counts="counts" update="getCallList(pageOptions)"></newpaging>
+        <div class="empty-data" ng-if="!counts"></div>
+    </div>
+    <!-- 备注弹出框 -->
+    <div class="mask-wrap hidden" ng-class="{'dialog-show':dialogShow}">
+        <div class="remark-wrapper">
+            <div class="remark-header">
+                <p>
+                    编辑备注信息
+                </p>
+                <i class="delete-black" ng-click="cancleRemark()"></i>
+            </div>
+            <div class="remark-content">
+                <div class="remark-serial-number">
+                    <p>
+                        {{remarkSerial}}:
+                    </p>
+                    <span>{{remarkSerialNumber}}</span>
+                </div>
+                <div class="remark-input">
+                    <p class="remark">
+                        备&nbsp;&nbsp;注:
+                    </p>
+                    <textarea ng-model="remarkContent">{{remarkContent}}</textarea>
+                </div>
+                <div class="remark-button">
+                    <button class="button-ok" ng-click="okRemark()">
+                        确定
+                    </button>
+                    <button class="button-cancle" ng-click="cancleRemark()">
+                        取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

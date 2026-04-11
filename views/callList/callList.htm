@@ -1,0 +1,128 @@
+﻿<div>
+    <!-- 头部分 -->
+    <div class="index-wrapper" style="position: absolute;">
+        <div style="height: 0px;">
+            &nbsp;
+        </div>
+        <div class="call-interval condition-list hotword" style="width: 300px!important;margin-left: -40px;">
+            <!-- <calendar item="timesRange" status= -2 type='topic'> -->
+            <div class="condition-list">
+                <ul class="condition-wrapper">
+                    <calendar item="timesRange" status="{{status}}" type="callList"></calendar>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 石勇 修改left值 满足时间控件的位置 -->
+    <div class="head" style="position: absolute;left: 500px;">
+        <div class="rule">
+            <select class="callListSelect" id="selectId" onChange="changeFilterVlaue()" ng-model="optionVlaue">
+                <option value=""></option>
+                <option value="?" selected>
+                    请选择筛选条件
+                </option>
+                <option value="{{data.id}}" ng-repeat="data in filterSelectList">
+                    {{data.filterName}}
+                </option>
+            </select>
+            <span id="edit" ng-click="edit()" class="filterSpan2" style="margin-left: 5px;">编辑</span>
+        </div>
+    </div>
+    <!-- 主体部分 -->
+    <div class="body" style="top: 50px;font-size: 12px;">
+        <div class="data-table-list funnel-call-table-list">
+            <div class="funnel-dimColumn-list1 funnel-dimColumn-list-space" style="overflow: auto;height: 530px;background-color: #fbfbfb;">
+                <table>
+                    <thead>
+                        <tr class="jianbian_se">
+                            <td class="picture-column">
+                                <i class="picture picture-set" ng-click="setDimension()"></i>
+                            </td>
+                            <td ng-repeat="callItem in callCulumns" style="font-family: 'Microsoft YaHei';font-size: 12px;">
+                                <div>
+                                    {{callItem.name}}
+                                    <div class="sort-btn">
+                                        <span class="btn-up" ng-class="{'btn-up-selected':btnUp==='{{callItem.key}}'}" ng-click="remarkSort(callItem.key,'asc')"></span>
+                                        <span class="btn-down" ng-class="{'btn-down-selected':btnDown==='{{callItem.key}}'}" ng-click="remarkSort(callItem.key,'desc')"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="condition-set">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="35"></td>
+                            <td ng-repeat="callItem in callCulumns">
+                                <input type="text" ng-model="callItem.inputFilterValue" maxlength="50" ng-keydown="enterKey($event)" onfocus="immediatelySearch(this.id)" id="{{callCulumns[$index].key}}">
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody ng-if="!showIsByTaskId">
+                        <tr style="height:33px;" ng-repeat="item in callLists" ng-init="p_index=$index" on-finish-render="" broadcasteventname="colResizableFunnel" ng-class-even="'color-even'">
+                            <td class="picture-column">
+                                &nbsp;
+                            </td>
+                            <td ng-repeat="callItem in callCulumns" class="calllist-overflow" style="font-family: 'Microsoft YaHei';font-size: 12px;">
+                                <a ng-if="callItem.key ==='voiceId' " class="link" target="_blank" title="点击测听" href="{{hre}}?voiceId={{callItem.key | celData : item}}"><u>{{callItem.key | celData : item}}</u></a>
+                                <span ng-if="callItem.key !='voiceId' " title="{{callItem.key | celData : item}}">{{callItem.key | celData : item}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-if="showIsByTaskId" ng-repeat="item in callLists">
+                        <tr>
+                            <td class="task-id">
+                                <span class="task-id-detail"> <span ng-click="showDetailsByTaskId(item.taskId)" ng-class="openOrColseByTaskId === item.taskId?'triangle-bottomCallList':'triangle-rightCallList'"></span> </span>
+                            </td>
+                            <td ng-repeat="callItem in callCulumns">
+                                <span ng-if="callItem.key ==='taskId' " class="voice_id_call"> <a href="{{hre}}?taskId={{callItem.key | celData : item}}" target="_blank" class="item-id"> <p class="data-overflow" title="点击测听">
+                                            {{callItem.key | celData : item}}
+                                        </p> </a> </span>
+                                <span ng-if="callItem.key !='taskId' "> <p class="data-overflow" title="{{callItem.key | celData : item}}">
+                                        {{callItem.key | celData : item}}
+                                    </p> </span>
+                            </td>
+                            <td class="condition-set">
+                            </td>
+                        </tr>
+                        <tr ng-if="openOrColseByTaskId === item.taskId" style="background-color:#DCECEC;">
+                            <td ng-repeat="column in columns" ng-if="column.column=='sequence'">
+                                <strong>{{column.columnName}}</strong>
+                            </td>
+                            <td ng-repeat="column in columns" ng-if="column.column=='voiceId'">
+                                <strong>{{column.columnName}}</strong>
+                            </td>
+                            <td ng-repeat="column in columns" ng-if="column.column!='voiceId' && column.column!='sequence'">
+                                <strong>{{column.columnName}}</strong>
+                            </td>
+                        </tr>
+                        <tr class="callList-hover" ng-if="openOrColseByTaskId === item.taskId" ng-repeat="row in rows">
+                            <td ng-repeat="column in columns" ng-if="column.column ==='sequence' ">
+                                <span> <p class="data-overflow" title="{{column.column | celData : row}}">
+                                        {{column.column | celData : row}}
+                                    </p> </span>
+                                <!--  <span >{{column.column | celData : row}}</span> -->
+                            </td>
+                            <td ng-repeat="column in columns" ng-if="column.column ==='voiceId' ">
+                                <span class="voice_id_call"> <a href="{{hre}}?taskId={{item.taskId}}&voiceId={{column.column | celData : row}}" target="_blank" class="item-id"> <p class="data-overflow" title="点击测听">
+                                            {{column.column | celData : row}}
+                                        </p> </a> </span>
+                            </td>
+                            <td ng-repeat="column in columns" ng-if="column.column !='voiceId' && column.column !='sequence'">
+                                <span> <p class="data-overflow" title="{{column.column | celData : row}}">
+                                        {{column.column | celData : row}}
+                                    </p> </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="{{colspanValue}}" ng-if="voiceCounts&&(openOrColseByTaskId === item.taskId)">
+                                <newpaging class="list-pager" page-options="voicePagging" total-counts="voiceCounts" update="getCallListVoice(voicePagging,item.taskId)"></newpaging>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <newpaging class="list-pager" page-options="pagging" ng-if="counts" total-counts="counts" update="getCallList(pagging)"></newpaging>
+        </div>
+    </div>
+</div>

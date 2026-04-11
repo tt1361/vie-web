@@ -1,0 +1,9 @@
+﻿<div class="global-dimension">
+    <div class="global-dimension-header">
+        <!-- 	    	<a ng-class="{'active':showTab===0}" ng-click="changeTab(0)">自定义维度</a>
+	    	| -->
+        <a ng-class="{'active':showTab===3}" ng-click="changeTab(1)">系统维度</a>
+    </div>
+    <custom-dim ng-show="showTab===0" add-auth="{{addAuth}}" del-auth="{{delAuth}}" save-auth="{{saveAuth}}" import-auth="{{importAuth}}"></custom-dim>
+    <system-dim ng-show="showTab===1" save-auth="{{saveAuth}}"></system-dim>
+</div>

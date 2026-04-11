@@ -1,0 +1,20 @@
+﻿<div class="report">
+    <div class="report-header">
+        <div class="report-title">
+            <span class="tab-title">常用报表</span>
+        </div>
+        <div class="wrap-right">
+            <div class="wrap-search">
+                <input type="text" class="search-input" placeholder="请输入搜索内容" ng-model="reportName" ng-keydown="enterKey($event)" maxlength="20">
+                <input type="button" class="icon icon-search" ng-click="search()">
+            </div>
+        </div>
+    </div>
+    <div class="table-wrap">
+        <div class="favorite-list" ng-if="counts">
+            <favitem ng-repeat="report in commonReports" update="submitMockRemoveItem(report)" item="report" on-finish-render="" broadcasteventname="colResizable" del-auth="{{delAuth}}"></favitem>
+        </div>
+        <newpaging ng-if="counts" class="list-pager" page-options="pageOptions" total-counts="counts" update="getFavRepList(pageOptions)"></newpaging>
+        <div class="empty-data favorite" ng-if="!counts"></div>
+    </div>
+</div>

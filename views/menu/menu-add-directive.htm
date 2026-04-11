@@ -1,0 +1,4 @@
+﻿<div class="menu-add-index">
+    <i class="picture picture-plus" ng-if="node.parentId === 0 && node.link.indexOf('/index')>-1" ng-click="addMenu()"></i>
+    <menu-detail ng-if="isOpen" ng-click="stopEvent()" update="addMenu()" type="menu"></menu-detail>
+</div>

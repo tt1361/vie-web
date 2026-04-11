@@ -1,0 +1,74 @@
+<!--gangwang11-更新时间 2017-10-24-->
+<html lang="zh-CN" style="height:100%;width:100%;">
+<head>
+    <meta charset="UTF-8">
+    <title>语音分析平台</title>
+    <link rel="stylesheet" href="login.css">
+    <script src="login/jquery.js"></script>
+    <script src="framework/jquery/json2.js"></script>
+    <script src="framework/jquery/jquery.cookie.js"></script>
+    <script src="login/crypto-js.min.js"></script>
+    <script src="login/login.js"></script>
+
+</head>
+
+<body class="bg1">
+<div class="bg-img-wrapper">
+    <img src="images/background.jpg">
+</div>
+<!--<div class="header-container">
+</div>-->
+<div class="login-container">
+    <div class="logo-wrap">
+    </div>
+    <div class="form-wrap">
+        <!--<form id="fm1" class="fm-v clearfix" action="/cas/login" method="post" autocomplete="off">-->
+            <div class="tip-wrap">
+
+                <div id="msg" class="errors error-wrap"></div>
+
+
+            </div>
+            <div class="row-wrap">
+                <div class="row row-user">
+                    <i class="fa-user"></i>
+                    <input id="username" name="username" class="required" tabindex="1" placeholder="账号"
+                           type="text" value="" size="25" autocomplete="false" >
+                </div>
+            </div>
+            <div class="row-wrap">
+                <div class="row row-password">
+                    <i class="fa-lock"></i>
+                    <input id="password" name="password" class="required" tabindex="2" placeholder="密码"
+                           type="password" value="" size="25" autocomplete="off" >
+                </div>
+            </div>
+            <div class="button-pannel">
+                <input type="hidden" name="lt" value="LT-25-PSRST0fU7Aafy07qj3WtC4mW91Foev">
+                <input type="hidden" name="execution" value="e3s1">
+                <input type="hidden" name="_eventId" value="submit">
+                <input class="btn-submit" id="button_submit" name="submit" accesskey="l" tabindex="4"
+                       value="登 录" type="button">
+            </div>
+        <!--</form>-->
+    </div>
+</div>
+<div class="dataSource-container hidden">
+    <div class="dataSource-container-left"></div>
+    <div class="dataSource-container-right">
+        <div class="dataSource-header">
+            <span>选择业务系统</span>
+        </div>
+        <div class="dataSource-content"></div>
+        <div class="dataSource-footer">
+            <span>进入系统</span>
+        </div>
+    </div>
+</div>
+<div class="footer-container">
+    <p class="font-linef">Copyright?2016-2017 iFLYTEK. All rights reserved. 科大讯飞 版权所有<br>&nbsp;</p>
+</div>
+<div></div>
+
+</body>
+</html>

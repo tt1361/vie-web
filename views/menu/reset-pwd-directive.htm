@@ -1,0 +1,49 @@
+﻿<div class="dialog-wrap pwd">
+    <div class="dialog-header-wrap jianbian_se">
+        修改密码
+    </div>
+    <div class="dialog-content pwd">
+        <ul class="model-detail-label pwd">
+            <li>
+                <label class="dimension-culum">
+                    原始密码：
+                </label>
+                <input type="password" ng-model="oldPassword" maxlength="20" id="oldPassword" placeholder="请输入原始密码">
+                <div class="error-tip pwd" ng-show="msg">
+                    {{msg}}
+                </div>
+            </li>
+            <li>
+                <label class="dimension-culum">
+                    新密码：
+                </label>
+                <input type="password" ng-model="newPassword" maxlength="20" id="newPassword" placeholder="请输入新密码">
+                <div class="error-tip pwd" ng-show="groupMsg">
+                    {{groupMsg}}
+                </div>
+            </li>
+            <li>
+                <label class="dimension-culum">
+                    重复：
+                </label>
+                <input type="password" ng-model="copyPassword" maxlength="20" placeholder="请重复输入密码">
+            </li>
+        </ul>
+    </div>
+    <div class="dialog-footer pwd">
+        <ul class="culum-wrap culum-wrap-x2">
+            <li>
+                <button ng-click="updatePwd()" class="primary">
+                    确&nbsp;认
+                </button>
+            </li>
+            <li>
+                <button ng-click="closeThisDialog(0)">
+                    取&nbsp;消
+                </button>
+            </li>
+            <div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>

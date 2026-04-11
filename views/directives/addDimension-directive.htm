@@ -1,0 +1,34 @@
+﻿<div class="detail_chart_condition" style="position:relative" uid="{{uid}}">
+    {{value}} :
+    <a class="add-a" ng-click="addAxis()">+增加</a>
+    <div ng-if="tableDefault.xAxisText" class="Axis">
+        {{tableDefault.xAxisText}}
+    </div>
+    <div ng-if="tableDefault.legendText && value == '类别'" class="Axis">
+        {{tableDefault.legendText}}
+    </div>
+    <div ng-if="tableDefault.text && value == '参数'" class="Axis">
+        {{tableDefault.text}}
+    </div>
+    <div class="add-dialog" ng-show="showDdialog">
+        <i class="triangle-up"></i>
+        <div class="push-model-dialog">
+            <p ng-if="value == '参数'">
+                <i class="picture" ng-class="{true:'down',false:'up'}[showM]" ng-click="showMe()"></i>
+                指标
+            </p>
+            <div class="content-wrap" ng-show="showM">
+                <div class="dimension-wrap" ng-class="{true: 'active'}[item.hasAdd]" ng-repeat="item in mdItems" ng-click="setDimension(item,$index)" ng-if="item.key !== 'keyword' && item.measure !== 'keyword'">
+                    <span ng-if="value != '参数'" class="common-overflow" title="{{item.name}}" id="{{item.key}}">{{item.name | subData: 6}}</span>
+                    <span ng-if="value == '参数'" class="common-overflow" title="{{item.measureName}}">{{item.expressionParam}}-{{item.measureName | subData: 6}}</span>
+                </div>
+            </div>
+            <computerlist ng-if="value == '参数'" mdcomputers="mdcomputers" table-default="tableDefault" search-content=""></computerlist>
+            <div class="push-model-btn">
+                <button ng-click="saveAxis()">
+                    保&nbsp;存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

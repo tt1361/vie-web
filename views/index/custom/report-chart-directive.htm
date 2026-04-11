@@ -1,0 +1,20 @@
+﻿<div class="custom-enum-wrapper" ng-class="{'oddp':$parent.$parent.$odd}">
+    <div class="custom-enum-header">
+        <div class="custom-enum-left-header">
+            <span><a class="index-detail-href" ng-href="#/report/indexDetail/{{item.id}}/pieChart">{{item.moduleName}}</a></span>
+            <p>
+                <span class="gray-time">{{time.timeText}}({{time.timeRange}})</span>
+            </p>
+        </div>
+        <div class="custom-enum-right-header">
+            <selection-time type="{{item.contentType}}" ng-if="contentParam.chartParams.legend=='dimHour' || contentParam.chartParams.legend=='dimDay' || contentParam.chartParams.legend=='dimMonth' || contentParam.chartParams.legend=='dimYear'" time="contentParam.chartParams.legend"></selection-time>
+        </div>
+        <i class="picture picture-del custom" ng-click="delModel()"></i>
+    </div>
+    <div class="custom-enum-map-header">
+        <span class="data-text">{{time.timeRange}}</span>
+    </div>
+    <div class="custom-enum-content">
+        <div id="index-chart_{{index}}" class="index-chart"></div>
+    </div>
+</div>

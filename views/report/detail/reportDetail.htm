@@ -1,0 +1,33 @@
+﻿<div class="dialog-wrap">
+    <div class="dialog-wrap-title">
+        基本信息
+    </div>
+    <div class="dialog-wrap-content">
+        <div class="item">
+            <label>
+                报表名称：
+            </label>
+            <input class="report-name-inp" type="text" placeholder="请输入报表名称" ng-model="reportName" maxlength="20" ng-disabled="isShareGroup">
+            <div class="error-brief" ng-show="msg">
+                {{msg}}
+            </div>
+        </div>
+        <div class="item report-group">
+            <label>
+                所属报表组：
+            </label>
+            <myselect class="group" selvalue="reportGroupName" sel="reportGroupID" list="reportGroups" type="group" ng-model="reportGroupName"></myselect>
+            <div class="error-brief" ng-show="groupMsg">
+                {{groupMsg}}
+            </div>
+        </div>
+    </div>
+    <div class="dialog-footer">
+        <button class="primary" ng-click="changeDetail(reportName ,reportGroupID, reportGroupName)">
+            应用
+        </button>
+        <button ng-click="closeThisDialog()">
+            取消
+        </button>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿<div class="report-detail">
+    <input style="border: none;" class="dimension-button" title="{{name}}" ng-change="entryChangeDimension()" ng-model="name" placeholder="输入/选择均可">
+    <!-- {{name | subData: 12}} -->
+    <i class="picture picture-select-down newtab" ng-class="{true: 'active'}[dialogShow]" ng-click="showSelectDimension()"></i>
+    <div class="showOrHide" ng-class="{true: 'active'}[dialogShow]">
+        <div class="dialog-wrap">
+            <div class="dialog-header">
+                <div class="search-outter-wrap">
+                    <div class="search-inner-wrap">
+                        <input type="text" ng-model="content" placeholder="请输入搜索内容">
+                    </div>
+                </div>
+                <div class="culum-wrap culum-wrap-x2">
+                    <ul>
+                        <li>
+                            <label>
+                                <input type="checkbox" ng-checked="allChecked" ng-click="toggleAllChecked()">
+                                全选
+                            </label>
+                        </li>
+                        <li class="text-right">
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="dialog-content" id="musel-style">
+                <ul class="culum-wrap culum-wrap-x2">
+                    <li ng-repeat="dimension in dimensions | filter:content">
+                        <label title="{{dimension.value}}">
+                            <input type="checkbox" ng-model="dimension.isSelect" ng-change="checkedThis(dimension)">
+                            {{dimension.value}}
+                        </label>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="dialog-footer">
+                <button class="primary" ng-click="changeDimension()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

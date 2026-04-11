@@ -1,0 +1,18 @@
+﻿<div class="search-new-section">
+    <div class="result-search-content">
+        <div class="search-tab">
+            <a class="active"> 文本 <i class="picture picture-active"></i> </a>
+        </div>
+        <div class="tab-result">
+            <span>检索到{{total}}条录音，总录音：{{allRec}}条，占比：{{total | percentage:allRec}}</span>
+        </div>
+        <div class="result-content" on-finish-render="" broadcasteventname="colResizable">
+            <ul>
+                <search-result ng-repeat="item in searchResult" item="item" keyword="keyword" chanel="chanelItem"></search-result>
+            </ul>
+        </div>
+        <div class="model-search-pager">
+            <newpaging ng-if="counts" page-options="pageOptions" total-counts="counts" update="getSearchResult(pageOptions)"></newpaging>
+        </div>
+    </div>
+</div>

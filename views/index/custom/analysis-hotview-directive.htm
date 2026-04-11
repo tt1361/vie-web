@@ -1,0 +1,89 @@
+﻿<div class="custom-enum-content">
+    <!--热词开始-->
+    <div ng-if="!analysisingFinished">
+        <div ng-if="!analysisFailed">
+            <a href="javascript:;" class="btn-start-clustering" ng-if="!isStartAnalysising" ng-click="startAnalysising(true)">开始分析</a>
+            <a ng-if="isStartAnalysising" class="btn-start-clustering start-clustering">{{analysisProcessText}}</a>
+        </div>
+        <div ng-if="analysisFailed">
+            <a href="javascript:;" class="btn-failed-analysising" ng-click="startAnalysising(true)"></a>
+        </div>
+    </div>
+    <div ng-if="analysisingFinished">
+        <div class="hot-word-tab-index">
+            <div class="model-call-type-index" uid="{{uid}}">
+                <input class="fr ell model-type-index" type="text" readonly ng-model="hotTypeName" ng-click="showChartOpen()">
+                <i class="picture picture-select-down newtab" ng-class="{'active': isOpenChart}" ng-click="showChartOpen()"></i>
+                <ul class="model-call-index" ng-class="{'active':isOpenChart}">
+                    <li class="ell model-group-index" ng-class="{'group-selected':type == 'systemKwd'}" ng-click="toggle('systemKwd','系统热词')">
+                        系统热词
+                    </li>
+                    <li class="ell model-group-index" ng-class="{'group-selected':type == 'focusKwd'}" ng-click="toggle('focusKwd','关注热词')">
+                        关注热词
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="title-head-index">
+            <a href="javascript:;" class="f-right rate-index changed-rate-index" ng-class="{'rate-index-choosed':isChoosedVoice == 2}" ng-click="toggle_voice('voice',2)">音&nbsp;&nbsp;频</a>
+            <a href="javascript:;" class="f-right rate-index " ng-class="{'rate-index-choosed':isChoosedVoice == 1}" ng-click="toggle_voice('kwd',1)">词&nbsp;&nbsp;频</a>
+        </div>
+        <div class="hot-word-table-index">
+            <div class="hotword-table-height" ng-if="counts>0">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>
+                                排名
+                            </td>
+                            <td>
+                                关键词
+                            </td>
+                            <td ng-if="isSametime">
+                                名次变化
+                                <div>
+                                    <span class="row-up-index" ng-class="{'word-up-choosed':isWord==1}" ng-click="remarkChange('asc', 'range',1)"></span>
+                                    <span class="btn-down-hot-word-index" ng-class="{'word-down-choosed':isWord==2}" ng-click="remarkChange('desc', 'range', 2)"></span>
+                                </div>
+                            </td>
+                            <td>
+                                占比
+                                <div>
+                                    <span class="row-up-index" ng-class="{'word-up-choosed':isWord==3}" ng-click="remarkChange('asc', 'percent', 3)"></span>
+                                    <span class="btn-down-hot-word-index" ng-class="{'word-down-choosed':isWord==4}" ng-click="remarkChange('desc', 'percent', 4)"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in hotList">
+                            <td>
+                                {{item.rn}}
+                            </td>
+                            <td title="{{item.hotVocabulary}}">
+                                {{item.hotVocabulary}}
+                            </td>
+                            <td class="ell top-increment increase" ng-if="item.increment > 0 && isSametime">
+                                <img src="images/up-triangle.png">
+                                {{item.increment}}
+                            </td>
+                            <td class="increment-blue" ng-if="item.increment === 0 && isSametime">
+                                {{item.increment}}
+                            </td>
+                            <td class="ell top-increment decline" ng-if="item.increment < 0 && isSametime ">
+                                <img src="images/down-triangle.png">
+                                {{item.increment}}
+                            </td>
+                            <td class="ratecolor">
+                                {{item.rate}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <newpaging ng-if="counts>0" page-options="pageOptions" total-counts="counts" update="findList(pageOptions)"></newpaging>
+            <div class="empty-data index-hot-word" ng-if="counts<=0">
+            </div>
+        </div>
+    </div>
+</div>

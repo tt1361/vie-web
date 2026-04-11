@@ -1,0 +1,229 @@
+﻿<div class="article-header">
+    <div class="model-header-left">
+        <span class="model-create-group">工单建模</span>
+        <!-- <div class="model-group-select-edit" ng-click="showGroups()">
+            <input type="text" class="first-input-model" readonly ng-model="groupListName">
+            <i class="picture picture-select-down newtab" ng-class="{'active': isOpen}"></i>
+        </div>
+        <div class="model-group-wrap" ng-class="{'active':isOpen}">
+            <div class="model-group-search-div">
+                <input type="text" class="search-group-input-model" ng-model="searchkeyword" placeholder="请输入搜索内容" ng-keydown="enterGroupKey()">
+                <i class="picture search-group-btn" ng-click="searchGroup()"></i>
+            </div>
+            <ul class="mleft10">
+              <model-new-group ng-repeat="item in modelGroups" item="item" group-id="modelGroupId" add-auth="{{groupAddAuth}}" edit-auth="{{groupEditAuth}}" del-auth="{{groupDelAuth}}"></model-new-group>
+            </ul>
+        </div> -->
+    </div>
+    <div class="model-right">
+        <div class="wrap-search-model search" style="right: 277px;">
+            <!-- 石勇 新增 添加style属性 为了页面展示 -->
+            <input type="text" class="search-input-model" placeholder="请输入搜索内容" ng-model="keyword" ng-keydown="enterKey($event)" maxlength="100">
+            <input type="button" class="icon icon-search" ng-click="search()">
+        </div>
+        <div class="model-opt-btns">
+            <!-- 石勇 将模型板块右上角的5个图标转换成为字 -->
+            <!-- <i title="新建" class="picture new-model" ng-click="addModel()" ng-if="addModelAuth"></i>
+            <i title="下线" class="picture offline-model" ng-click="batchOperate('offline')" ng-if="offlineAuth"></i>
+            <i title="删除" class="picture delete-model"  ng-click="batchOperate('delete')" ng-if="delModelAuth"></i> -->
+            <!-- 石勇 新增 增加导出列表功能图标 -->
+            <!-- <i title="导出列表" class="picture list-export-model" ng-click="listExport()"></i>
+            <i title="导出规则" class="export-model" ng-click="bacthExport()"></i> -->
+            <!-- 石勇 修改title 将“导出”修改为“导出规则”-->
+            <div class="model-tab-add" ng-click="addModel()" ng-if="addModelAuth">
+                新&nbsp;建
+            </div>
+            <div class="model-tab" ng-click="batchOperate('offline')" ng-if="offlineAuth">
+                下&nbsp;线
+            </div>
+            <div class="model-tab" ng-click="batchOperate('delete')" ng-if="delModelAuth">
+                删&nbsp;除
+            </div>
+            <!-- <div class="model-tab" ng-click="listExport()">导出列表</div>
+            <div class="model-tab" ng-click="bacthExport()">导出规则</div> -->
+        </div>
+    </div>
+</div>
+<div class="list-inner-wrap">
+    <div class="list-wrap">
+        <form id="form" method="post" enctype="multipart/form-data" action="model/exportSingleRule.do">
+            <!-- 删除action中的值 -->
+            <input type="hidden" name="modelId" class="exportExcle">
+            <table class="model-table-font">
+                <thead class="table-bold">
+                    <tr>
+                        <td style="width:40px; border-radius: 4px 0px 0px 0px;">
+                            <input type="checkbox" ng-click="checkAll()" ng-checked="allchecked">
+                        </td>
+                        <td class="td40left"></td>
+                        <td style="width:190px;text-align: left;">
+                            模型名称
+                        </td>
+                        <!-- 石勇 增加所有的向上和向下的箭头 -->
+                        <td class="td80">
+                            状态
+                            <div class="sort-btn" style="position: relative;display: inline;">
+                                <span class="btn-up" ng-class="{'btn-up-selected':btnUp == 'modelStatus'}" ng-click="remarkSort('modelStatus','asc')"></span>
+                                <span class="btn-down" ng-class="{'btn-down-selected':btnDown == 'modelStatus'}" ng-click="remarkSort('modelStatus','desc')"></span>
+                            </div>
+                        </td>
+                        <!-- 石勇 新增 新建时间 -->
+                        <td>
+                            新建时间
+                            <div class="sort-btn" style="position: relative;display: inline;">
+                                <span class="btn-up" ng-class="{'btn-up-selected':btnUp == 'createTime'}" ng-click="remarkSort('createTime','asc')"></span>
+                                <span class="btn-down" ng-class="{'btn-down-selected':btnDown == 'createTime'}" ng-click="remarkSort('createTime','desc')"></span>
+                            </div>
+                        </td>
+                        <td>
+                            上线时间字段
+                            <div class="sort-btn" style="position: relative;display: inline;">
+                                <span class="btn-up" ng-class="{'btn-up-selected':btnUp == 'releasetime'}" ng-click="remarkSort('releasetime','asc')"></span>
+                                <span class="btn-down" ng-class="{'btn-down-selected':btnDown == 'releasetime'}" ng-click="remarkSort('releasetime','desc')"></span>
+                            </div>
+                        </td>
+                        <!-- 石勇 新增 上线数据范围 -->
+                        <td>
+                            上线数据范围
+                            <!-- <div class="sort-btn" style="position: relative;display: inline;">
+                                <span class="btn-up" ng-class="{'btn-up-selected':btnUp == 'releasetimes'}" ng-click="remarkSort('releasetimes','asc')"></span>
+                                <span class="btn-down" ng-class="{'btn-down-selected':btnDown == 'releasetimes'}" ng-click="remarkSort('releasetimes','desc')"></span>
+                            </div> -->
+                        </td>
+                        <td>
+                            准确率
+                            <div class="sort-btn" style="position: relative;display: inline;">
+                                <span class="btn-up" ng-class="{'btn-up-selected':btnUp == 'modelAccuracy'}" ng-click="remarkSort('modelAccuracy','asc')"></span>
+                                <span class="btn-down" ng-class="{'btn-down-selected':btnDown == 'modelAccuracy'}" ng-click="remarkSort('modelAccuracy','desc')"></span>
+                            </div>
+                        </td>
+                        <td>
+                            检出数
+                        </td>
+                        <td>
+                            模型备注
+                        </td>
+                        <td>
+                            最后修改人
+                            <div class="sort-btn" style="position: relative;display: inline;">
+                                <span class="btn-up" ng-class="{'btn-up-selected':btnUp == 'modifierName'}" ng-click="remarkSort('modifierName','asc')"></span>
+                                <span class="btn-down" ng-class="{'btn-down-selected':btnDown == 'modifierName'}" ng-click="remarkSort('modifierName','desc')"></span>
+                            </div>
+                        </td>
+                        <td style="border-radius: 0px 4px 0px 0px;">
+                            最后编辑时间
+                            <div class="sort-btn" style="position: relative;display: inline;">
+                                <span class="btn-up" ng-class="{'btn-up-selected':btnUp == 'updateTime'}" ng-click="remarkSort('updateTime','asc')"></span>
+                                <span class="btn-down" ng-class="{'btn-down-selected':btnDown == 'updateTime'}" ng-click="remarkSort('updateTime','desc')"></span>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in models" on-finish-render="" broadcasteventname="colResizable">
+                        <td style="width:40px">
+                            <input type="checkbox" ng-checked="item.checked" ng-model="item.checked" ng-change="checkedThis(item)">
+                        </td>
+                        <td class="td160left">
+                            <i title="已置顶" class="picture top-model-status" ng-if="item.isUp > 0"></i>
+                        </td>
+                        <td class="model-list-name name-wrap">
+                            <div class="model-name-warp">
+                                <a title="{{item.modelName}}" style="white-space: pre;" class="name-flow" ng-href="#/gdModel/addNew/-1/0//{{item.modelId}}">{{item.modelName}}</a>
+                                <span ng-if="item.modelStatus === -1" class="model-btn-list"> <i title="下线" class="picture offline-edit-model-status" ng-click="oneOperate(item.modelId,item.modelName, 'offline')" ng-if="offlineAuth"></i> <a href="#/gdModel/{{item.modelId}}//model///voice" title="通话列表" class="picture phonelist-edit-model-status" ng-if="callListAuth"></a> <i title="取消置顶" class="picture uptop-finish-model-status" ng-if="setUpAuth && item.isUp" ng-click="setModelUp(item.modelId,item.modelName, true)"></i> <i title="置顶" class="picture uptop-model-status" ng-if="setUpAuth && !item.isUp" ng-click="setModelUp(item.modelId,item.modelName,false)"></i> </span>
+                                <span ng-if="item.modelStatus === -2 || item.modelStatus === -3 || item.modelStatus === -4" class="model-btn-list"> <i title="删除" class="picture delete-edit-model-status" ng-click="oneOperate(item.modelId,item.modelName,'delete')" ng-if="delModelAuth"></i> <i title="上线" class="picture online-edit-model-status" ng-click="online(item)" ng-if="onlineAuth"></i> <i title="取消置顶" class="picture uptop-finish-model-status" ng-if="setUpAuth && item.isUp" ng-click="setModelUp(item.modelId,item.modelName, true)"></i> <i title="置顶" class="picture uptop-model-status" ng-if="setUpAuth && !item.isUp" ng-click="setModelUp(item.modelId,item.modelName,false)"></i> </span>
+                            </div>
+                        </td>
+                        <td class="opt-wrap td80">
+                            <!-- 模型状态 -->
+                            <!-- 石勇 将模型的状态图标改成文字显示 -->
+                            <!-- <i title="优化中：模型从未上线过" class="picture picture-optimizing-status" ng-if="item.modelStatus === -2"></i>
+                            <i title="上线中：模型正在上线" class="picture picture-onlining-status" ng-if="item.modelStatus === 0" onling-action="" item="item"></i>
+                            <i title="已上线：模型处在上线状态" class="picture picture-online-status" ng-if="item.modelStatus === -1"></i>
+                            <i title="已下线：模型处在下线状态" class="picture picture-offline-status" ng-if="item.modelStatus === -3"></i>
+                            <a class="picture picture-online-failure" ng-if="item.modelStatus === -4">
+                                <div class="online-failure-reason">
+                                    <i class="online-failure-reason-triggle"></i>
+                                    <span>失败原因：{{item.errorReson}}，请重新上线</span>
+                                </div>
+                            </a> -->
+                            <span title="已上线：模型处在上线状态" ng-if="item.modelStatus === -1" style="color: #01aead;cursor: pointer;">上线成功</span>
+                            <span title="优化中：模型从未上线过" ng-if="item.modelStatus === -2" style="color: #f3c73f;cursor: pointer;">优化中</span>
+                            <span title="上线中：模型正在上线" ng-if="item.modelStatus === 0" onling-action="" item="item" style="color: #01aead;cursor: pointer;">上线中</span>
+                            <span title="已下线：模型处在下线状态" ng-if="item.modelStatus === -3" style="color: #848484;cursor: pointer;">已下线</span>
+                            <span class="picture-online-failure" ng-if="item.modelStatus === -4" style="color: #ea0b0b;cursor: pointer;">上线失败 <div class="online-failure-reason" style="left: 55px;z-index: 10;">
+                                    <i class="online-failure-reason-triggle"></i>
+                                    <span>失败原因：{{item.errorReson}}，请重新上线</span>
+                                </div> </span>
+                        </td>
+                        <!-- 石勇 新建 新建时间列 -->
+                        <td title="{{item.createTime}}">
+                            {{item.createTime}}
+                        </td>
+                        <td class="name-wrap data-source" title="{{item.releasetime}}">
+                            <!-- 上线时间字段 -->
+                            <a class="resource-flow" ng-if="item.releasetime" item="screening" view="show" id="item.modelId" online-action="">{{item.releasetime}}</a>
+                            <a class="resource-flow" ng-if="!item.releasetime"></a>
+                        </td>
+                        <!-- 石勇 新增 上线数据范围 -->
+                        <td>
+                            <!-- 石勇 修改 修改判断方式，使模型上线数据范围只在已上线模型和上线中状态下显示 -->
+                            <a class="resource-flow" ng-if="item.modelStatus == -1 || item.modelStatus == 0" item="screening" view="show" id="item.modelId" online-action="">{{item.releasetimes}}</a>
+                            <!-- <a class="resource-flow" ng-if="item.releasetime" item="screening" view="show" id="item.modelId" online-action="">{{item.releasetimes}}</a>
+                            <a class="resource-flow" ng-if="!item.releasetime"></a> -->
+                            <!-- 石勇 新增 上线数据范围鼠标放上去时显示维度 -->
+                            <div class="include-dimension-wrap" ng-if="item.modelStatus == -1">
+                                <div class="include-dimension-wrap-row">
+                                    <!-- {{item.screeningRule}} -->
+                                    <ul>
+                                        <li>
+                                            <span>起止时间：{{item.releasetimes}}</span>
+                                        </li>
+                                        <li ng-repeat="d in item.dim">
+                                            <span style="display: block;width: 100%;text-align: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{d.name}}: <span ng-if="d.exclude" style="display: inline;">!(</span> {{d.value.join(',')}} <span ng-if="d.exclude" style="display: inline;">)</span> </span>
+                                        </li>
+                                    </ul>
+                                    <a href="javascript:;" ng-click="showDemKeyWrap(item.modelId)">显示更多</a>
+                                </div>
+                                <div class="dem-key-wrap" id="{{item.modelId}}">
+                                    <div class="head-dem-key-wrap">
+                                        <i ng-click="hideDemKeyWrap(item.modelId)"></i>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <span>起止时间：{{item.releasetimes}}</span>
+                                        </li>
+                                        <li ng-repeat="d in item.dim">
+                                            <span>{{d.name}}: <span ng-if="d.exclude" style="display: inline;">!(</span> <span style="display: inline;">{{d.value.join(',')}}</span> <span ng-if="d.exclude" style="display: inline;">)</span> </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <!-- 准确率 -->
+                            {{item.modelAccuracy}}
+                        </td>
+                        <td>
+                            <!-- 检出数 -->
+                            {{item.modelCount}}
+                        </td>
+                        <td title="{{item.modelComment}}" class="commentCSS">
+                            <!-- 模型备注 -->
+                            {{item.modelComment}}
+                        </td>
+                        <td>
+                            <!-- 最后修改人 -->
+                            {{item.modifierName}}
+                        </td>
+                        <td title="{{item.updateTime}}">
+                            <!-- 最后编辑时间 -->
+                            {{item.updateTime}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <newpaging class="list-pager" ng-if="counts>0" page-options="pageOptions" total-counts="counts" update="findModels(pageOptions)"></newpaging>
+</div>

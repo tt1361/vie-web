@@ -1,0 +1,64 @@
+﻿<div class="advance-search-wrapper">
+    <div class="advance-search-header">
+        <span>高级搜索</span>
+        <i class="picture picture-close-search" ng-click="closeAdvance(comFrom)"></i>
+    </div>
+    <div class="result-ruletext">
+        <label class="rule-text">
+            文本规则：
+        </label>
+        <ul>
+            <li>
+                <label class="search-label" title="包含至少一个字词">
+                    包含至少一个字词:
+                </label>
+                <input type="text" ng-model="lessOne">
+            </li>
+            <li>
+                <label class="search-label" title="包含全部字词">
+                    包含全部字词:
+                </label>
+                <input type="text" ng-model="searchKeyword">
+            </li>
+            <li>
+                <label class="search-label" title="包含完整字句">
+                    包含完整字句:
+                </label>
+                <input type="text" ng-model="allWord">
+            </li>
+            <li>
+                <label class="search-label" title="不包含字词">
+                    不包含字词:
+                </label>
+                <input type="text" ng-model="notWord">
+            </li>
+        </ul>
+    </div>
+    <div class="result-dimension-list">
+        <label class="rule-text">
+            维度设置：
+        </label>
+        <ul>
+            <advance-time item="time"></advance-time>
+            <advance-chanel item="chanelItem"></advance-chanel>
+        </ul>
+        <div class="advance-dimension-list">
+            <div class="opt-value-change">
+                <a ng-if="optType === 0" ng-click="changeOpt()">与</a>
+                <a ng-if="optType === 1" ng-click="changeOpt()">或</a>
+            </div>
+            <div class="dimension-value-list-show">
+                <ul class="search-dimension-wrapper">
+                    <dim-set ng-repeat="item in advanceDim" item="item"></dim-set>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="btn-list">
+        <button ng-click="showPreSearchResult()" ng-if="searchAuth">
+            高级搜索
+        </button>
+        <a ng-click="resetAdvance()" ng-if="resetAuth">重&nbsp;置</a>
+    </div>
+</div>

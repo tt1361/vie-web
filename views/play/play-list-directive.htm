@@ -1,0 +1,80 @@
+﻿<div class="play-call-list" ng-class="{'active':isShowList}">
+    <div class="play-call-list-header">
+        <button>
+            移除
+        </button>
+    </div>
+    <div class="play-call-list-content">
+        <table>
+            <thead>
+                <tr>
+                    <td class="play-check-box">
+                        <input type="checkbox">
+                    </td>
+                    <td class="play-condition-set">
+                        <i title="维度项选择" class="picture picture-set" ng-click="setDimension();"></i>
+                    </td>
+                    <td>
+                        流水号
+                        <div class="sort-btn">
+                            <span class="btn-up" ng-class="{'btn-up-selected':btnUp==='id'}" ng-click="remarkSort('id','asc')"></span>
+                            <span class="btn-down" ng-class="{'btn-down-selected':btnDown==='id'}" ng-click="remarkSort('id','desc')"></span>
+                        </div>
+                    </td>
+                    <td>
+                        通话时长
+                        <div class="sort-btn">
+                            <span class="btn-up" ng-class="{'btn-up-selected':btnUp==='duration'}" ng-click="remarkSort('duration','asc')"></span>
+                            <span class="btn-down" ng-class="{'btn-down-selected':btnDown==='duration'}" ng-click="remarkSort('duration','desc')"></span>
+                        </div>
+                    </td>
+                    <td>
+                        模型
+                        <div class="sort-btn">
+                            <span class="btn-up" ng-class="{'btn-up-selected':btnUp==='model'}" ng-click="remarkSort('model','asc')"></span>
+                            <span class="btn-down" ng-class="{'btn-down-selected':btnDown==='model'}" ng-click="remarkSort('model','desc')"></span>
+                        </div>
+                    </td>
+                    <td>
+                        关键词
+                        <div class="sort-btn">
+                            <span class="btn-up" ng-class="{'btn-up-selected':btnUp==='keyword'}" ng-click="remarkSort('keyword','asc')"></span>
+                            <span class="btn-down" ng-class="{'btn-down-selected':btnDown==='keyword'}" ng-click="remarkSort('keyword','desc')"></span>
+                        </div>
+                    </td>
+                    <td>
+                        标注
+                        <div class="sort-btn">
+                            <span class="btn-up" ng-class="{'btn-up-selected':btnUp==='mark'}" ng-click="remarkSort('mark','asc')"></span>
+                            <span class="btn-down" ng-class="{'btn-down-selected':btnDown==='mark'}" ng-click="remarkSort('keyword','desc')"></span>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="play-check-box">
+                        <input type="checkbox">
+                    </td>
+                    <td class="condition-set">
+                    </td>
+                    <td>
+                        00001
+                    </td>
+                    <td>
+                        00001
+                    </td>
+                    <td>
+                        00001
+                    </td>
+                    <td>
+                        00001
+                    </td>
+                    <td>
+                        00001
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

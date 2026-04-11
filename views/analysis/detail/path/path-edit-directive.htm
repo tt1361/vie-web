@@ -1,0 +1,13 @@
+﻿<li class="path-list">
+    <div class="path-route-warpper">
+        <ul class="route-content">
+            <model-route ng-repeat="route in item.subRoute" item="route" index="{{$index}}"></model-route>
+            <div class="empty-topic-tip-edit" ng-if="!item.subRoute.length">
+                <i class="picture-shape-down"></i>
+                <div class="toop-tip-topic-edit">
+                    请从[路径标签选择]中添加您需要的模型和维度
+                </div>
+            </div>
+        </ul>
+    </div>
+</li>

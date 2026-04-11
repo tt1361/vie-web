@@ -1,0 +1,9 @@
+﻿<div class="dimension-wrap" ng-class="{'is-other':item.hasAdd != value && item.hasAdd != '0','active':item.hasAdd == value}">
+    <span class="common-overflow measure" title="{{item.text}}" ng-click="choseComputer(item.filed,item.hasAdd)">{{item.text | subData: 6}}</span>
+    <div class="icon-warp">
+        <i class="chart-type" ng-class="{true: 'conlum',false:'line'}[item.chartType == 'column']" ng-click="toggleAnotherType()"></i>
+        <i class="chart-type another" ng-show="showAnother" ng-click="changeType(item.chartType)" ng-class="{true: 'line',false:'conlum'}[item.chartType == 'column']"></i>
+    </div>
+    <i class="picture computer-delete" ng-if="!showCreate" ng-click="onComputerDelete(item)"></i>
+    <i class="picture computer-edit" ng-click="addComputer()"></i>
+</div>

@@ -1,0 +1,23 @@
+﻿<div class="article-header float-right">
+    <div class="call-interval condition-list">
+        <ul class="condition-wrapper">
+            <div class="fr index-foot-div" id="orgSelect">
+                <div class="model-call-type">
+                    <label class="model-index-org index-bottom-org">
+                        <span>机构切换:</span>
+                    </label>
+                    <input class="fr ell model-type model-type-index index-select" type="text" readonly ng-model="selectCenter" ng-click="showOpen()">
+                    <i class="picture picture-select-down newtab picture-select-down-index" ng-class="{'active': isOpenFoot}" ng-click="showOpen()"></i>
+                    <ul class="model-call" ng-class="{'active':isOpenFoot}">
+                        <li class="ell model-group" ng-class="{'group-selected': selectCenter === 'huiz'}" ng-click="selectFootType()">
+                            汇总
+                        </li>
+                        <li class="ell model-group" ng-repeat="item in dimValueList" ng-class="{'group-selected': selectCenter === item}" ng-click="selectFootType(item)">
+                            {{item}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </ul>
+    </div>
+</div>

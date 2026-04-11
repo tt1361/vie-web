@@ -1,0 +1,30 @@
+﻿<div class="list-page">
+    <span class="total-pager">共{{viewData.counts}}条信息&nbsp;每页{{viewData.size}}条</span>
+    <div class="page-nav">
+        <div>
+            <div class="page-gotopage">
+                <span style="margin-left:20px;">第</span>
+                <input type="text" ng-model="gotoNum" value="viewData.curPage" class="page-input">
+                <span>页</span>
+                <a class="goto-new-page" ng-click="go(gotoNum)"><span>跳转</span></a>
+            </div>
+            <div class="page-key">
+                <a class="picture pager-p first-page" ng-click="go(1)"></a>
+                &nbsp;
+                <a class="picture pager-p previous-page" ng-click="go(viewData.curPage - 1)"></a>
+                &nbsp;
+                <div class="page-num">
+                    |&nbsp;
+                    <span style="color: #01aead;">{{viewData.curPage}}</span>
+                    /
+                    <span>{{viewData.pages}}</span>
+                    &nbsp;|
+                </div>
+                &nbsp;
+                <a class="picture pager-p next-page" ng-click="go(viewData.curPage + 1)"></a>
+                &nbsp;
+                <a class="picture pager-p last-page" ng-click="go(viewData.pages)"></a>
+            </div>
+        </div>
+    </div>
+</div>

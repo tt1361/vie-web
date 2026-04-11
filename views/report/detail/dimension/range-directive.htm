@@ -1,0 +1,50 @@
+﻿<div class="report-detail">
+    <div class="dimension-button" ng-click="showSelectDimension()" title="{{name}}">
+        <span ng-bind="name | subData: 12"></span>
+        <i class="picture picture-select-down newtab" ng-class="{true: 'active'}[dialogShow]"></i>
+    </div>
+    <div class="showOrHide" ng-class="{true: 'active'}[dialogShow]">
+        <div class="dialog-wrap">
+            <div class="dialog-header dialog-single-header">
+                <div class="culum-wrap  culum-wrap-x2">
+                    <ul>
+                        <li class="text-right">
+                            <i class="picture picture-add-active" ng-click="addNew()"></i>
+                            <i class="picture picture-clean" ng-click="removeAll()"></i>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="dialog-content dialog-single-content" id="mulequ-style">
+                <ul class="culum-wrap range">
+                    <li class="clear" ng-repeat="dimension in dimensions">
+                        <i class="icon icon-del-gray" ng-click="remove($index)"></i>
+                        <div class="item item-x3">
+                            <div class="text-outter-wrap small">
+                                <div class="text-inner-wrap">
+                                    <input type="text" ng-model="dimension.low">
+                                </div>
+                            </div>
+                            <div class="join small">
+                                ~
+                            </div>
+                            <div class="text-outter-wrap small">
+                                <div class="text-inner-wrap">
+                                    <input type="text" ng-model="dimension.up">
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="dialog-footer">
+                <button class="primary" ng-click="changeDimension()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

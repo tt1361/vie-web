@@ -1,0 +1,23 @@
+﻿<div class="custom-enum-wrapper" ng-class="{'oddp':$parent.$parent.$odd}">
+    <div class="custom-enum-header">
+        <div class="custom-enum-left-header">
+            <span><a class="index-detail-href" ng-href="#/analysis/detail/{{item.moduleId}}/{{item.moduleDetailInfo}}/{{chooseType}}/{{item.id}}">{{item.moduleName}}</a></span>
+            <p>
+                <span class="gray-time">{{time.timeText}}({{time.timeRange}})</span>
+            </p>
+        </div>
+        <i class="picture picture-zhuzhuangtu" ng-class="{'active':isColumn}" ng-click="changeChartType('column')" style="position: absolute;top: 11px; right: 120px;" ng-if="item.contentType === 43"></i>
+        <i class="picture picture-zhexiantu" ng-class="{'active':!isColumn}" ng-click="changeChartType('line')" style="position: absolute;right: 95px;top: 11px;" ng-if="item.contentType === 43"></i>
+        <div class="custom-enum-right-header">
+            <selection-type type="{{item.contentType}}"></selection-type>
+        </div>
+        <i class="picture picture-del custom" ng-click="delModel()"></i>
+    </div>
+    <div class="custom-enum-map-header">
+        <span class="data-text">{{time.timeRange}}</span>
+    </div>
+    <analysis-chart item="pathDimension" ng-if="item.contentType === 43" index="{{index}}"></analysis-chart>
+    <analysis-cluster item="pathDimension" ng-if="item.contentType === 41" index="{{index}}"></analysis-cluster>
+    <analysis-hotview item="pathDimension" ng-if="item.contentType === 44" index="{{index}}"></analysis-hotview>
+    <analysis-funnel item="pathDimension" ng-if="item.contentType === 42" index="{{index}}"></analysis-funnel>
+</div>

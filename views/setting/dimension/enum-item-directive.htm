@@ -1,0 +1,22 @@
+﻿<div class="enum-item-list">
+    <ul drag-data="{{item}}">
+        <li class="enum-name">
+            <input type="text" ng-model="item.dimensionName">
+        </li>
+        <li class="enum-color">
+            <div class="color-value" ng-click="showColorOpen()" ng-style="{'background-color':item.dimensionColor}"></div>
+            <div class="colors" ng-class="{'active':colorOpen}">
+                <ul>
+                    <li ng-repeat="color in colors">
+                        <div class="color-item" ng-style="{'background-color':color}" ng-click="chooseColor(color)"></div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="enum-order">
+            <i class="picture picutre-drag"></i>
+        </li>
+        <i class="picture picture-del" ng-click="delItemValue()"></i>
+        <div class="clear"></div>
+    </ul>
+</div>

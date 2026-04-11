@@ -1,0 +1,415 @@
+﻿<div class="data-tab-pannel-new">
+    <div class="title">
+        <!-- 石勇 新增 导出按钮新增-->
+        <div style="float: right;line-height: 40px; margin-right: 15px;margin-top: 5px;position: relative;" ng-if="showResultExport">
+            <form id="ModelForm1" name="ModelForm1" method="post" action="" enctype="multipart/form-data" target="ifr_export_model">
+                <!-- <input type="hidden" value="" name ="exportModel" id="exportModel"/> -->
+                <i title="导出" class="export-model" ng-click="resultExport()"></i>
+            </form>
+        </div>
+        <div class="title-result" ng-if="isShowMark">
+            <div>
+                <span><i class="icon icon-r icon-y-b" ng-click="showTip()"></i>{{pageData.yExist}}</span>
+                <span><i class="icon icon-r icon-y-r" ng-click="showTip()"></i>{{pageData.yNoExist}}</span>
+                <span><i class="icon icon-r icon-n-r" ng-click="showTip()"></i>{{pageData.nExist}}</span>
+                <span><i class="icon icon-r icon-n-b" ng-click="showTip()"></i>{{pageData.nNoExist}}</span>
+                <span>模型准确率：{{pageData.accuracy}}%</span>
+                <button ng-click="resetMark()">
+                    移除
+                </button>
+            </div>
+            <div class="title-tip" ng-show="isShowTip">
+                <p>
+                    <i class="icon icon-r icon-y-b-s"></i>
+                    前一次被标记为是的录音，仍在本次规则的检出录音集内;
+                </p>
+                <p>
+                    <i class="icon icon-r icon-y-r-s"></i>
+                    前一次被标记为是的录音，不在本次规则的检出录音集内，被错误剔除出去；
+                </p>
+                <p>
+                    <i class="icon icon-r icon-n-r-s"></i>
+                    前一次被标记为否的录音，仍在本次规则的检出录音集内，没有被剔除出去；
+                </p>
+                <p>
+                    <i class="icon icon-r icon-n-b-s"></i>
+                    前一次被标记为否的录音，不在本次规则的检出录音集内，已经被剔除出去；
+                </p>
+            </div>
+        </div>
+        <div class="check-left">
+            <label>
+                <i class="picture picture-radio" ng-class="{'active':pageData.type===0}" ng-click="changeMark(0)"></i>
+                全部(
+                <span>{{pageData.total}}</span>
+                )
+            </label>
+            <label>
+                <i class="picture picture-radio" ng-class="{'active':pageData.type===1}" ng-click="changeMark(1)"></i>
+                人工测听标记(
+                <span style="color:#3abcb8;">{{pageData.mark}}</span>
+                )
+            </label>
+        </div>
+    </div>
+    <!-- 按录音分析 -->
+    <div class="model-list-outer-wrap-new" ng-if="isModelCalllist">
+        <div class="list-new-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <td class="check-box" ng-show="tableData.columns.length && pageData.type ===1">
+                            <input type="checkbox" ng-checked="allchecked" ng-click="toggleAllChecked()">
+                        </td>
+                        <td class="condition-set" ng-show="tableData.columns.length">
+                            <i class="picture picture-set" ng-click="setDimension()"></i>
+                        </td>
+                        <td ng-repeat="column in tableData.columns">
+                            {{column.columnName}}
+                        </td>
+                    </tr>
+                </thead>
+                <tbody ng-if="pageData.type == 1">
+                    <tr ng-repeat="row in tableData.previewList.rows" ng-class="{'blue':row.mark===1&&row.isExist===0 || row.mark===-1&&row.isExist===1}" ng-init="p_index=$index" on-finish-render="" broadcasteventname="colResizable">
+                        <td class="check-box">
+                            <input type="checkbox" ng-checked="row.checked" ng-model="row.checked" ng-change="checkedThis(row)">
+                        </td>
+                        <td class="condition-set">
+                        </td>
+                        <td ng-repeat="column in tableData.columns" ng-class="{'red-bg':row.mark===1&&row.isExist===0 || row.mark===-1&&row.isExist===1}">
+                            <div class="keyword-show-inner" ng-if="column.column === 'keyword'">
+                                <bubble ng-repeat="keyword in row.keywordInfos | subList:4" item="keyword" call-id="row.dataMaps.voiceId" ng-class="{'line-through':row.isExist===0}" tr-index="{{p_index}}"></bubble>
+                                <span ng-if="row.keywordInfos | showKeyLength:4">...</span>
+                                <more-key item="row.keywordInfos" call-id="row.dataMaps.voiceId" ng-if="row.keywordInfos | showKeyLength:4"></more-key>
+                            </div>
+                            <div ng-if="column.column === 'mark'">
+                                <button class="choose-Y" ng-class="{'active':row.mark === 1}" ng-click="voiceMark(row,1)">
+                                    Y
+                                </button>
+                                <button class="choose-N" ng-class="{'active':row.mark === -1}" ng-click="voiceMark(row,-1)">
+                                    N
+                                </button>
+                            </div>
+                            <div ng-if="column.column !== 'keyword' && column.column !== 'mark' && column.column !== 'voiceId' && column.column !== 'remark'">
+                                <span class="common-overflow over" ng-class="{'line-through':row.isExist===0}" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                            </div>
+                            <div ng-if="column.column === 'voiceId'" class="voice-wrap">
+                                <a ng-href="{{PageName}}.html#?voiceId={{row.dataMaps.voiceId}}" target="_blank" class="item-id" id="model-preview_{{row.dataMaps.voiceId}}" ng-click="markView(row)"> <span class="common-overflow over" ng-class="{'line-through':row.isExist===0}" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span> </a>
+                                <!-- <a ng-if="browser === 'chrome'" ng-href="playH5.html#?voiceId={{row.id}}&showIsByTaskId={{showIsByTaskId}}" target="_blank" class="item-id" id="model-preview_{{row.id}}" ng-click="markView(row)">
+                                    <span class="common-overflow over" ng-class="{'line-through':row.isExist===0}" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                                </a>
+                                <a ng-if="browser ===   'msie'" ng-href="play.html#?voiceId={{row.id}}&showIsByTaskId={{showIsByTaskId}}" target="_blank" class="item-id" id="model-preview_{{row.id}}" ng-click="markView(row)">
+                                    <span class="common-overflow over" ng-class="{'line-through':row.isExist===0}" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                                </a> -->
+                            </div>
+                            <div ng-if="column.column === 'remark'">
+                                <div title="{{row.remark}}" class="remark-edit" ng-show="!row.edit" ng-click="showEdit(row)">
+                                    <span>{{row.remark}}</span>
+                                </div>
+                                <input id="remark-input_{{'voiceId' | celData : row.dataMaps}}_{{index}}" class="edit-input" ng-show="row.edit" type="text" value="{{row.remark}}" maxlength="20" ng-blur="submitRemark(row)">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="pageData.type != 1">
+                    <tr ng-repeat="row in tableData.previewList.rows" ng-init="p_index=$index" on-finish-render="" broadcasteventname="colResizable">
+                        <!-- <td class="check-box">
+                            <input type="checkbox" ng-checked="row.checked" ng-model="row.checked" ng-change="checkedThis(value)">
+                        </td> -->
+                        <td class="condition-set">
+                        </td>
+                        <td ng-repeat="column in tableData.columns">
+                            <!--  <div ng-if="column.column === 'keyword'">
+                                <span ng-repeat="keyword in row.keywordInfos">
+                                    {{keyword.word}}
+                                </span>
+                            </div> -->
+                            <div class="keyword-show-inner" ng-if="column.column === 'keyword'">
+                                <!-- <span ng-repeat="keyword in row.keywordInfos" ng-class="{'line-through':row.isExist===0}">
+                                    {{keyword.word}}
+                                </span> -->
+                                <bubble ng-repeat="keyword in row.keywordInfos | subList:4" item="keyword" call-id="row.dataMaps.voiceId" tr-index="{{p_index}}"></bubble>
+                                <span ng-if="row.keywordInfos | showKeyLength:4">...</span>
+                                <more-key item="row.keywordInfos" call-id="row.dataMaps.voiceId" ng-if="row.keywordInfos | showKeyLength:4"></more-key>
+                            </div>
+                            <div ng-if="column.column === 'mark'">
+                                <button class="choose-Y" ng-class="{'active':row.mark === 1}" ng-click="voiceMark(row,1)">
+                                    Y
+                                </button>
+                                <button class="choose-N" ng-class="{'active':row.mark === -1}" ng-click="voiceMark(row,-1)">
+                                    N
+                                </button>
+                            </div>
+                            <div ng-if="column.column !== 'keyword' && column.column !== 'mark' && column.column !== 'voiceId' && column.column !== 'remark'">
+                                <span class="common-overflow over" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                            </div>
+                            <div ng-if="column.column === 'voiceId'" class="voice-wrap">
+                                <a ng-href="{{PageName}}.html#?voiceId={{row.dataMaps.voiceId}}" target="_blank" class="item-id" id="model-preview_{{row.dataMaps.voiceId}}" ng-click="markView(row)"> <span class="common-overflow over" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span> </a>
+                                <!-- <a ng-if="browser === 'chrome'" ng-href="playH5.html#?voiceId={{row.id}}&showIsByTaskId={{showIsByTaskId}}" target="_blank" class="item-id" id="model-preview_{{row.id}}" ng-click="markView(row)">
+                                    <span class="common-overflow over"
+                                title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                                </a>
+                                <a ng-if="browser === 'msie'" ng-href="play.html#?voiceId={{row.id}}&showIsByTaskId={{showIsByTaskId}}" target="_blank" class="item-id" id="model-preview_{{row.id}}" ng-click="markView(row)">
+                                    <span class="common-overflow over" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                                </a> -->
+                            </div>
+                            <div ng-if="column.column === 'remark'">
+                                <!--<div title="{{row.remark}}" class="remark-edit" ng-show="!row.edit" ng-click="showEdit(row)">
+                                   <span >{{row.remark}}</span>
+                                </div>-->
+                                <input id="remark-input_{{'voiceId' | celData : row.dataMaps}}_{{index}}" title="{{row.remark}}" class="edit-input" type="text" value="{{row.remark}}" maxlength="20" ng-blur="submitRemark(row)">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="model-search-pager">
+            <div ng-if="pageData.type == 0 && callListData.count">
+                <newpaging page-options="callListData.pageOptions" total-counts="callListData.count" update="getCallList(callListData.pageOptions)"></newpaging>
+            </div>
+            <div ng-if="pageData.type == 1 && markData.count ">
+                <newpaging page-options="markData.pageOptions" total-counts="markData.count" update="getMarkList(markData.pageOptions)"></newpaging>
+            </div>
+        </div>
+    </div>
+    <!-- 石勇 按任务分析 -->
+    <div class="model-list-outer-wrap-new" ng-if="isModelTask">
+        <div class="list-new-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <td class="check-box" ng-show="tableData.columns.length && pageData.type ===1">
+                            <input type="checkbox" ng-checked="allchecked" ng-click="toggleAllChecked()">
+                        </td>
+                        <td class="condition-set" ng-show="tableData.columns.length">
+                            <i class="picture picture-set" ng-click="setDimension()"></i>
+                        </td>
+                        <td ng-repeat="column in tableData.columns">
+                            {{column.columnName}}
+                        </td>
+                    </tr>
+                </thead>
+                <tbody ng-if="pageData.type == 1" ng-repeat="row in tableData.previewList.rows">
+                    <!-- 切换至人工测听标记时的显示结果 -->
+                    <tr ng-class="{'blue':row.mark===1&&row.isExist===0 || row.mark===-1&&row.isExist===1}" ng-init="p_index=$index" on-finish-render="" broadcasteventname="colResizable">
+                        <td class="check-box">
+                            <input type="checkbox" ng-checked="row.checked" ng-model="row.checked" ng-change="checkedThis(row)">
+                        </td>
+                        <td class="condition-set">
+                            <!-- 向下箭头展示 -->
+                            <span style="cursor: pointer;top: 0px;" class="triangle-right" ng-class="{'triangle-bottom':row.taskImg == true}" ng-click="showDetailedResult($index,$event)"></span>
+                        </td>
+                        <td ng-repeat="column in tableData.columns" ng-class="{'red-bg':row.mark===1&&row.isExist===0 || row.mark===-1&&row.isExist===1}">
+                            <div class="keyword-show-inner" ng-if="column.column === 'keyword'">
+                                <bubble ng-repeat="keyword in row.keywordInfos | subList:4" item="keyword" call-id="row.id" voice-id="keyword.voiceId" ng-class="{'line-through':row.isExist===0}" tr-index="{{p_index}}"></bubble>
+                                <span ng-if="row.keywordInfos | showKeyLength:4">...</span>
+                                <more-key item="row.keywordInfos" call-id="row.id" ng-if="row.keywordInfos | showKeyLength:4"></more-key>
+                            </div>
+                            <div ng-if="column.column === 'mark'">
+                                <button class="choose-Y" ng-class="{'active':row.mark === 1}" ng-click="voiceMark(row,1)">
+                                    Y
+                                </button>
+                                <button class="choose-N" ng-class="{'active':row.mark === -1}" ng-click="voiceMark(row,-1)">
+                                    N
+                                </button>
+                            </div>
+                            <div ng-if="column.column !== 'keyword' && column.column !== 'mark' && column.column !== 'taskId' && column.column !== 'remark'">
+                                <span class="common-overflow over" ng-class="{'line-through':row.isExist===0}" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                            </div>
+                            <div ng-if="column.column === 'taskId'" class="voice-wrap">
+                                <!-- 显示任务号列 -->
+                                <a ng-href="{{PageName}}.html#?taskId={{row.id}}" target="_blank" class="item-id" id="model-preview_{{row.id}}" ng-click="markView(row)"> <span class="common-overflow over" ng-class="{'line-through':row.isExist===0}" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span> </a>
+                                <!-- <a ng-if="browser === 'chrome'" ng-href="playH5.html#?taskId={{row.id}}&showIsByTaskId={{showIsByTaskId}}" target="_blank" class="item-id" id="model-preview_{{row.id}}" ng-click="markView(row)">
+                                    <span class="common-overflow over" ng-class="{'line-through':row.isExist===0}" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                                </a>
+                                <a ng-if="browser === 'msie'" ng-href="play.html#?taskId={{row.id}}&showIsByTaskId={{showIsByTaskId}}" target="_blank" class="item-id" id="model-preview_{{row.id}}" ng-click="markView(row)">
+                                    <span class="common-overflow over" ng-class="{'line-through':row.isExist===0}" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                                </a> -->
+                            </div>
+                            <div ng-if="column.column === 'remark'">
+                                <div title="{{row.remark}}" class="remark-edit" ng-show="!row.edit" ng-click="showEdit(row)">
+                                    <span>{{row.remark}}</span>
+                                </div>
+                                <input id="remark-input_{{'taskId' | celData : row.dataMaps}}_{{index}}" class="edit-input" ng-show="row.edit" type="text" value="{{row.remark}}" maxlength="20" ng-blur="submitRemark(row)">
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 石勇 新增 显示任务的结果 -->
+                    <tr id="ShowNewTable" ng-if="row.taskImg == true">
+                        <td></td>
+                        <td colspan="{{tableData.columns.length}}" style="background-color: #f7f7f7;">
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td ng-repeat="ResultColumn in TableCallListResult.columns" ng-if="!(ResultColumn.column === 'remark' || ResultColumn.column === 'mark')">
+                                                {{ResultColumn.columnName}}
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tr ng-repeat="ResultRow in TableCallListResult.rows" ng-init="p_index=$index" on-finish-render="" broadcasteventname="colResizable">
+                                        <td ng-repeat="ResultColumn in TableCallListResult.columns" ng-if="!(ResultColumn.column === 'remark' || ResultColumn.column === 'mark')">
+                                            <!-- 遍历弹窗中选择的维度 -->
+                                            <!-- 匹配规则列 -->
+                                            <div class="keyword-show-inner" ng-if="ResultColumn.column === 'keyword'">
+                                                <bubble ng-repeat="keyword in ResultRow.keyword | subList:4" item="keyword" call-id="row.id" voice-id="keyword.voiceId" tr-index="{{p_index}}"></bubble>
+                                                <span ng-if="ResultRow.keyword | showKeyLength:4">...</span>
+                                                <more-key item="ResultRow.keyword" call-id="ResultRow.voiceId" task-id="row.id" ng-if="ResultRow.keyword | showKeyLength:4"></more-key>
+                                            </div>
+                                            <!-- 其它列 -->
+                                            <div ng-if="ResultColumn.column !== 'keyword' && ResultColumn.column !== 'mark' && ResultColumn.column !== 'voiceId' && ResultColumn.column !== 'remark'">
+                                                <span class="common-overflow over" title="{{ResultColumn.column | celData : ResultRow}}">{{ResultColumn.column | celData : ResultRow}}</span>
+                                            </div>
+                                            <!-- 显示录音流水号列 -->
+                                            <div ng-if="ResultColumn.column === 'voiceId'" class="voice-wrap">
+                                                <a ng-href="{{PageName}}.html#?taskId={{row.id}}&voiceId={{ResultRow.voiceId}}" target="_blank" class="item-id" id="model-preview_{{ResultRow.voiceId}}" ng-click="markView(ResultRow)"> <span class="common-overflow over" title="{{ResultColumn.column | celData : ResultRow}}">{{ResultColumn.column | celData : ResultRow}}</span> </a>
+                                                <!-- <a ng-if="browser === 'chrome'" ng-href="playH5.html#?taskId={{row.id}}&voiceId={{ResultRow.voiceId}}&showIsByTaskId={{showIsByTaskId}}" target="_blank" class="item-id" id="model-preview_{{ResultRow.voiceId}}" ng-click="markView(ResultRow)">
+                                                    <span class="common-overflow over" title="{{ResultColumn.column | celData : ResultRow}}">{{ResultColumn.column | celData : ResultRow}}</span>
+                                                </a>
+                                                <a ng-if="browser === 'msie'" ng-href="play.html#?taskId={{row.id}}&voiceId={{ResultRow.voiceId}}&showIsByTaskId={{showIsByTaskId}}" target="_blank" class="item-id" id="model-preview_{{ResultRow.voiceId}}" ng-click="markView(ResultRow)">
+                                                    <span class="common-overflow over" title="{{ResultColumn.column | celData : ResultRow}}">{{ResultColumn.column | celData : ResultRow}}</span>
+                                                </a> -->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="model-search-pager" style="margin-bottom: 40px;" ng-if="CallListResult.count > 10">
+                                    <div ng-if="pageData.type == 0 && CallListResult.count">
+                                        <newpaging page-options="CallListResult.pageOptions" total-counts="CallListResult.count" update="showDetailedResult(CallListResult.pageOptions)"></newpaging>
+                                    </div>
+                                    <div ng-if="pageData.type == 1 && TableCallListResult.total ">
+                                        <newpaging page-options="markData.pageOptions" total-counts="CallListResult.count" update="showDetailedResult(markData.pageOptions)"></newpaging>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 新增结束 增加了一行tr，为了显示任务的结果 -->
+                </tbody>
+                <tbody ng-if="pageData.type != 1" ng-repeat="row in tableData.previewList.rows">
+                    <!-- 切换至全部时的显示结果 -->
+                    <tr ng-init="p_index=$index" on-finish-render="" broadcasteventname="colResizable">
+                        <!-- <td class="check-box">
+                            <input type="checkbox" ng-checked="row.checked" ng-model="row.checked" ng-change="checkedThis(value)">
+                        </td> -->
+                        <td class="condition-set">
+                            <!-- 向下箭头展示 -->
+                            <span style="cursor: pointer;top: 0px;" class="triangle-right" ng-class="{'triangle-bottom':row.taskImg == true}" ng-click="showDetailedResult($index,$event)"></span>
+                        </td>
+                        <td ng-repeat="column in tableData.columns">
+                            <!-- 遍历弹窗中选择的维度 -->
+                            <!--  <div ng-if="column.column === 'keyword'">
+                                <span ng-repeat="keyword in row.keywordInfos">
+                                    {{keyword.word}}
+                                </span>
+                            </div> -->
+                            <!-- 匹配规则列 -->
+                            <div class="keyword-show-inner" ng-if="column.column === 'keyword'">
+                                <!-- <span ng-repeat="keyword in row.keywordInfos" ng-class="{'line-through':row.isExist===0}">
+                                    {{keyword.word}}
+                                </span> -->
+                                <bubble ng-repeat="keyword in row.keywordInfos | subList:4" item="keyword" call-id="row.id" voice-id="keyword.voiceId" tr-index="{{p_index}}"></bubble>
+                                <span ng-if="row.keywordInfos | showKeyLength:4">...</span>
+                                <more-key item="row.keywordInfos" call-id="row.id" ng-if="row.keywordInfos | showKeyLength:4"></more-key>
+                            </div>
+                            <!-- 人工测听标记列 -->
+                            <div ng-if="column.column === 'mark'">
+                                <button class="choose-Y" ng-class="{'active':row.mark === 1}" ng-click="voiceMark(row,1)">
+                                    Y
+                                </button>
+                                <button class="choose-N" ng-class="{'active':row.mark === -1}" ng-click="voiceMark(row,-1)">
+                                    N
+                                </button>
+                            </div>
+                            <!-- 其它列 -->
+                            <div ng-if="column.column !== 'keyword' && column.column !== 'mark' && column.column !== 'taskId' && column.column !== 'remark'">
+                                <span class="common-overflow over" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                            </div>
+                            <!-- 显示任务号列 -->
+                            <div ng-if="column.column === 'taskId'" class="voice-wrap">
+                                <a ng-href="{{PageName}}.html#?taskId={{row.id}}" target="_blank" class="item-id" id="model-preview_{{row.id}}" ng-click="markView(row)"> <span class="common-overflow over" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span> </a>
+                                <!-- <a ng-if="browser === 'chrome'" ng-href="playH5.html#?taskId={{row.id}}&showIsByTaskId={{showIsByTaskId}}" target="_blank" class="item-id" id="model-preview_{{row.id}}" ng-click="markView(row)">
+                                    <span class="common-overflow over"
+                                title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                                </a>
+                                <a ng-if="browser === 'msie'" ng-href="play.html#?taskId={{row.id}}&showIsByTaskId={{showIsByTaskId}}" target="_blank" class="item-id" id="model-preview_{{row.id}}" ng-click="markView(row)">
+                                    <span class="common-overflow over" title="{{column.column | celData : row.dataMaps}}">{{column.column | celData : row.dataMaps}}</span>
+                                </a> -->
+                            </div>
+                            <!-- 编辑备注列 -->
+                            <div ng-if="column.column === 'remark'">
+                                <!--<div title="{{row.remark}}" class="remark-edit" ng-show="!row.edit" ng-click="showEdit(row)">
+                                   <span >{{row.remark}}</span>
+                                </div>-->
+                                <input id="remark-input_{{'taskId' | celData : row.dataMaps}}_{{index}}" title="{{row.remark}}" class="edit-input" type="text" value="{{row.remark}}" maxlength="20" ng-blur="submitRemark(row)">
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 石勇 新增 显示任务的流水号结果 -->
+                    <tr id="ShowNewTable" ng-if="row.taskImg">
+                        <td></td>
+                        <td colspan="{{tableData.columns.length - 1}}" style="background-color: #f7f7f7;">
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td class="check-box" ng-show="tableData.columns.length && pageData.type ===1">
+                                                <input type="checkbox" ng-checked="allchecked" ng-click="toggleAllChecked()">
+                                            </td>
+                                            <td ng-repeat="ResultColumn in TableCallListResult.columns" ng-if="!(ResultColumn.column === 'remark' || ResultColumn.column === 'mark')">
+                                                {{ResultColumn.columnName}}
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tr ng-repeat="ResultRow in TableCallListResult.rows" ng-init="p_index=$index" on-finish-render="" broadcasteventname="colResizable">
+                                        <!-- <td class="check-box">
+                                            <input type="checkbox" ng-checked="row.checked" ng-model="row.checked" ng-change="checkedThis(value)">
+                                        </td> -->
+                                        <td ng-repeat="ResultColumn in TableCallListResult.columns" ng-if="!(ResultColumn.column === 'remark' || ResultColumn.column === 'mark')">
+                                            <!-- 遍历弹窗中选择的维度 -->
+                                            <!-- 匹配规则列 -->
+                                            <div class="keyword-show-inner" ng-if="ResultColumn.column === 'keyword'">
+                                                <bubble ng-repeat="keyword in ResultRow.keyword | subList:4" item="keyword" call-id="row.id" voice-id="keyword.voiceId" tr-index="{{p_index}}"></bubble>
+                                                <span ng-if="ResultRow.keyword | showKeyLength:4">...</span>
+                                                <more-key item="ResultRow.keyword" call-id="ResultRow.voiceId" task-id="row.id" ng-if="ResultRow.keyword | showKeyLength:4"></more-key>
+                                            </div>
+                                            <!-- 其它列 -->
+                                            <div ng-if="ResultColumn.column !== 'keyword' && ResultColumn.column !== 'mark' && ResultColumn.column !== 'voiceId' && ResultColumn.column !== 'remark'">
+                                                <span class="common-overflow over" title="{{ResultColumn.column | celData : ResultRow}}">{{ResultColumn.column | celData : ResultRow}}</span>
+                                            </div>
+                                            <!-- 显示录音流水号列 -->
+                                            <div ng-if="ResultColumn.column === 'voiceId'" class="voice-wrap">
+                                                <a ng-href="{{PageName}}.html#?taskId={{row.id}}&voiceId={{ResultRow.voiceId}}" target="_blank" class="item-id" id="model-preview_{{ResultRow.voiceId}}" ng-click="markView(ResultRow)"> <span class="common-overflow over" title="{{ResultColumn.column | celData : ResultRow}}">{{ResultColumn.column | celData : ResultRow}}</span> </a>
+                                                <!-- <a ng-if="browser === 'msie'" ng-href="play.html#?taskId={{row.id}}&voiceId={{ResultRow.voiceId}}&showIsByTaskId={{showIsByTaskId}}" target="_blank" class="item-id" id="model-preview_{{ResultRow.voiceId}}" ng-click="markView(ResultRow)">
+                                                    <span class="common-overflow over" title="{{ResultColumn.column | celData : ResultRow}}">{{ResultColumn.column | celData : ResultRow}}</span>
+                                                </a> -->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="model-search-pager" style="margin-bottom: 40px;" ng-if="CallListResult.count > 10">
+                                    <div ng-if="pageData.type == 0 && CallListResult.count">
+                                        <newpaging page-options="CallListResult.pageOptions" total-counts="CallListResult.count" update="showDetailedResult(CallListResult.pageOptions)"></newpaging>
+                                    </div>
+                                    <div ng-if="pageData.type == 1 && TableCallListResult.total ">
+                                        <newpaging page-options="markData.pageOptions" total-counts="CallListResult.count" update="showDetailedResult(markData.pageOptions)"></newpaging>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 新增结束 增加了一行tr，为了显示任务的结果 -->
+                </tbody>
+            </table>
+        </div>
+        <div class="model-search-pager">
+            <div ng-if="pageData.type == 0 && callListData.count">
+                <newpaging page-options="callListData.pageOptions" total-counts="callListData.count" update="getCallList(callListData.pageOptions)"></newpaging>
+            </div>
+            <div ng-if="pageData.type == 1 && markData.count ">
+                <newpaging page-options="markData.pageOptions" total-counts="markData.count" update="getMarkList(markData.pageOptions)"></newpaging>
+            </div>
+        </div>
+    </div>
+</div>

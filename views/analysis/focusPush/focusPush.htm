@@ -1,0 +1,36 @@
+﻿<div class="analysis-busiList-wrapper">
+    <div class="header-content">
+        <div class="busiList-header" style="width: 260px;">
+            <div>
+                <label style="cursor: pointer">
+                    当前位置:
+                </label>
+                <span style="cursor: pointer;font-weight:bold;">重点推送</span>
+            </div>
+        </div>
+        <div class="condition-list">
+            <ul class="condition-wrapper">
+                <calendar item="timesRange" status="{{status}}" type="buiOverview"></calendar>
+            </ul>
+        </div>
+        <div style="margin-right:25px; float:right">
+            <button class="listen" ng-click="setReadAll()">
+                全部设为已听
+            </button>
+        </div>
+    </div>
+    <div class="busiList-content">
+        <div class="busiList-Menu">
+            <div class="top-bar">
+                <a ng-href="#/analysis/groupSetting/1" ng-if="configure">配置</a>
+            </div>
+            <div class="topic-tree-head" style="font-size: 14px;font-family: 'Microsoft YaHei';">
+                <topic-tree-grid key="modelId" max-level="4" group-type="1" columns="treeGrid.columns" times-range="timesRange">
+                </topic-tree-grid>
+            </div>
+        </div>
+        <div class="busiList-right">
+            <model-call-list group-type="1" times-range="timesRange"></model-call-list>
+        </div>
+    </div>
+</div>

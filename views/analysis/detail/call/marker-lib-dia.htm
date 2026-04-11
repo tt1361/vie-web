@@ -1,0 +1,56 @@
+﻿<div class="marker-lib-wrap" ng-class="{'show':maskShow}">
+    <div class="marker-lib-header">
+        <p>
+            匹配通话
+        </p>
+        <div class="sel-btn del-marker" ng-click="batchRemove()">
+            移除
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="conversations-list-wrap">
+        <div class="list-inner-wrap">
+            <div class="list-wrap conversations-list" ng-if="counts">
+                <table>
+                    <thead>
+                        <tr>
+                            <td class="ell w64">
+                                <input type="checkbox" ng-click="checkAll()" ng-checked="allchecked">
+                            </td>
+                            <td class="ell" ng-repeat="column in columns">
+                                <span class="table-column-overflow" title="{{column.columnName}}">{{column.columnName}}</span>
+                                <div class="sort-btn" ng-if="column.column!=='mark'&&column.column!=='keyword'&&column.column!=='modelName'">
+                                    <span class="btn-up" ng-class="{'btn-up-selected':btnUp === column.column}" ng-click="remarkSort(column.column,'asc')"></span>
+                                    <span class="btn-down" ng-class="{'btn-down-selected':btnDown === column.column}" ng-click="remarkSort(column.column,'desc')"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in conversations" class="hover-tr" ng-class="{'tr-slected':item.checked}" ng-class-even="'color-even'">
+                            <td>
+                                <input type="checkbox" ng-checked="item.checked" ng-model="item.checked" ng-change="checkedThis(item)">
+                            </td>
+                            <td class="table-overflow" ng-repeat="column in columns">
+                                <div ng-if="column.column === 'keyword'" class="{{item.keywordInfos | getLength :8}}" title="{{item.keywordInfos | showKey}}" style="cursor: pointer;">
+                                    <span class="conversations-keyword" ng-repeat="keyword in item.keywordInfos"> {{keyword.word}} </span>
+                                </div>
+                                <span ng-if="column.column === 'mark'"> <p class="data-overflow" title="{{'remark' | celData : item.dataMaps}}">
+                                        <div title="{{'remark' | celData : item.dataMaps}}" class="remark-edit" ng-show="!item.edit" ng-click="showEdit(item)">
+                                            <span>{{'remark' | celData : item.dataMaps}}</span>
+                                        </div>
+                                        <input id="remark-input_{{'id' | celData : item.dataMaps}}" class="edit-input" ng-show="item.edit" type="text" value="{{'remark' | celData : item.dataMaps}}" maxlength="20" ng-blur="submitRemark(item)">
+                                    </p> </span>
+                                <span ng-if="column.column !== 'keyword' && column.column !== 'mark'"> <p class="data-overflow" title="{{column.column | celData : item.dataMaps}}">
+                                        {{column.column | celData : item.dataMaps}}
+                                    </p> </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <newpaging ng-if="counts" class="markerlib-page list-pager" page-options="pageOptions" total-counts="counts" update="getConversationList(pageOptions)"></newpaging>
+            <div class="empty-data" ng-if="!counts"></div>
+        </div>
+    </div>
+</div>

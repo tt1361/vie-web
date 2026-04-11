@@ -1,0 +1,18 @@
+﻿<div class="search-chanel-select">
+    <input type="text" value="{{item.chanelName}}" readonly title="{{item.chanelName}}" ng-click="showTimeOpen()" ng-if="item.chanelName">
+    <input type="text" value="声道" readonly title="声道" ng-click="showTimeOpen()" ng-if="!item.chanelName">
+    <i class="picture picture-select-down newtab" ng-class="{'active':isOpen}" ng-click="showTimeOpen()"></i>
+    <div class="time-search chanel" ng-class="{'active':isOpen}">
+        <ul>
+            <li ng-click="setChanel(2)" ng-class="{'active':item.chanel===2}">
+                全部声道
+            </li>
+            <li ng-click="setChanel(0)" ng-class="{'active':item.chanel===0}">
+                坐席声道
+            </li>
+            <li ng-click="setChanel(1)" ng-class="{'active':item.chanel===1}">
+                客户声道
+            </li>
+        </ul>
+    </div>
+</div>

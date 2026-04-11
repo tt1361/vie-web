@@ -1,0 +1,16 @@
+﻿<div class="silent-rule-wrapper">
+    <div class="rule-edit">
+        条件配置
+    </div>
+    <div class="ruletext-content silent-rule">
+        <div class="silent-rule-content">
+            <silent-screen ng-repeat="screening in condition" item="screening" index="{{$index}}" tag-dimension="tagDimension" status="{{status}}"></silent-screen>
+            <button class="btn model" ng-click="addCondition()" ng-if="status != -1 && status != 0">
+                +添加规则
+            </button>
+            <button class="btn model" ng-if="status == -1 || status == 0">
+                +添加规则
+            </button>
+        </div>
+    </div>
+</div>

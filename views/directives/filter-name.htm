@@ -1,0 +1,21 @@
+﻿<div class="filter-name">
+    <div class="tips">
+        <span>编辑筛选器</span>
+    </div>
+    <div class="input">
+        <input type="text" class="input-filter-name" placeholder="请输入筛选器名称" ng-model="filterName" ng-change="filterCheck()" ng-class="{'check-input': noPass}" maxlength="14">
+        <i class="clear-name" ng-click="clearName()">X</i>
+        <div class="line"></div>
+        <!-- <div class="filter-tips">
+      <span class="name-left" ng-class="{'name-left-1': noPass}">重名啦</span><span class="name-right">！！！</span>
+    </div> -->
+        <div class="button">
+            <button class="btn btn-primary" style="height: 27px;margin-right: 27px" ng-click="saveFilterName()">
+                确认
+            </button>
+            <button class="btn btn-primary-filter" style="height: 27px;margin-right: 27px" ng-click="closeFilterDialog()">
+                取消
+            </button>
+        </div>
+    </div>
+</div>

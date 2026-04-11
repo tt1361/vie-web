@@ -1,0 +1,20 @@
+﻿<div class="screening-new" ng-class="{'noTop':index === '0'}">
+    <span class="tpj-tab">{{item.name}}</span>
+    <div class="condition-wrap">
+        <div class="object-wrap deiem">
+            <input type="text" readonly ng-model="item.dimensionName" ng-click="showObjects()" placeholder="未选择">
+            <i class="picture picture-select-down newtab" ng-click="showObjects()" ng-class="{'active': item.isShow}"></i>
+            <ul class="object-wrap-ul" ng-class="{'active':item.isShow}">
+                <li ng-repeat="obj in tagDimension" ng-click="selectTagDimension(obj)" ng-class="{'active':item.dimensionCode === obj.dimensionCode}">
+                    {{obj.dimensionName}}
+                </li>
+            </ul>
+        </div>
+        <i class="picture picture-del silent object" ng-click="removeCondition()"></i>
+        <div class="option-show-wrap" ng-if="item.options.length">
+            <option-select ng-repeat="property in item.options" item="property" index="{{$index}}" property="tagProperty" type="ci" statsu="-2"></option-select>
+        </div>
+    </div>
+    <span class="tpj-option" ng-click="addOption()" ng-if="item.options.length">+添加属性</span>
+    <div class="clear"></div>
+</div>

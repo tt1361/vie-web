@@ -1,0 +1,40 @@
+﻿<div class="section-header">
+    <div class="nav-header fl">
+        <img src="images/logo.png">
+    </div>
+    <p class="user-info">
+        您好！
+        <span>{{user}}</span>
+        <span class="system-tooltip" ng-if="isShowMessage"> <span class="picture picture-tooltips"></span> <span class="picture-tipNum" ng-if="unReadCount>0"> <span class="num_tip">{{unReadCount}}</span> </span> <span class="tip-tooptips"> <i class="tip-select-up"></i> <a class="textstyle" ng-click="gotofocusPush()" href="javascript:void(0)">总计未读：<font style="color: orange;">{{unReadCount}}条</font></a> </span> </span>
+        |&nbsp
+        <span title="{{dataSourceAllName}}">{{dataSourceName}}</span>
+        <i class="picture-changeSrc" title="切换数据源" ng-click="changeDataSrc()"></i>
+        <i class="picture picture-restPWD" title="修改密码" ng-click="resetPwd()"></i>
+        <a href="logout" title="退出系统"> <span class="icon icon-exit"></span> </a>
+    </p>
+</div>
+<div class="section-content">
+    <div class="nav" ng-class="{'nav-hide': !open}">
+        <div class="menu-wrap">
+            <ul>
+                <li class="level-menu">
+                    <a class="name" ng-click="changeOpen()"> <i class="picture picture-menu"></i> <span class="title" ng-if="open">导航</span> </a>
+                </li>
+                <menu ng-repeat="resource in resources" node="resource" ng-if="open"></menu>
+                <menu-open ng-repeat="resource in resources" node="resource" ng-if="!open"></menu-open>
+            </ul>
+        </div>
+    </div>
+    <div class="section" ng-class="{'off':!open}">
+        <div ui-view="" class="content-wrap"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="menu-wrapper-hidden" ng-show="bubbleShow">
+    <key-all item="bubbleItem" call-id="bubbleId"></key-all>
+</div>
+<div class="section-footer fixed">
+    <p class="copyright-info">
+        版权所有：科大讯飞
+    </p>
+</div>

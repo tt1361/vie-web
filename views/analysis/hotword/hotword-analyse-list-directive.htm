@@ -1,0 +1,57 @@
+﻿<div class="hotWordanalysis-list-wrap">
+    <table>
+        <thead>
+            <tr class="hotWordanalysis-list-head-font1">
+                <td colspan="4">
+                    <span ng-if="type==='kwd'">词&nbsp;频</span>
+                    <span ng-if="type==='voice'">音&nbsp;频</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    排名
+                </td>
+                <td>
+                    关键词
+                </td>
+                <td ng-if="isSametime">
+                    名次变化
+                    <div class="btn-down-index-div">
+                        <span class="btn-down-index" ng-class="{'active': order === 'range'}" ng-click="remarkRange('range')"></span>
+                    </div>
+                </td>
+                <td>
+                    <span ng-if="type==='kwd'">词频占比</span>
+                    <span ng-if="type==='voice'">音频占比</span>
+                    <div ng-if="isSametime" class="btn-down-index-div">
+                        <span class="btn-down-index" ng-class="{'active' : order === 'percent'}" ng-click="remarkRange('percent')"></span>
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in voiceList" on-finish-render="" broadcasteventname="colResizable" ng-class-even="'color-even'">
+                <td>
+                    {{item.rn}}
+                </td>
+                <td>
+                    {{item.hotVocabulary}}
+                </td>
+                <td class="ell top-increment increase" ng-if="item.increment > 0 && isSametime">
+                    <img src="images/up-triangle.png">
+                    {{item.increment}}
+                </td>
+                <td class="increment-blue" ng-if="item.increment === 0 && isSametime">
+                    {{item.increment}}
+                </td>
+                <td class="ell top-increment decline" ng-if="item.increment < 0 && isSametime">
+                    <img src="images/down-triangle.png">
+                    {{item.increment}}
+                </td>
+                <td class="ratecolor">
+                    {{item.rate}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,72 @@
+﻿<div class="fl call-wapper">
+    <div class="section-header-index">
+        <p class="fl">
+            通话时长趋势
+        </p>
+        <a href="javascript:;" class="fl btn-tip btn-tip-hot-point"> <span class="tip-arrow-index"></span> <div class="tip-wrapper-index">
+                <span class="tip-title-index">通话时长趋势：</span>
+                <span class="tip-content-index">展示最近一周以及最近一天通话时长、有效时长以及静音时长的变化趋势</span>
+            </div> </a>
+        <div class="fr duration-type-div" ng-hide="hideDurationType">
+            <div class="model-call-type">
+                <input class="fr ell model-type" type="text" readonly ng-model="durationTypeName" ng-click="showDurationOpen()">
+                <i class="picture picture-select-down newtab" ng-class="{'active': isOpenDuration}" ng-click="showDurationOpen()"></i>
+                <ul class="model-call" ng-class="{'active':isOpenDuration}">
+                    <li class="ell model-group" ng-class="{'group-selected':durationTypeName==='静音时长'}" ng-click="selectDurationType(0, '静音时长')">
+                        静音时长
+                    </li>
+                    <li class="ell model-group" ng-class="{'group-selected':durationTypeName==='有效时长'}" ng-click="selectDurationType(1, '有效时长')">
+                        有效时长
+                    </li>
+                    <li class="ell model-group" ng-class="{'group-selected':durationTypeName==='通话时长'}" ng-click="selectDurationType(2, '通话时长')">
+                        通话时长
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="fr call-type-div">
+            <div class="model-call-type">
+                <input class="fr ell model-type" type="text" readonly ng-model="callTypeName" ng-click="showCallOpen()">
+                <i class="picture picture-select-down newtab" ng-class="{'active': isCallOpen}" ng-click="showCallOpen()"></i>
+                <ul class="model-call" ng-class="{'active':isCallOpen}">
+                    <li class="ell model-group" ng-class="{'group-selected':callTypeName ==='全部'}" ng-click="selectCallType()">
+                        全部
+                    </li>
+                    <li class="ell model-group" ng-repeat="item in dimList" ng-class="{'group-selected':callTypeName === item}" ng-click="selectCallType(item)">
+                        {{item}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="fr time-type-div">
+            <div class="model-call-type">
+                <input class="fr ell model-type" type="text" readonly ng-model="timeTypeName" ng-click="showTimeOpen()">
+                <i class="picture picture-select-down newtab" ng-class="{'active': isOpenTime}" ng-click="showTimeOpen()"></i>
+                <ul class="model-call" ng-class="{'active':isOpenTime}">
+                    <li class="ell model-group" ng-class="{'group-selected':timeTypeName==='日'}" ng-click="selectTimeType('day', '日')">
+                        日
+                    </li>
+                    <li class="ell model-group" ng-class="{'group-selected':timeTypeName==='时'}" ng-click="selectTimeType('hour', '时')">
+                        时
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="fr chart-type-div" ng-show="!singleCenter && centerFlag != 1">
+            <div class="model-call-type">
+                <input class="fr ell model-type" type="text" readonly ng-model="chartTypeName" ng-click="showChartOpen()">
+                <i class="picture picture-select-down newtab" ng-class="{'active': isOpenChart}" ng-click="showChartOpen()"></i>
+                <ul class="model-call" ng-class="{'active':isOpenChart}">
+                    <li class="ell model-group" ng-class="{'group-selected':chartTypeName==='汇总'}" ng-click="selectChartType(0, '汇总')">
+                        汇总
+                    </li>
+                    <li class="ell model-group" ng-class="{'group-selected':chartTypeName==='对比'}" ng-click="selectChartType(2, '对比')">
+                        对比
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="chart" class="chart-call-trender" ng-if="!isEmpty"></div>
+    <div class="empty-data hotpoint" ng-if="isEmpty"></div>
+</div>

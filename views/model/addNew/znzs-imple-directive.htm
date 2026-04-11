@@ -1,0 +1,66 @@
+﻿<div class="znzs-new-wrap imple">
+    <div class="znzs-new-wrap-hrader">
+        智能助手
+    </div>
+    <div class="znzs-new-inner-wrap imple">
+        <div class="znzs-tab">
+            <a class="znzs-imple-word" ng-class="{'active':znzsTab === 0}" ng-click="changeZnzsTab(0)">同义词</a>
+            <a class="znzs-imple-word" ng-class="{'active':znzsTab === 1}" ng-click="changeZnzsTab(1)">相关词</a>
+            <a class="znzs-imple-word" ng-class="{'active':znzsTab === 2}" ng-click="changeZnzsTab(2)">词切分</a>
+        </div>
+        <div class="znzs-new-input-wrap imple">
+            <input type="text" placeholder="词组可用空格分割" ng-model="word" ng-keydown="enterKey($event)" ng-show="znzsTab != 2">
+            <input type="text" placeholder="请输入词组" ng-model="word" ng-keydown="enterKey($event)" ng-show="znzsTab === 2">
+            <button class="btn-blue model" ng-click="searchZnzsBtn()">
+                查&nbsp;&nbsp;询
+            </button>
+        </div>
+        <!-- 同义词开始 -->
+        <div ng-show="znzsTab === 0">
+            <div class="znzs-new-content-wrap">
+                <p>
+                    <span class="synonym-result">同义词结果:</span>
+                </p>
+                <ul class="content-znzs-wrapper imple">
+                    <li ng-repeat="item in synonymWords">
+                        <a class="synonym-terms poiter" ng-click="inputSearch(item.term)">{{item.term}}({{item.count}})</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 同义词结束 -->
+        <!-- 相关词开始 -->
+        <div ng-show="znzsTab === 1">
+            <div class="znzs-new-content-wrap">
+                <ul class="content-znzs-wrapper item">
+                    <li ng-repeat="item in associations">
+                        <a class="item-opt" ng-click="inputSearch(item.term)">{{item.term}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--相关词结束 -->
+        <!-- 词切分开始 -->
+        <div ng-show="znzsTab === 2">
+            <div class="znzs-new-content-wrap">
+                <p>
+                    <span class="synonym-result">词切分结果:</span>
+                </p>
+                <div class="content-znzs-wrapper-imple">
+                    <ul class="content-znzs-split-word">
+                        <li ng-repeat="item in impleSplitWords">
+                            <a class="split-word-iterm">{{item.word}}&nbsp;&nbsp;({{item.value}})</a>
+                        </li>
+                    </ul>
+                    <ul class="content-znzs-word-value">
+                        <li ng-repeat="word in impleWordValues">
+                            <a class="split-word-imple poiter" ng-click="inputSearch(word.word)">{{word.word}}({{word.value}})</a>
+                        </li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 词切分开始结束 -->
+    </div>
+</div>

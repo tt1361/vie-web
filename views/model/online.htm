@@ -1,0 +1,62 @@
+﻿<div class="multi-dimension-choose online" style="width: 1000px; margin-left: -340px;">
+    <div class="multi-choose-header" style="position: relative;">
+        <i class="picture picture-close-search" ng-click="closeThisDialog(0)"></i>
+    </div>
+    <div class="multi-choose-content">
+        <!-- <div class="dimension-list-topic-wrap" style="display: inline-block;position: relative;">
+            <div class="dimension-list-topic-wrap" id="disabledDiv" style="display: inline-block; width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; z-index: 6; background-color: #C2C2C2; opacity: 0.3;" ng-show="{{onOpen}}" >
+            </div>
+            <div class="dimension-list-search">
+                <i ng-click="getAllDimInfos()"></i>
+                <input type="text" placeholder="请输入搜索内容" ng-model="keyword" ng-keyup="enterKey()">
+            </div>
+            <ul>
+                <li ng-repeat="dimension in searchDimensions" on-finish-render broadcasteventname="colResizable">
+                    <input type="checkbox" title="{{dimension.name}}" ng-checked="dimension.checked" ng-model="dimension.checked" ng-disabled="{{dimension.isSelect}}" ng-click="pushedDimension(dimension)">
+                    <span title="{{dimension.name}}" id="{{dimension.indexField}}" ng-class="{'redFont': dimension.search}">{{dimension.name | subData: 6}}</span>
+                </li>
+            </ul>
+        </div> -->
+        <div class="dimension-topic-wrap newTopic" style="display: inline-block; height: 400px; vertical-align: top; margin-left: 0;">
+            <!-- <div class="call-interval condition-list hotword" style="padding-bottom: 10px;">
+                <ul class="condition-wrapper">
+                    <calendar-model item="timesRange" status="-2" type='hotwordListAnalysis'></calendar-model>
+                </ul>
+            </div> -->
+            <div class="condition-list" style="overflow-y: scroll; height: 400px; width: 965px;">
+                <div class="call-interval condition-list hotword" style="padding-bottom: 10px; position: absolute; top: 10px; left: 330px; z-index: 9999;">
+                    <ul class="condition-wrapper">
+                        &nbsp
+                        <calendar-model item="timesRange" status="-2" type="hotwordListAnalysis"></calendar-model>
+                    </ul>
+                </div>
+                <!-- <ul class="condition-wrapper"> -->
+                <!-- <online-screen-condition ng-repeat="item in preDimensions" item="item" index={{$index}}></online-screen-condition> -->
+                <!-- 石勇 新增 模型上线增加筛选器 -->
+                &nbsp
+                <whole-filter a="a" b="b" c="modelFilterId"></whole-filter>
+                <div class="clear"></div>
+                <!-- </ul> -->
+            </div>
+        </div>
+    </div>
+    <div class="tips-none">
+        <p>
+            有维度为空，请重新选择。
+        </p>
+        <a href="javascript:;" ng-click="hideTipsNone()">确认</a>
+    </div>
+    <div class="multi-choose-footer newTopic" style="border-top: 1px solid rgba(204, 204, 204, 1)">
+        <div style="margin-left: 68px; display: inline; float: left; margin-top: 10px;">
+            <input type="checkbox" class="tuisong" ng-checked="isPass" ng-click="setPass()">
+            同时将规则推送至质检系统
+            <span ng-if="showPrompt" style="margin-left: 85px; color: #666;">若要对筛选条件进行编辑，请进入模型详情页对筛选器 <a href="#/model/addNew/-1/0//{{modelOnlineId}}" style="color: #3abcb8;"> 进行修改 </a> </span>
+        </div>
+        <button class="reset" ng-click="closeThisDialog(0)" style="float: right; margin-right: 16px; margin-left: 0px;">
+            取&nbsp;消
+        </button>
+        <button class="submit" ng-click="submitDimension()" style="float: right; margin-right: 16px;">
+            确&nbsp;定
+        </button>
+    </div>
+</div>

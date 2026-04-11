@@ -1,0 +1,43 @@
+﻿<li class="search-item">
+    <div class="list-search-item">
+        <div class="item-header">
+            <a ng-if="browser === 'chrome' && !isShowByTask" ng-href="playH5.html#?voiceId={{item.contact_id}}" target="_blank" class="item-id" ng-click="markView()"> {{taskName}}{{item.contact_id}}</a>
+            <a ng-if="browser === 'msie' && !isShowByTask" ng-href="play.html#?voiceId={{item.contact_id}}" target="_blank" class="item-id" ng-click="markView()"> {{taskName}}{{item.contact_id}}</a>
+            <a ng-if="browser === 'other' && !isShowByTask" ng-href="play.html#?voiceId={{item.contact_id}}" target="_blank" class="item-id" ng-click="markView()"> {{taskName}}{{item.contact_id}}</a>
+            <a ng-if="browser === 'chrome' && isShowByTask" ng-href="playH5.html#?taskId={{item.contact_id}}" target="_blank" class="item-id" ng-click="markView()"> {{taskName}}{{item.contact_id}}</a>
+            <a ng-if="browser === 'msie' && isShowByTask" ng-href="play.html#?taskId={{item.contact_id}}" target="_blank" class="item-id" ng-click="markView()"> {{taskName}}{{item.contact_id}}</a>
+            <a ng-if="browser === 'other' && isShowByTask" ng-href="play.html#?taskId={{item.contact_id}}" target="_blank" class="item-id" ng-click="markView()"> {{taskName}}{{item.contact_id}}</a>
+            <a class="show-all" ng-click="toggleShowAll()"> <span ng-if="isAll===0 && !isShowByTask">显示全部</span> <span ng-if="isAll===1 && !isShowByTask">收起全部</span> <i class="picture picture-all" ng-if="!isShowByTask" ng-class="{'active':isAll===1}"></i> </a>
+        </div>
+        <div ng-if="isAll===0 && !isShowByTask">
+            <div class="text-desc" ng-bind-html="item.content | searchSub: keyword: 100"></div>
+            <!-- <div class="text-desc" ng-if="chanel.chanel === 0" ng-bind-html="item.contentN0 | searchSub: keyword: 100"></div>
+						<div class="text-desc" ng-if="chanel.chanel === 1" ng-bind-html="item.contentN1 | searchSub: keyword: 100"></div> -->
+        </div>
+        <div ng-if="isAll===0 && isShowByTask">
+            <div class="text-desc" ng-bind-html="item.content | searchSub: keyword: 100"></div>
+        </div>
+        <div ng-if="isAll===1 && !isShowByTask">
+            <div class="text-desc" ng-bind-html="item.content | searchSub: keyword"></div>
+            <!-- <div class="text-desc" ng-if="chanel.chanel === 0" ng-bind-html="item.contentN0 | searchSub: keyword"></div>
+						<div class="text-desc" ng-if="chanel.chanel === 1" ng-bind-html="item.contentN1 | searchSub: keyword"></div> -->
+        </div>
+        <div class="dimension-list-show">
+            <ul>
+                <li ng-if="item.callNumber">
+                    来电号码：{{item.callNumber}}
+                </li>
+                <li ng-if="item.seatId">
+                    坐席工号：{{item.seatId}}
+                </li>
+                <li>
+                    通话开始时间：{{item.timeFormat}}
+                </li>
+                <li>
+                    通话时长：{{item.duration}}
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+</li>

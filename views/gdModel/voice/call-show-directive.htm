@@ -1,0 +1,39 @@
+﻿<div class="call-list-histogram">
+    <div class="show-type">
+        <a class="call-list-type" ng-class="{'active':showTab === 0}" ng-click="changeTab(0)">表格</a>
+        <a class="call-list-type" ng-class="{'active':showTab === 1}" ng-click="changeTab(1)">柱状图</a>
+        <a class="call-list-type" ng-class="{'active':showTab === 2}" ng-click="changeTab(2)">折线图</a>
+    </div>
+    <div class="call-table-list" ng-show="showTab === 0">
+        <div class="call-table-header">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            日期
+                        </th>
+                        <th>
+                            通话量
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="call-table-list-body">
+            <table>
+                <tbody>
+                    <tr ng-repeat="item in data.xData track by $index" ng-class-even="'color-even'">
+                        <td>
+                            <a class="call-day" ng-click="changeDate(item)">{{item}}</a>
+                        </td>
+                        <td>
+                            {{data.yData[$index]}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <newpaging ng-if="countsTable>0" page-options="pageTableOptions" total-counts="countsTable" update="getColumData(pageTableOptions)"></newpaging>
+    </div>
+    <div id="call-list-chart" class="call-list-chart" ng-show="showTab != 0"></div>
+</div>

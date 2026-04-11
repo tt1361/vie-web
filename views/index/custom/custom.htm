@@ -1,0 +1,18 @@
+﻿<div class="custom-index-header">
+    <span class="custom-name-detail">{{pageInfo.pageName}}</span>
+    <div class="edit-detail-wrapper">
+        <i class="picture picture-custom-edit" ng-click="editMenu()"></i>
+        <menu-detail ng-if="isOpen" update="editMenu()" item="pageInfo" type="custom"></menu-detail>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="custom-index-content" ng-if="allShow">
+    <div ng-repeat="item in customs" on-finish-render="" broadcasteventname="colResizable">
+        <report-list item="item" ng-if="item.contentType === 11" index="{{$index}}"></report-list>
+        <report-column item="item" ng-if="item.contentType === 13" index="{{$index}}"></report-column>
+        <report-chart item="item" ng-if="item.contentType === 12" index="{{$index}}"></report-chart>
+        <analysis-custom item="item" ng-if="item.moduleType === 4" index="{{$index}}"></analysis-custom>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="custom-empty-data" ng-if="!allShow"></div>

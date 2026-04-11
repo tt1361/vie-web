@@ -1,0 +1,30 @@
+﻿<div class="menu-dialog-position" uid="{{uid}}">
+    <i class="menu-image"></i>
+    <div class="menu-dialog-wrap">
+        <div class="dialog-content custom-conten">
+            <div class="menu-detail-label">
+                <div class="dlogtitle custome-title">
+                    创建新的数据概览
+                </div>
+                <div class="dlogname">
+                    <label class="custome-name dimension-culum">
+                        名称
+                    </label>
+                    <input type="text" ng-model="pageName" placeholder="请输入概览名称" maxlength="20">
+                </div>
+            </div>
+        </div>
+        <div class="dialog-footer menu">
+            <span class="deltab" ng-click="deleteMenu()" ng-if="type==='custom'">删除</span>
+            <button class="cancel-btn" ng-click="cancel()">
+                取&nbsp;消
+            </button>
+            <button ng-click="saveMenu()" class="primary confirm-btn" ng-if="type!='custom'">
+                创&nbsp;建
+            </button>
+            <button ng-click="saveMenu()" class="primary confirm-btn" ng-if="type==='custom'">
+                保&nbsp;存
+            </button>
+        </div>
+    </div>
+</div>

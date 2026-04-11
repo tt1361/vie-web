@@ -1,0 +1,44 @@
+﻿<div class="option-select-wrapper">
+    <div class="option-wrap deiem">
+        <input type="text" readonly ng-model="item.propertyName" ng-click="showProperties()" placeholder="未选择">
+        <i class="picture picture-select-down newtab" ng-click="showProperties()" ng-class="{'active': item.isPropertyShow}"></i>
+        <ul class="option-wrap-ul" ng-class="{'active':item.isPropertyShow}">
+            <li ng-repeat="pro in property" ng-click="selectTagOperation(pro)" ng-class="{'active':item.propertyCode === pro.propertyCode}">
+                {{pro.propertyName}}
+            </li>
+        </ul>
+    </div>
+    <div class="depend-wrap deiem" ng-if="item.isDepend === 1">
+        <input type="text" readonly ng-model="item.reletionName" placeholder="未选择" ng-click="showRelations()">
+        <i class="picture picture-select-down newtab" ng-click="showRelations()" ng-class="{'active': item.isDependShow}"></i>
+        <ul class="depend-wrap-ul" ng-class="{'active':item.isDependShow}">
+            <li ng-repeat="dim in objectDim" ng-click="selectrelationObject(dim)" ng-class="{'active':item.relativeobject === dim.relativeobject}">
+                {{dim.name}}
+            </li>
+        </ul>
+    </div>
+    <div class="equ-wrap flag-equ deiem" ng-if="item.flag === 1">
+        <input type="text" readonly ng-model="item.equOperation" placeholder="未选择" ng-click="showEqus()">
+        <i class="picture picture-select-down newtab" ng-click="showEqus()" ng-class="{'active': item.isEquShow}"></i>
+        <ul class="equ-wrap-ul" ng-class="{'active':item.isEquShow}">
+            <li ng-click="showEqus()" class="active">
+                等于
+            </li>
+        </ul>
+    </div>
+    <div class="equ-wrap opre-equ deiem">
+        <input type="text" readonly ng-model="item.operationName" placeholder="未选择" ng-click="showOperations()">
+        <i class="picture picture-select-down newtab" ng-click="showOperations()" ng-class="{'active': item.isOperationShow}"></i>
+        <ul class="equ-wrap-ul" ng-class="{'active':item.isOperationShow}">
+            <li ng-repeat="opera in tagOperation" ng-click="selectOperation(opera)" ng-class="{'active':item.operationCode === opera.operationCode}">
+                {{opera.operationName}}
+            </li>
+        </ul>
+    </div>
+    <input class="value-text" type="text" ng-model="item.inputValue" ng-if="item.flag === 0 && item.propertyCode!='ATR005'" ng-class="{'depend':item.isDepend === 1}">
+    <input class="value-text" type="text" ng-model="item.inputValue" ng-if="item.flag === 0 && type=== 'zi' && item.propertyCode==='ATR005'" ng-class="{'depend':item.isDepend === 1}" placeholder="关键词用|分割">
+    <span ng-if="item.isDepend === 1 && type === 'ci'">词</span>
+    <span ng-if="item.isDepend === 1 && type === 'zi'">秒</span>
+    <i class="picture picture-del silent condition" ng-click="removeOption()" ng-if="status != -1 && status != 0"></i>
+    <i class="picture picture-del silent condition" ng-if="status == -1 || status == 0"></i>
+</div>

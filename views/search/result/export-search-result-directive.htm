@@ -1,0 +1,15 @@
+﻿<div class="export-search-wrapper">
+    <iframe class="iframeStyle" name="ifr_export"></iframe>
+    <form id="form2" name="form2" method="post" action="" enctype="" target="ifr_export">
+        <input type="hidden" value="" name="content" id="content_export">
+        <input type="hidden" value="{{time.startTime}}{{time.startDatetimeTemp}}" name="startTime">
+        <input type="hidden" value="{{time.endTime}}{{time.endDatetimeTemp}}" name="endTime">
+        <input type="hidden" value="" name="chanel" id="chanel_export">
+        <input type="hidden" value="" name="dimensionParams" id="dimensionParams_export">
+        <input type="hidden" value="" name="optionType" id="optionType_export">
+        <input type="hidden" value="" name="searchDimension" id="searchDimension_export">
+        <input type="hidden" value="1" name="pageNum">
+        <input type="hidden" value="15" name="pageSize">
+        <input class="export-input" type="button" value="导&nbsp;&nbsp;出" ng-click="exportSearch()">
+    </form>
+</div>

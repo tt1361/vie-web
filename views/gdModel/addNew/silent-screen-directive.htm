@@ -1,0 +1,22 @@
+﻿<div class="screening-new silent" ng-class="{'noTop':index === '0'}">
+    <span class="tpj-tab">{{item.name}}:</span>
+    <div class="condition-wrap silent">
+        <div class="object-wrap silent deiem" uid="{{uid}}">
+            <input type="text" readonly ng-model="item.dimensionName" ng-click="showObjects()" placeholder="未选择">
+            <i class="picture picture-select-down newtab" ng-click="showObjects()" ng-class="{'active': item.isShow}"></i>
+            <ul class="object-wrap-ul" ng-class="{'active':item.isShow}">
+                <li ng-repeat="obj in tagDimension" ng-click="selectTagDimension(obj)" ng-class="{'active':item.dimensionCode === obj.dimensionCode}">
+                    {{obj.dimensionName}}
+                </li>
+            </ul>
+        </div>
+        <span class="tpj-option silent" ng-click="addOption()" ng-if="item.options.length && status != -1 && status != 0">+增加属性</span>
+        <span class="tpj-option silent" ng-if="item.options.length && (status == -1 || status == 0)">+增加属性</span>
+        <i class="picture picture-del silent object" ng-click="removeCondition()" ng-if="status != -1 && status != 0"></i>
+        <i class="picture picture-del silent object" ng-if="status == -1 || status == 0"></i>
+        <div class="option-show-wrap" ng-if="item.options.length">
+            <option-select ng-repeat="property in item.options" item="property" index="{{$index}}" property="tagProperty" type="zi" status="{{status}}"></option-select>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>

@@ -1,0 +1,38 @@
+﻿<div class="zdy-dimension">
+    <div class="dimension-opt-list">
+        <i class="picture picture-add-active" ng-click="addDimension()" ng-if="addAuth"></i>
+        <i class="picture picture-export" ng-click="showExportOpen()" ng-if="importAuth"></i>
+        <export-dimension ng-show="exportOpen"></export-dimension>
+    </div>
+    <div class="dimension-zdy-content">
+        <div class="dimension-zdy-list">
+            <div class="dimension-zdy-search">
+                <input type="text" class="zdy-search-input" placeholder="请输入搜索内容" ng-model="keyCustomWord" ng-keyup="enterCustomKey($event)">
+                <i class="picture picture-search-unactive" ng-click="getCustomDim()"></i>
+            </div>
+            <div class="zdy-list">
+                <ul>
+                    <li ng-repeat="item in zdyDim">
+                        <a ng-click="showZdyDetail(item)" title="{{item.dimensionName}}" ng-class="{'item-selected':item.dimensionId === chooseItem.dimensionId}">{{item.dimensionName}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="dimension-zdy-add">
+            <div class="zdy-item-btn">
+                <input type="button" class="dimension-opt-btn" ng-click="delItem(chooseItem.dimensionId)" ng-if="delAuth" value="删&nbsp;&nbsp;除">
+                <input type="button" ng-click="saveItem()" class="dimension-opt-btn save" ng-if="saveAuth" value="保&nbsp;&nbsp;存">
+            </div>
+            <div class="dimension-zdy-item-detail">
+                <div class="dimension-zdy-item">
+                    <label class="item-label-list" title="维度名称">
+                        维度名称：
+                    </label>
+                    <input type="text" class="dimension-item-name" ng-model="chooseItem.dimensionName">
+                </div>
+                <custom-select item="chooseItem"></custom-select>
+                <custom-item item="chooseItem" ng-if="chooseItem.dimensionType==='mulSel'"></custom-item>
+            </div>
+        </div>
+    </div>
+</div>

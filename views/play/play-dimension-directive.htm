@@ -1,0 +1,13 @@
+﻿<div class="play-dimension-wrap">
+    <div class="play-dimension-header jianbian_se">
+        标注
+        <!-- <i class="picture picture-set" ng-click="setZdyDim()"></i>
+        <i class="picture picture-select-down newtab" ng-class="{'active':showAll}" ng-click="showAllOpen()"></i> -->
+        <play-dimension-libs ng-show="isShow"></play-dimension-libs>
+    </div>
+    <div class="play-dimension-content">
+        <ul>
+            <label-value ng-repeat="item in showDim" item="item" call-id="callId"></label-value>
+        </ul>
+    </div>
+</div>

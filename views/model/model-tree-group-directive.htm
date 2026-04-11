@@ -1,0 +1,9 @@
+﻿<li class="ell model-group" title="{{item.text}}">
+    <i class="picture picture-addGroup-model" ng-if="item.children.length" ng-class="{'multi': isShow}" ng-click="showOpen()"></i>
+    <div class="model-group-name">
+        <a id="model-group_{{item.id}}" ng-click="selectName()" class="font14" ng-class="{'group-selected':groupId === item.id}"> {{item.text}} </a>
+    </div>
+    <ul ng-if="isShow" class="children-group">
+        <new-group ng-repeat="item in item.children" item="item" model="model"></new-group>
+    </ul>
+</li>

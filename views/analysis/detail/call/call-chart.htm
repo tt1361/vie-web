@@ -1,0 +1,49 @@
+﻿<div class="chart-wrap">
+    <div class="dis-inline-bl chart-wrap-header">
+        <i class="picture picture-zhuzhuangtu" ng-class="{'active':chartType === 'column'}" ng-click="changeChartType('column')" style="position: absolute;right: 375px;top: 8px;"></i>
+        <i class="picture picture-zhexiantu" ng-class="{'active':chartType === 'line'}" ng-click="changeChartType('line')" style="position: absolute;right: 345px;top: 8px;"></i>
+        <!-- <p class="dis-inline-bl">通话量</p> -->
+        <!-- 坐标轴选择 -->
+        <div class="dis-inline-bl set-axis axis-x topic">
+            <span class="dis-inline-bl">X轴：</span>
+            <!-- 下拉列表 -->
+            <div class="dis-inline-bl pos-rel">
+                <input type="text" class="ell vocabulary-type topic-detail" readonly value="{{xSelected}}" title="{{xSelected}}" ng-click="toggle('x')">
+                <i class="hot-vocabulary-select select-x picture picture-axis-select-down newtab" ng-class="{'active':axisShow}" ng-click="toggle('x')"></i>
+                <ul class="select vocabulary-options hidden" ng-class="{'show': axisShow}">
+                    <li class="ell sys-vocabulary vocabulary-opt" title="{{item.name}}" ng-repeat="item in xSelect" ng-class="{'vocabulary-choosed':item.key === xSelectKey}" ng-click="dropClick('x',item,$index)">
+                        {{item.name}}
+                    </li>
+                    <li class="ell sys-vocabulary vocabulary-opt" title="{{item.name}}" ng-repeat="item in xSelectList track by $index" ng-class="{'vocabulary-choosed':item.key === xSelectKey}" ng-click="dropClick('x', item, ($index+3))">
+                        {{item.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 针对X轴设置维度 -->
+        <p class="dis-inline-bl set-demission-icon" ng-click="setDimension(1);" ng-if="assignAuth"></p>
+        <div class="dis-inline-bl set-axis axis-y topic">
+            <span class="dis-inline-bl">Y轴：</span>
+            <div class="dis-inline-bl pos-rel">
+                <input type="text" class="ell vocabulary-type" readonly name="" value="{{ySelected}}" title="{{ySelected}}" ng-click="toggle('y')">
+                <i class="hot-vocabulary-select  select-y picture picture-axis-select-down newtab" ng-class="{'active':yOptionShow}" ng-click="toggle('y')"></i>
+                <ul class="select vocabulary-options hidden topic-detail" ng-class="{'show': yOptionShow}">
+                    <li class="ell sys-vocabulary vocabulary-opt" title="{{item.measureName}}" ng-repeat="item in ySelectList" ng-class="{'vocabulary-choosed':item.measure===ySelectKey}" ng-click="dropClick('y',item,$index)">
+                        {{item.measureName}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <!-- <div id="callChart" class="call-chart" ng-if="allShow" ng-mouseleave="mouseLeaveChart(1000)"></div> -->
+    <!--  <div class="call-chart-wrap">
+        <div id="callChart" class="call-chart" ng-if="allShow" ng-mouseleave="mouseLeaveChart(1000)"></div>
+    </div>
+    <div class="call-chart-wrap">
+        <canvas id="callCanvasChart" class="call-chart" ng-hide="true"></canvas>
+    </div> -->
+    <div id="callChart" class="call-chart" ng-if="allShow" ng-mouseleave="mouseLeaveChart(300)"></div>
+    <!-- <canvas id="callCanvasChart" class="call-chart" ng-hide="true"></canvas> -->
+    <div class="empty-data topic-call-list" ng-if="!allShow"></div>
+</div>

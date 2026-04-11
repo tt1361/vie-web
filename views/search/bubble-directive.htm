@@ -1,0 +1,17 @@
+﻿<span uid="{{uid}}"> <span class="bubblue-warp" ng-click="getContent()" ng-if="point === 'JD'"> <span class="key-bubblue" title="{{item.word}}">{{item.word}}</span> <div class="bubblue-warp-bubblue" ng-class="{'first-list': trIndex == 0}">
+            <i class="arrow-bubblue up" ng-class="{'first-list': trIndex == 0}"></i>
+            <div class="bubblue-content-wrap">
+                <p ng-bind-html="text|bluelight:item.word" class="bubble-text" id="p_{{uid}}">
+                </p>
+                <i class="picture picture-bubblue-play" ng-class="{'play':autoPlay}" ng-click="playbubbleRange()"></i>
+            </div>
+            <input type="hidden" value="">
+        </div> </span> <span class="bubblue-warp" ng-if="point != 'JD'"> <span class="key-bubblue" title="{{item.word}}">{{item.word}}</span> <div class="bubblue-warp-bubblue" ng-class="{'first-list ': trIndex == 0}">
+            <i class="arrow-bubblue up" ng-class="{'first-list': trIndex == 0}"></i>
+            <div class="bubblue-content-wrap">
+                <p ng-bind-html="text|bluelight:item.word" class="bubble-text">
+                </p>
+                <i class="picture picture-bubblue-play" ng-class="{'play':autoPlay}" ng-click="playbubbleRange()"></i>
+            </div>
+            <input type="hidden" value="">
+        </div> </span> </span>

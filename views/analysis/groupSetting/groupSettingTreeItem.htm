@@ -1,0 +1,10 @@
+﻿<div class="group-level-{{item.level}}" ng-click="itemClick(item)">
+    <span class="display" ng-if="!item.isEdit && !item.isAdd"> <i ng-click="toggle(item);$event.stopPropagation();" class="fa group-item-ico" ng-if="(!item.actived || item.subItems.length>0) && item.level<3" ng-class="{true:'fa-caret-down',false:'fa-caret-right'}[item.expended]"></i> <label title="{{item.modelName}}">
+            {{item.modelName}}
+        </label> </span>
+    <span class="edit" ng-if="item.isEdit || item.isAdd"> <input type="text" ng-click="$event.stopPropagation();" ng-init="showEdit()" placeholder="输入分组名" value="{{item.modelName}}" autofocus> <a href="javascript:void(0)" ng-click="confirmEdit(item);$event.stopPropagation();"> <i class="picture picture-submit-add"></i> </a> <a href="javascript:void(0)" ng-click="cancelEdit(item);$event.stopPropagation();"> <i class="picture picture-submit-cancel"></i> </a> </span>
+    <span class="op hidden" ng-if="item.modelOrGroup != 0 && !item.isEdit && !item.isAdd" id="group-tree_{{item.modelId}}"> <a href="javascript:void(0)" ng-click="addItem(item);$event.stopPropagation();" ng-if="item.level<maxLevel-1" title="新增"> <!-- <i class="fa fa-lg fa-plus-square"></i> --> <i class="picture picture-group-xinzeng"></i> </a> <a href="javascript:void(0)" ng-if="item.level>0" ng-click="editItem(item);$event.stopPropagation();" title="编辑"> <!-- <i class="fa fa-lg fa-pencil-square"></i> --> <i class="picture picture-group-bianji"></i> </a> <a href="javascript:void(0)" ng-click="deleteGroup(item);$event.stopPropagation();" ng-if="item.level>0" title="删除"> <!-- <i class="fa fa-lg fa-minus-square"></i> --> <i class="picture picture-group-del"></i> </a> </span>
+</div>
+<ul ng-if="item.subItems && item.subItems.length > 0">
+    <li ng-repeat="item in item.subItems" ng-if="isDisplay(item)" ng-include="'analysis/groupSetting/groupSettingTreeItem.htm'"></li>
+</ul>

@@ -1,0 +1,36 @@
+﻿<div class="search-result-wrapper">
+    <div class="result-search-header">
+        <div class="search-logo">
+            <img src="images/voice-discovery-small.png" ng-click="showViewResult(0)">
+        </div>
+        <div class="search-result-wrap">
+            <input class="search-input-content-wrapper" type="text" ng-model="searchKeyword" ng-keydown="enterResultKey($event)" ng-show="searchAuth" placeholder="请输入搜索内容">
+            <input class="search-input-content-wrapper" type="text" ng-model="searchKeyword" ng-show="!searchAuth" placeholder="请输入搜索内容">
+        </div>
+        <div class="search-btn">
+            <button ng-click="showViewResult(1)" ng-if="searchAuth">
+                搜索
+            </button>
+            <a ng-click="showViewResult(2,1)" ng-if="advanceSearchAuth">高级搜索</a>
+        </div>
+    </div>
+    <div class="result-dimension">
+        <time-range item="time" type="1"></time-range>
+        <chanel-select item="chanelItem" type="1"></chanel-select>
+    </div>
+    <div class="result-search-content">
+        <div class="search-tab-header">
+            <div class="search-tab">
+                <a ng-class="{'active':showTab===0}" ng-click="changeTab(0)"> 文本 <i ng-if="showTab===0" class="picture picture-active"></i> </a>
+                |
+                <a ng-class="{'active':showTab===1}" ng-click="changeTab(1)"> 列表 <i ng-if="showTab===1" class="picture picture-active"></i> </a>
+            </div>
+            <export-search-result show-tab="showTab" time="time"></export-search-result>
+        </div>
+        <div class="tab-result">
+            <span>检索到{{total}}条录音，总录音：{{allRec}}条，占比：{{total | percentage:allRec}}</span>
+        </div>
+        <view-detail-search chanel-item="chanelItem" search-keyword="searchKeyword" ng-if="showTab===0"></view-detail-search>
+        <view-list-search columns="columns" ng-if="showTab===1"></view-list-search>
+    </div>
+</div>

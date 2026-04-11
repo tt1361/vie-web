@@ -1,0 +1,8 @@
+﻿<div>
+    <div class="result-content" on-finish-render="" broadcasteventname="colResizable">
+        <ul>
+            <search-result ng-repeat="item in searchResult" item="item" keyword="searchKeyword" chanel="chanelItem"></search-result>
+        </ul>
+    </div>
+    <newpaging class="list-pager" ng-if="counts" page-options="pageOptions" total-counts="counts" update="getSearchResult(pageOptions)"></newpaging>
+</div>

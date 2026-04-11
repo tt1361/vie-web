@@ -1,0 +1,7 @@
+﻿<li class="level-{{node.hierarchy}}" ng-class="{'active':isActive}">
+    <a class="name" ng-href="{{view}}" ng-click="toggle($event)"> <i class="icon {{node.icon}}"></i> <i class="icon icon-arrow" ng-if="node.hierarchy !== 1 || node.childRes"></i> <span class="dot" ng-if="node.hierarchy !== 1">●</span> <span class="title" title="{{node.resourceName}}">{{node.resourceName|subData:6}}</span> </a>
+    <menu-add node="node"></menu-add>
+    <ul ng-if="node.childRes" ng-class="{'active':node.isChildOpen}" class="level-l-children">
+        <menu ng-repeat="resource in node.childRes" node="resource"></menu>
+    </ul>
+</li>

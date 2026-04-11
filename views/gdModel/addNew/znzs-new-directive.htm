@@ -1,0 +1,20 @@
+﻿<div class="znzs-new-wrap">
+    <div class="znzs-new-wrap-hrader">
+        智能助手
+    </div>
+    <div class="znzs-new-inner-wrap">
+        <div class="znzs-new-input-wrap">
+            <input type="text" placeholder="词组可用空格分割" ng-model="word" ng-keydown="enterKey($event)">
+            <button class="btn-blue model" ng-click="searchZnzs()">
+                查&nbsp;&nbsp;询
+            </button>
+        </div>
+        <div class="znzs-new-content-wrap">
+            <ul class="content-znzs-wrapper">
+                <li ng-repeat="item in associations">
+                    <a class="item-opt" ng-click="inputSearch(item.word)">{{item.word}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

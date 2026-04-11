@@ -1,0 +1,15 @@
+﻿<div class="more-keyword-wrapper" uid="{{uid}}">
+    <i class="picture picture-more-view" ng-click="showMoreKeyWord()"></i>
+    <div class="select-down-wrapper" ng-class="{'active':item.showMore}">
+        <i class="keyword-arrow-tip"></i>
+        <div class="keyword-more-wrapper">
+            <div class="keyword-more-inner">
+                <bubble ng-if="!showMoreByinfo" ng-repeat="keyword in item | subList:40" item="keyword" call-id="callId" voice-id="keyword.voiceId"></bubble>
+                <bubble ng-if="showMoreByinfo" ng-repeat="keyword in item | subList:40" item="keyword" call-id="taskId" voice-id="keyword.voiceId"></bubble>
+                <br>
+                <a ng-if="item | showKeyLength:40" class="more-key-bubble" ng-click="showMoreKey()">查看更多</a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>

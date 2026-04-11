@@ -1,0 +1,238 @@
+﻿<li class="value-list">
+    <label class="search-label" title="{{item.name}}">
+        {{item.name | subData:4}}:
+    </label>
+    <div class="dimension-culum-value" uid="{{uid}}">
+        <div class="advance-search-wrap">
+            <input type="text" class="input-wrap common-overflow" readonly placeholder="未选择" title="{{item.inputValue}}" ng-model="item.inputValue" ng-click="showValues()">
+            <i class="picture picture-select-down newtab" ng-click="showValues()"></i>
+        </div>
+        <div class="culum-value-wrap">
+            <div class="culum-inner-value-wrap" ng-if="item.type === 'offLineTagId'">
+                <div class="culum-wrap culum-value-wrap-header">
+                    <ul>
+                        <li>
+                            <label>
+                                <input type="checkbox" ng-checked="allcheckedModel" ng-click="toggleAllCheckedModel()">
+                                全选
+                            </label>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="culum-outer-value-content">
+                    <div class="culum-value-content">
+                        <div>
+                            <ul>
+                                <li ng-repeat="value in item.defaultValue">
+                                    <label title="{{value.data.modelGroup}}" ng-click="toggleOpened($index)" class="common-overflow">
+                                        <i class="normal" ng-show="!value.isOpen">+</i>
+                                        <i class="normal" ng-show="value.isOpen">-</i>
+                                        {{value.data.modelGroup}}
+                                    </label>
+                                    <label ng-show="value.isOpen" class="db" ng-repeat="item in value.data.value | filter:{value : content}" title="{{item.value}}">
+                                        <input type="checkbox" ng-model="item.isSelect" ng-checked="item.isSelect" ng-change="checkedThisModel(item)">
+                                        {{item.value}}
+                                    </label>
+                                </li>
+                            </ul>
+                            <!-- <ul>
+                                <li ng-repeat="value in item.value">
+                                    <label title="{{value.modelGroup}}" ng-click="toggleOpened($index)" class="common-overflow">
+                                        <i class="normal" ng-show="!value.isOpen">+</i>
+                                        <i class="normal" ng-show="value.isOpen">-</i>
+                                        {{value.modelGroup}}
+                                    </label>
+                                    <label ng-show="value.isOpen" class="db" ng-repeat="item in value.value | filter:{value : content}" title="{{item.value}}">
+                                        <input type="checkbox" ng-model="item.isSelect" ng-checked="item.isSelect" ng-change="checkedThisModel(item)"/>{{item.value}}
+                                    </label>
+                                </li>
+                            </ul> -->
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="culum-inner-value-wrap" ng-if="item.type==='mulSel' || item.type==='model'">
+                <div class="culum-wrap culum-value-wrap-header">
+                    <ul>
+                        <li>
+                            <label>
+                                <input type="checkbox" ng-checked="allchecked" ng-click="toggleAllChecked()">
+                                全选
+                            </label>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="culum-outer-value-content">
+                    <div class="culum-value-content">
+                        <div>
+                            <ul>
+                                <li ng-repeat="value in item.defaultValue">
+                                    <label class="common-overflow" title="{{value.data}}">
+                                        <input type="checkbox" ng-checked="value.checked" ng-model="value.checked" ng-change="checkedThis(value)">
+                                        {{value.data}}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="culum-inner-value-wrap" ng-if="item.type==='mulEqu'">
+                <div class="culum-wrap culum-value-wrap-header">
+                    <ul>
+                        <li class="text-left">
+                            <button ng-click="changeType()" ng-show="!item.exclude">
+                                包含
+                            </button>
+                            <button ng-click="changeType()" ng-show="item.exclude">
+                                排除
+                            </button>
+                        </li>
+                        <li class="text-right">
+                            <i class="picture picture-add-active" ng-click="addNew()"></i>
+                            <i class="picture picture-clean" ng-click="removeAll()"></i>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="culum-outer-value-content">
+                    <div class="culum-value-content">
+                        <div>
+                            <ul>
+                                <li ng-repeat="value in item.defaultValue">
+                                    <i class="icon icon-del-gray" ng-click="remove($index, $event)"></i>
+                                    <div class="text-outter-wrap item item-model">
+                                        <div class="text-inner-wrap">
+                                            <input type="text" ng-model="value.data" maxlength="50" class="mul-equ-input">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="culum-inner-value-wrap" ng-if="item.type==='range'">
+                <div class="culum-wrap culum-value-wrap-header">
+                    <ul>
+                        <li class="text-right">
+                            <i class="picture picture-add-active" ng-click="addNew()"></i>
+                            <i class="picture picture-clean" ng-click="removeAll()"></i>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="culum-outer-value-content">
+                    <div class="culum-value-content">
+                        <div>
+                            <ul>
+                                <li ng-repeat="value in item.defaultValue">
+                                    <i class="icon icon-del-gray" ng-click="remove($index, $event)"></i>
+                                    <div class="item item-x3 item-model">
+                                        <div class="text-outter-wrap small">
+                                            <div class="text-inner-wrap">
+                                                <input type="text" ng-model="value.data.low" maxlength="30">
+                                            </div>
+                                        </div>
+                                        <div class="join small">
+                                            ~
+                                        </div>
+                                        <div class="text-outter-wrap small">
+                                            <div class="text-inner-wrap">
+                                                <input type="text" ng-model="value.data.up" maxlength="30">
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="culum-inner-value-wrap" ng-if="item.type==='radio'">
+                <div class="culum-other-value-content">
+                    <div class="culum-value-content">
+                        <div>
+                            <ul>
+                                <li ng-repeat="value in item.defaultValue">
+                                    <label ng-click="checkedRadio(value)" class="common-overflow" title="{{value.data}}">
+                                        <input type="radio" name="{{timeRadio}}" value="{{value.data}}" ng-checked="value.isSelect">
+                                        {{value.data}}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="culum-inner-value-wrap" ng-if="item.type==='timeRadio'">
+                <div class="culum-other-value-content">
+                    <div class="culum-value-content">
+                        <div>
+                            <ul>
+                                <li ng-repeat="value in item.defaultValue">
+                                    <label ng-click="checkedRadio(value)" class="common-overflow" title="{{value.data.value}}">
+                                        <input type="radio" name="{{timeRadio}}" value="{{value.name}}" ng-checked="value.isSelect">
+                                        {{value.data.value}}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="culum-inner-value-wrap" ng-if="item.type==='timeRange'">
+                <div class="culum-wrap culum-value-wrap-header">
+                    <ul>
+                        <li class="text-right">
+                            <i class="picture picture-add-active" ng-click="addNew()"></i>
+                            <i class="picture picture-clean" ng-click="removeAll()"></i>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="culum-outer-value-content">
+                    <div class="culum-value-content">
+                        <div>
+                            <ul>
+                                <li class="clear" ng-repeat="value in item.defaultValue">
+                                    <i class="icon icon-del-gray" ng-click="remove($index, $event)"></i>
+                                    <div class="item item-x3 item-model">
+                                        <div class="text-outter-wrap small">
+                                            <div class="text-inner-wrap">
+                                                <input type="text" ng-model="value.data.low" maxlength="30">
+                                            </div>
+                                        </div>
+                                        <div class="join small">
+                                            ~
+                                        </div>
+                                        <div class="text-outter-wrap small">
+                                            <div class="text-inner-wrap">
+                                                <input type="text" ng-model="value.data.up" maxlength="30">
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dialog-footer dialog-value-footer">
+                <ul class="culum-wrap">
+                    <li>
+                        <button class="primary" ng-click="chooseDimension()">
+                            确定
+                        </button>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</li>

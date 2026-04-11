@@ -1,0 +1,8 @@
+﻿<li>
+    <label class="dim-label">
+        {{item.dimensionName}}：
+    </label>
+    <button ng-repeat="value in item.dimensionValue" class="dim-label-value" ng-style="{'color':value.valueColor,'border-color':value.valueColor}" title="{{value.valueName}}" id="label-btn_{{value.valueId}}" ng-click="chooseLabel(value)" ng-class="{'active': value.selected ===1}">
+        {{value.valueName}}
+    </button>
+</li>

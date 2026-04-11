@@ -1,0 +1,28 @@
+﻿<div class="clustering-hotspot">
+    <div class="section-header-index">
+        <p class="fl">
+            热点场景
+        </p>
+        <a href="javascript:;" class="fl btn-tip btn-tip-hot-point"> <span class="tip-arrow-index"></span> <div class="tip-wrapper-index">
+                <span class="tip-title-index">热点场景：</span>
+                <span class="tip-content-index">对昨日热点事件进行自动归类，每一类别通过热点关系图的方式展示关键词及关系信息</span>
+            </div> </a>
+    </div>
+    <div class="section-content-index" ng-show="hotPointData.length">
+        <div class="hot-point">
+            <div class="hot-point-wrapper">
+                <div ng-repeat="item in hotPointData" id="hotPointChart{{$index}}" class="fl hot-point-chart">
+                </div>
+            </div>
+            <div class="hot-point-percent">
+                <span>通话数量:<a ng-href="#/model/{{clusterId}}/{{selectTimePoint}}/hotword/{{selectCenter}}/{{centerFlag}}/voice">{{count}}</a></span>
+                &nbsp;
+                <span>占比:{{percent}}%</span>
+            </div>
+            <div class="hot-point-dot-wrapper">
+                <a href="javascript:;" ng-repeat="item in hotPointData" ng-class="{'hot-point-dot':true,'hot-point-dot-active':dotSelected=={{$index}}}" ng-click="clickDot($index)"></a>
+            </div>
+        </div>
+    </div>
+    <div class="empty-data hotpoint" ng-show="!hotPointData.length"></div>
+</div>

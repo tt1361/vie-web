@@ -1,0 +1,20 @@
+﻿<div class="result-show-area">
+    <div class="opt-choose-list">
+        <div class="voice-list" ng-class="{'active':resultType==1}" ng-click="showPathResultType(1)">
+            <span>基础分析</span>
+        </div>
+        <div class="cluster-tool" ng-class="{'active':resultType==2}" ng-click="showPathResultType(2)">
+            <span>聚类工具</span>
+        </div>
+        <div class="hot-word-list" ng-class="{'active':resultType==3}" ng-click="showPathResultType(3)">
+            <span>热词分析</span>
+        </div>
+        <div class="funnel-tool" ng-class="{'active':resultType==4}" ng-click="showPathResultType(4)">
+            <span>漏斗工具</span>
+        </div>
+    </div>
+    <call-result ng-show="resultType==1" path-id="pathId" topic-id="topicId" assign-auth="{{assignAuth}}" mark-auth="{{markAuth}}" class="topic-result-content-mapper" can-view="{{canView}}"></call-result>
+    <clustering-result ng-show="resultType==2" path-id="pathId" topic-id="topicId" assign-auth="{{assignAuth}}" class="topic-result-content-mapper"></clustering-result>
+    <hotview-result ng-show="resultType==3" path-id="pathId" topic-id="topicId" class="topic-result-content-mapper"></hotview-result>
+    <funnel-tool ng-show="resultType==4" path-id="pathId" topic-id="topicId" class="topic-result-content-mapper"></funnel-tool>
+</div>

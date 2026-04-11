@@ -1,0 +1,33 @@
+﻿<div class="push-model-dialog">
+    <div class="push-model-header">
+        <span ng-if="!from">维度项选择</span>
+        <span ng-if="from">列表字段添加</span>
+        <i class="picture picture-close" ng-click="closeThisDialog()"></i>
+    </div>
+    <div class="push-model-search-wrap">
+        <div class="all-choose-btn">
+            <button ng-click="toggleAllChecked()">
+                全&nbsp;选
+            </button>
+        </div>
+        <div class="push-model-search">
+            <input type="text" placeholder="请输入搜索内容" maxlength="20" ng-model="keyword" ng-keydown="enterKey($event)">
+            <input type="button" class="icon icon-search" ng-click="searchDimFont()">
+        </div>
+    </div>
+    <div class="push-model-content">
+        <div class="content-wrap">
+            <dl>
+                <dd class="common-overflow" ng-repeat="dimension in dimensions" on-finish-render="" broadcasteventname="colResizable">
+                    <input type="checkbox" title="{{dimension.name}}" ng-checked="dimension.checked" ng-model="dimension.checked" ng-disabled="{{dimension.isSelect}}">
+                    <span title="{{dimension.name}}" id="{{dimension.key}}" ng-class="{'redFont': dimension.search}">{{dimension.name | subData: 6}}</span>
+                </dd>
+            </dl>
+        </div>
+        <div class="push-model-btn">
+            <button ng-click="pushedDimension()">
+                保&nbsp;存
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿<div class="data-panel-content">
+    <div class="data-table-list">
+        <div class="dimColumn-list">
+            <table>
+                <thead style="background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#fefefe), to(#f6f6f6));filter:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#fefefe,endColorStr=#f6f6f6);">
+                    <tr>
+                        <td class="condition-set" style="width: 40px;text-align: left">
+                            <i class="picture picture-set" title="纬度选择" ng-click="setDimension()"></i>
+                        </td>
+                        <td ng-repeat="dimItem in dimCulumns" ng-if="dimItem.column !== 'mark'">
+                            <div>
+                                {{dimItem.columnName | subData: 8}}
+                                <div ng-if="groupType == 0" class="sort-btn">
+                                    <span class="btn-up" ng-class="{'btn-up-selected':btnUp==='{{dimItem.column}}'}" ng-click="remarkSort(dimItem.column,'asc')"></span>
+                                    <span class="btn-down" ng-class="{'btn-down-selected':btnDown==='{{dimItem.column}}'}" ng-click="remarkSort(dimItem.column,'desc')"></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="height:33px" ng-class="{'unRead':!item.dataMaps.isRead}" ng-repeat="item in callLists" on-finish-render="" broadcasteventname="colResizable" ng-class-even="'color-even'">
+                        <td ng-if="item.dataMaps.isRead == false" style="color: #00bebd;font-weight: bold;">
+                            ●
+                        </td>
+                        <td ng-if="item.dataMaps.isRead == true"></td>
+                        <td ng-repeat="column in dimCulumns">
+                            <div ng-if="column.column === 'keyword'" class="{{item.keywordInfos | getLength :8}}" title="{{item.keywordInfos | showKey}}" style="cursor: pointer;text-align: center;">
+                                <span ng-repeat="keyword in item.keywordInfos"> {{keyword.word}} </span>
+                            </div>
+                            <div ng-if="column.column == 'modelName'" title="{{column.column | celData : item.dataMaps}}" style="cursor: pointer;text-align: center;">
+                                {{item | getModels:2}}
+                            </div>
+                            <span ng-if="column.column == 'id'"> <a style="color:#3bb6b5;" ng-if="browser === 'msie'" ng-href="play.html#?callID={{item.id}}" ng-click="readCall(item)" target="_blank"> <span title="{{column.column | celData : item.dataMaps}}">{{column.column | celData : item.dataMaps}}</span> </a> <a style="color:#3bb6b5;" ng-if="browser === 'chrome'" ng-href="playH5.html#?callID={{item.id}}" ng-click="readCall(item)" target="_blank"> <span title="{{column.column | celData : item.dataMaps}}">{{column.column | celData : item.dataMaps}}</span> </a> </span>
+                            <span ng-if="column.column !== 'keyword' &&  column.column != 'modelName' && column.column != 'id'"> <p class="special-name" title="{{column.column | celData : item.dataMaps}}">
+                                    {{column.column | celData : item.dataMaps}}
+                                </p> </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <newpaging ng-if="counts>0" page-options="pageOptions" total-counts="counts" update="paging(pageOptions)"></newpaging>
+    </div>
+</div>

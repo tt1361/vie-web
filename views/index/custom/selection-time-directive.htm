@@ -1,0 +1,22 @@
+﻿<div class="time-select-wrapper" uid="{{uid}}">
+    <span class="order-type" ng-click="showTimeOpen()">{{timeDimText}}</span>
+    <i class="picture picture-time-select-down" ng-class="{'active':timeOpen}" ng-click="showTimeOpen()"></i>
+    <div class="order-type-select" ng-show="timeOpen">
+        <i class="triangle-up-select"></i>
+        <ul class="order-type-value">
+            <li ng-click="selectType('dimHour')" ng-class="{'active':timeDimKey === 'dimHour'}">
+                按小时
+            </li>
+            <li ng-click="selectType('dimDay')" ng-class="{'active':timeDimKey === 'dimDay'}">
+                按天
+            </li>
+            <li ng-click="selectType('dimMonth')" ng-class="{'active':timeDimKey === 'dimMonth'}">
+                按月
+            </li>
+            <li class="no-bottom" ng-click="selectType('dimYear')" ng-class="{'active':timeDimKey === 'dimYear'}">
+                按年
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>

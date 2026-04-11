@@ -1,0 +1,103 @@
+﻿<div class="article-header">
+    <div class="article-header-top">
+        <div class="report-manage">
+            <span> 报表管理：</span>
+            <div class="report-group-select-edit" ng-click="showGroups()">
+                <input type="text" class="first-input-manage" readonly ng-model="groupListName">
+                <i class="picture picture-select-down newtab" ng-class="{'active': isOpen}"></i>
+            </div>
+        </div>
+        <div class="report-group-wrap" ng-class="{'active':isOpen}">
+            <input type="text" class="search-group-input-manage" placeholder="请输入搜索内容" ng-model="searchword" ng-keydown="enterKeyGroup($event)" maxlength="20">
+            <i class="picture search-group-btn" ng-click="findKeyGroups()"></i>
+            <div class="popup-all" ng-class="{'active':reportGroupId===-1}">
+                <i class="picture picture-hide" ng-class="{'active':isShow}" ng-click="showBox()"></i>
+                <a ng-click="getAllReportList()" href="#/report/manage/-1/0/list" ng-class="{'active':reportGroupId===-1}">全部</a>
+                <i class="picture picture-group-xinzeng hidden" id="report-opt-all" ng-click="newReportGroup()"></i>
+            </div>
+            <div class="group-wrap" ng-class="{'active':isShow}">
+                <group ng-repeat="group in groups" item="group" status="status" edit-auth="{{groupEditAuth}}" del-auth="{{groupDelAuth}}" mgroup="reportGroupId"></group>
+            </div>
+        </div>
+    </div>
+    <div class="crud">
+        <a class="picture picture-create" ng-click="addReport()" title="新建" ng-if="addAuth"></a>
+        <span class="picture picture-share" ng-if="commonAuth" ng-click="batchFavorite(1)" title="取消常用"></span>
+        <span class="picture picture-unshare" ng-if="commonAuth" ng-click="batchFavorite(0)" title="常用"></span>
+        <span class="picture picture-delete" ng-click="batchRemove()" title="删除" ng-if="delAuth"></span>
+    </div>
+    <div class="manage-right">
+        <input type="text" class="search-input-manage" placeholder="请输入搜索内容" ng-model="keyword" ng-keydown="enterKey($event)" maxlength="20">
+        <input type="button" class="icon icon-search" ng-click="search()">
+    </div>
+</div>
+<div class="list-outer-wrap">
+    <div class="list-inner-wrap">
+        <div>
+            <div class="list-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <td id="manage-td-name-1">
+                                <input type="checkbox" ng-click="checkAll()" ng-checked="allchecked">
+                            </td>
+                            <td id="manage-td-name-2"></td>
+                            <td id="manage-td-name-3">
+                                报表名称
+                            </td>
+                            <td></td>
+                            <td>
+                                创建人
+                            </td>
+                            <td>
+                                创建时间
+                            </td>
+                            <td>
+                                最后修改人
+                            </td>
+                            <td id="manage-td-name-4">
+                                修改时间
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="tr report-opt-wrapper" ng-repeat="item in reports" on-finish-render="" broadcasteventname="colResizable" ng-class-even="'color-even'">
+                            <td>
+                                <input id="check_download" type="checkbox" ng-checked="item.checked" ng-model="item.checked" ng-change="checkedThis(item)">
+                            </td>
+                            <td>
+                                <a class="picture top-manage-status" title="已置顶" ng-if="item.isUp === 1"></a>
+                                <a ng-if="item.isStick" ng-click="updateSticke (item)"></a>
+                            </td>
+                            <td class="name-wrap" id="manage-td-name-3">
+                                <a title="{{item.name}}" id="manage-td-a" class="name-flow" ng-href="#/report/detail/{{reportGroupId}}/{{item.id}}//0">{{item.name}}</a>
+                            </td>
+                            <td id="manage-td-name-5">
+                                <div class="opo-wrap hidden" id="opo-wrap_{{item.id}}">
+                                    <a class="picture picture-common" ng-if="item.isGeneral && commonAuth" ng-click="updateFavorite(item)" title="取消常用"></a>
+                                    <a class="picture picture-uncommon" ng-if="!item.isGeneral && commonAuth" ng-click="updateFavorite(item)" title="常用"></a>
+                                    <a class="picture picture-single-delete" ng-click="oneRemove(item.id,item.name)" title="删除" ng-if="delAuth"></a>
+                                    <a class="picture picture-stick" ng-if="item.isUp === 1 && setTopAuth" title="取消置顶" ng-click="setReportUp(item.id,item.name,0)"></a>
+                                    <a class="picture picture-unstick" ng-if="item.isUp === 0 && setTopAuth" ng-click="setReportUp(item.id,item.name,1) " title="置顶"></a>
+                                </div>
+                            </td>
+                            <td>
+                                {{item.createUser}}
+                            </td>
+                            <td>
+                                {{item.createTime}}
+                            </td>
+                            <td class="manage-td-120">
+                                {{item.updateUser}}
+                            </td>
+                            <td class="manage-td-200">
+                                {{item.updateTime}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <newpaging class="list-pager" page-options="pageOptions" total-counts="counts" ng-if="counts>0" update="getReportList(pageOptions)"></newpaging>
+        </div>
+    </div>
+</div>

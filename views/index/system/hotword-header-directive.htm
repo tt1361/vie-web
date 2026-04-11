@@ -1,0 +1,15 @@
+﻿<ul class="fl vocabulary-title">
+    <li class="{{!isSametime?'ell top-num-differ':'ell top-num'}}">
+        排名
+    </li>
+    <li class="{{!isSametime?'change-top-word':'top-word'}}" style="cursor:default;">
+        关键词
+    </li>
+    <li class="ell top-increment" ng-if="isSametime">
+        名次变化
+    </li>
+    <li class="{{!isSametime?'change-top-date':'top-date'}}">
+        <span ng-if="kwType === 'kwd'">词频占比</span>
+        <span ng-if="kwType === 'voice'">音频占比</span>
+    </li>
+</ul>

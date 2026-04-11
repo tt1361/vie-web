@@ -1,0 +1,26 @@
+﻿<div class="report-detail">
+    <div class="dimension-button" ng-click="showSelectDimension()" title="{{name}}">
+        <span ng-bind="name | subData: 12"></span>
+        <i class="picture picture-select-down newtab" ng-class="{true: 'active'}[dialogShow]"></i>
+    </div>
+    <div class="showOrHide" ng-class="{true: 'active'}[dialogShow]">
+        <div class="dialog-wrap">
+            <div class="dialog-content single" id="radio-style">
+                <ul class="culum-wrap culum-wrap-x2">
+                    <li ng-repeat="dimension in dimensions">
+                        <label ng-click="checkedThis(dimension.key)">
+                            <input type="radio" name="timeRadio" value="{{dimension.name}}" ng-checked="dimension.isSelect">
+                            {{dimension.value}}
+                        </label>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="dialog-footer">
+                <button class="primary" ng-click="changeDimension()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

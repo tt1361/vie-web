@@ -1,0 +1,221 @@
+﻿<div class="analyse-detail-wrap">
+    <div class="model-view-header">
+        <p>
+            <span>当前位置： <a class="location-group" href="#/analysis/manage" ng-if="!moduleId">自定义专题</a> <a class="location-group" href="#/index/custom/{{pageId}}" ng-if="moduleId">{{pageName}}</a> <span class="location-group">&gt; {{name}}</span> </span>
+        </p>
+        <p>
+            <div class="model-search-wrap">
+                <!--<i class="picture picture-detail" title="专题信息" ng-click="topicDetail()"></i>-->
+                <!--<i class="picture picture-save" title="保存" ng-click="saveTopic()" ng-if="saveAuth"></i>-->
+                <!--<a href="#/index/custom/{{pageId}}" class="picture picture-return" title="返回" ng-if="moduleId"></a>-->
+                <!--<a href="#/analysis/manage" class="picture picture-return" title="返回" ng-if="!moduleId"></a>-->
+                <span class="topic-related" ng-click="topicDetail()"><i class="topic-message"></i>专题信息</span>
+                <span class="topic-related" ng-click="saveTopic()" ng-if="saveAuth"><i class="topic-save"></i>保存</span>
+                <a href="#/index/custom/{{pageId}}" class="topic-related" ng-if="moduleId"><i class="topic-back"></i>返回</a>
+                <a href="#/analysis/manage" class="topic-related" ng-if="!moduleId"><i class="topic-back"></i>返回</a>
+            </div>
+        </p>
+    </div>
+    <div class="analyse-detail-content">
+        <div class="analyse-left-content" ng-class="{'hide-left':hideOpen}">
+            <div class="analyse-route-edit">
+                <div class="analyse-condition-add-header">
+                    <span class="bq-manage">专题路径编辑</span>
+                    <calendar class="calendar-topic" item="timesRange" status="-2" type="topic" ng-if="!hideOpen && showTime"></calendar>
+                </div>
+                <div class="global-path">
+                    <div class="route-input-show-left">
+                        <input type="text" readonly ng-model="selectName" ng-click="selectShow()">
+                        <i class="picture picture-select-down newtab" ng-click="selectShow()" ng-class="{'active':routeShow}"></i>
+                        <ul ng-class="{'active':routeShow}">
+                            <li ng-click="showPathResult(0)" ng-class="{'active':showTab === 0}" ng-if="showGlobalPath">
+                                全局
+                            </li>
+                            <li ng-repeat="path in showPaths track by $index" ng-click="showPathResult(path)" ng-class="{'active':showTab === path.id}">
+                                {{path.name}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="analysis-edit-button">
+                        <i class="picture picture-add-new-path" title="新建路径" ng-if="addPathAuth && !moduleId" ng-click="addPath()"></i>
+                        <i class="picture picture-path-manage" title="路径管理" ng-click="managePath()"></i>
+                        <i class="picture picture-save-path" title="保存" ng-click="savePath()" ng-if="showTab"></i>
+                    </div>
+                </div>
+                <div class="path-content-wrap">
+                    <ul class="route-paths" ng-if="showTab">
+                        <path-edit item="path"></path-edit>
+                    </ul>
+                    <div class="empty-topic-tip path" ng-if="!showTab && !moduleId">
+                        <i class="picture-shape"></i>
+                        <div class="toop-tip-topic">
+                            请点击[新建分析路径]
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="analyse-condition-add">
+                <div class="analyse-condition-add-header">
+                    <span class="bq-manage">路径标签选择</span>
+                </div>
+                <div class="analyse-content-list-wrap">
+                    <div class="tags-push-content-header">
+                        <a class="tags-tab" ng-click="changeIconTab(0)"> 模型选择 <div class="check-tag" ng-show="iconTab === 0"></div> </a>
+                        <a class="tags-tab" ng-click="changeIconTab(1)"> 维度选择 <div class="check-tag" ng-show="iconTab === 1"></div> </a>
+                        <div class="push-tags-search">
+                            <input type="text" placeholder="请输入搜索内容" maxlength="100" ng-model="iconKeyword" ng-keyup="enterKey($event)">
+                            <input type="button" class="icon icon-search" ng-click="searchTags()">
+                        </div>
+                    </div>
+                    <div class="tags-content-list">
+                        <div class="tags-push-model" ng-show="iconTab === 0">
+                            <div class="tags-push-model-header">
+                                <span style="line-height:24px;">模型组:</span>
+                                <div class="model-group-select-edit" ng-click="showGroups()">
+                                    <input type="text" class="first-input-model" readonly ng-model="groupListName">
+                                    <i class="picture picture-select-down newtab" ng-class="{'active': modelOpen}"></i>
+                                </div>
+                                <ul class="model-group-wrap" ng-class="{'active':modelOpen}">
+                                    <new-group ng-repeat="item in modelGroups" on-finish-render="" item="item" model="modelGroupId"></new-group>
+                                </ul>
+                            </div>
+                            <ul class="all-push-model">
+                                <model-push ng-repeat="model in models" item="model" index="{{$index}}"></model-push>
+                            </ul>
+                        </div>
+                        <div class="tags-push-dimension" ng-show="iconTab === 1">
+                            <div class="tags-push-dimension-havevalue">
+                                <ul class="all-push-dimension" style="margin-bottom: 15px;">
+                                    <dimension-value path-id="defPathId" ng-repeat="item in newDimensions track by $index" item="item" index="{{$index}}"></dimension-value>
+                                    <div class="clear"></div>
+                                </ul>
+                            </div>
+                            <div class="tags-push-dimension-novalue">
+                                <ul class="all-push-dimension">
+                                    <dimension-item path-id="defPathId" ng-repeat="item in pathDims" item="item" index="{{$index}}"></dimension-item>
+                                    <div class="clear"></div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="icon-font" ng-click="hideLeft()" ng-class="{'active':hideOpen}"></div>
+        <div class="analyse-right-content" ng-class="{'hide-left':hideOpen}">
+            <!--路径匹配结果展示-->
+            <div path-name="pathName">
+                <div class="data-panel-analyse">
+                    <calendar class="calendar-right-topic" item="timesRange" status="-2" ng-if="hideOpen && showTime" type="topic-right"></calendar>
+                    <div class="route-select">
+                        <div ng-if="hideOpen && showTime">
+                            <label>
+                                选择路径:
+                            </label>
+                            <div class="route-input-show">
+                                <input type="text" readonly ng-click="selectShow()" ng-model="selectName">
+                                <i class="picture picture-select-down newtab" ng-click="selectShow()" ng-class="{'active':routeShow}"></i>
+                                <ul ng-class="{'active':routeShow}">
+                                    <li ng-click="showPathResult(0)" ng-class="{'active':showTab === 0}" ng-if="showGlobalPath">
+                                        全局
+                                    </li>
+                                    <li ng-repeat="path in showPaths track by $index" ng-click="showPathResult(path)" ng-class="{'active':showTab === path.id}">
+                                        {{path.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="detail-path-global" ng-show="canView">
+                            所选区间内共有通话
+                            <span class="detail-path-green">{{gloabl}}</span>
+                            条，匹配
+                            <span class="detail-path-green">{{pathCounts}}</span>
+                            条
+                            <!--基础分析导出-->
+                            <div ng-if="curPageType===1 && exportAuth" class="del-wrap topicExportWrap">
+                                <iframe class="display-iframe hidden" name="baseExport"></iframe>
+                                <form id="baseForm" name="baseForm" method="post" action="" enctype="" target="baseExport">
+                                    <input type="hidden" value="{{baseCallImportParams.topicId}}" name="topicId">
+                                    <input type="hidden" value="{{baseCallImportParams.pathId}}" name="pathId">
+                                    <input type="hidden" value="{{baseCallImportParams.pathDim}}" name="pathDim">
+                                    <input type="hidden" value="{{baseCallImportParams.inputTime}}" name="inputTime">
+                                    <input type="hidden" value="{{baseCallImportParams.searchDimension}}" name="searchDimension">
+                                    <input type="hidden" value="{{baseCallImportParams.sortColumn}}" name="sortColumn">
+                                    <input type="hidden" value="{{baseCallImportParams.sortType}}" name="sortType">
+                                    <input type="hidden" value="{{baseCallImportParams.svgCode}}" name="svgCode">
+                                    <input type="button" class="picture picture-single-export detail-import" ng-click="importCurPageData()" title="导出">
+                                </form>
+                            </div>
+                            <!-- 聚类工具导出 -->
+                            <div ng-if="curPageType===2&& exportAuth" class="del-wrap topicExportWrap">
+                                <iframe class="display-iframe hidden" name="clusterExport"></iframe>
+                                <form id="clusterForm" name="clusterForm" method="post" action="" enctype="" target="clusterExport">
+                                    <input type="hidden" value="{{clusterImportParams.topicId}}" name="topicId">
+                                    <input type="hidden" value="{{clusterImportParams.pathId}}" name="pathId">
+                                    <input type="hidden" value="{{clusterImportParams.pathDim}}" name="pathDim">
+                                    <input type="hidden" value="{{clusterImportParams.inputTime}}" name="inputTime">
+                                    <input type="hidden" value="{{clusterImportParams.searchDimension}}" name="searchDimension">
+                                    <input type="hidden" value="{{clusterImportParams.sortColumn}}" name="sortColumn">
+                                    <input type="hidden" value="{{clusterImportParams.sortType}}" name="sortType">
+                                    <input type="hidden" value="{{clusterImportParams.imgCode}}" name="imgCode">
+                                    <input type="hidden" value="{{clusterImportParams.togatherId}}" name="togatherId">
+                                    <input type="button" class="picture picture-single-export detail-import" ng-click="importCurPageData()" title="导出">
+                                </form>
+                            </div>
+                            <!--热词分析导出-->
+                            <div ng-if="curPageType===3&& exportAuth" class="del-wrap topicExportWrap">
+                                <iframe class="display-iframe hidden" name="hotExport"></iframe>
+                                <form id="hotWordForm" name="hotWordForm" method="post" action="" enctype="" target="hotExport">
+                                    <input type="hidden" value="{{hotWordImportParams.topicId}}" name="topicId" id="topicId_export">
+                                    <input type="hidden" value="{{hotWordImportParams.pathId}}" name="pathId">
+                                    <input type="hidden" value="{{hotWordImportParams.pathDim}}" name="pathDim">
+                                    <input type="hidden" value="{{hotWordImportParams.orderType}}" name="orderType" id="chanel_export">
+                                    <input type="hidden" value="{{hotWordImportParams.order}}" name="order" id="dimensionParams_export">
+                                    <input type="hidden" value="{{hotWordImportParams.keyword}}" name="keyword" id="keyword_export">
+                                    <input type="hidden" value="{{hotWordImportParams.inputTime}}" name="inputTime" id="inputTime_export">
+                                    <input type="button" class="picture picture-single-export detail-import" ng-click="importCurPageData()" title="导出">
+                                </form>
+                            </div>
+                            <!-- 漏斗工具首页导出 -->
+                            <div ng-if="(curPageType===4||curPageType===5) && exportAuth" class="del-wrap topicExportWrap">
+                                <iframe class="display-iframe hidden" name="funnelHomeExport"></iframe>
+                                <form id="funnelForm1" name="funnelForm1" method="post" action="" enctype="" target="funnelHomeExport">
+                                    <input type="hidden" value="{{funnelHomeImportParams.topicId}}" name="topicId">
+                                    <input type="hidden" value="{{funnelHomeImportParams.pathId}}" name="pathId">
+                                    <input type="hidden" value="{{funnelHomeImportParams.pathDim}}" name="pathDim">
+                                    <input type="hidden" value="{{funnelHomeImportParams.inputTime}}" name="inputTime">
+                                    <input type="hidden" value="{{funnelHomeImportParams.allPathFlag}}" name="allPathFlag">
+                                    <input type="hidden" value="{{funnelHomeImportParams.svgCode}}" name="svgCode">
+                                    <input type="hidden" value="{{funnelHomeImportParams.condition}}" name="condition">
+                                    <input type="button" class="picture picture-single-export detail-import" ng-click="importCurPageData()" title="导出">
+                                </form>
+                            </div>
+                            <!-- 漏斗工具详情导出 -->
+                            <div ng-if="curPageType===6 && exportAuth" class="del-wrap topicExportWrap">
+                                <iframe class="display-iframe hidden" name="funnelDetailExport"></iframe>
+                                <form id="funnelForm2" name="funnelForm2" method="post" action="" enctype="" target="funnelDetailExport">
+                                    <input type="hidden" value="{{funnelCallListParams.topicId}}" name="topicId">
+                                    <input type="hidden" value="{{funnelCallListParams.pathId}}" name="pathId">
+                                    <input type="hidden" value="{{funnelCallListParams.pathDim}}" name="pathDim">
+                                    <input type="hidden" value="{{funnelCallListParams.inputTime}}" name="inputTime">
+                                    <input type="hidden" value="{{funnelCallListParams.searchDimension}}" name="searchDimension">
+                                    <input type="hidden" value="{{funnelCallListParams.isNumData}}" name="isNumData">
+                                    <input type="hidden" value="{{funnelCallListParams.condition}}" name="condition">
+                                    <input type="hidden" value="{{funnelCallListParams.sortColumn}}" name="sortColumn">
+                                    <input type="hidden" value="{{funnelCallListParams.sortType}}" name="sortType">
+                                    <input type="button" class="picture picture-single-export detail-import" ng-click="importCurPageData()" title="导出">
+                                </form>
+                            </div>
+                        </div>
+                        <addtoindex type="analysisChart" config="viewConfig" topic-id="topicId" path-id="defPathId" op-type="opType" default-page="pageId" report-name="moduleName" record-id="moduleId" class="analyse-detail-style" content="{{contentType}}" ng-if="!contentPathId"></addtoindex>
+                        <addtoindex type="analysisChart" config="viewConfig" topic-id="topicId" path-id="defPathId" op-type="updateType" default-page="pageId" report-name="moduleName" record-id="moduleId" class="analyse-detail-style" content="{{contentType}}" ng-if="contentPathId"></addtoindex>
+                    </div>
+                    <view-result ng-if="initShow" path-id="defPathId" topic-id="topicId" assign-auth="{{assignDimensionAuth}}" mark-auth="{{markLibAuth}}" type="{{contentType}}" ng-show="canView"></view-result>
+                    <div class="path-offline-tip" ng-show="!canView">
+                        <span>{{pathMsg}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

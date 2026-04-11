@@ -1,0 +1,27 @@
+﻿<div class="detail_chart_condition">
+    <span ng-click="addToIndex()"> <i class="picture picture-add-toIndex"></i> <span ng-if="opType == 'add'" class="add-toIndex">添加到概览</span> <span ng-if="opType == 'update'" class="add-toIndex">更新到概览</span> </span>
+    <div class="add-toIndex-window" ng-show="showEdialog">
+        <i class="triangle-addtoindex"></i>
+        <p class="report-index-dialog">
+            展示名称
+        </p>
+        <input type="text" class="report-name-add" placeholder="请输入展示名称" ng-model="moduleName" maxlength="20">
+        <div uid="{{uid}}" style="position: relative">
+            <input type="text" class="report-name-add" ng-click="showGroups()" placeholder="请选择要发送到的页面" ng-model="indexName" readonly>
+            <i class="picture picture-select-down newtab toindex" ng-click="showGroups()" ng-class="{'active': isOpen}"></i>
+            <ul class="report-index-choose" ng-class="{'active':isOpen}">
+                <li ng-repeat="item in indexContent" ng-class="{'choose-index': item.id === pageId}" ng-click="chooseIndex(item, $index)">
+                    {{item.pageName}}
+                </li>
+            </ul>
+        </div>
+        <div class="push-div">
+            <button class="push-report-btn cancel-btn" ng-click="close()">
+                取&nbsp;消
+            </button>
+            <button class="push-report-btn" ng-click="save()">
+                保&nbsp;存
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd 
+					    http://www.springframework.org/schema/aop
+	                    http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd
+					    http://code.alibabatech.com/schema/dubbo
+					    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<bean
+		class="com.iflytek.vie.utils.PropertyPlaceholderConfigurerUtils">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="false" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+
+	<dubbo:application name="webserver-consumer" logger="slf4j" />
+
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" />
+
+	<!-- 自定义首页 -->
+	<dubbo:reference id="customHomePageService"
+		interface="com.iflytek.vie.app.api.custom.CustomHomePageService"
+		version="1.0" retries="0" timeout="60000"/>
+
+	<!-- 权限模块 -->
+	<dubbo:reference id="userService"
+		interface="com.iflytek.vie.app.api.permission.UserService" version="1.0"
+		retries="0" timeout="60000"/>
+
+	<dubbo:reference id="userCustomService"
+					 interface="com.iflytek.vie.custom.api.permission.UserCustomService" version="1.0"
+					 retries="0" timeout="60000"/>
+
+	<dubbo:reference id="logService"
+		interface="com.iflytek.vie.app.api.permission.LogService" version="1.0"
+		retries="0" timeout="60000"/>
+
+	<dubbo:reference id="functionAuthService"
+		interface="com.iflytek.vie.app.api.permission.FunctionAuthService"
+		version="1.0" retries="0" timeout="60000"/>
+
+	<dubbo:reference id="dataAuthService"
+		interface="com.iflytek.vie.app.api.permission.DataAuthService"
+		version="1.0" retries="0" timeout="60000"/>
+
+	<!-- 标准应用服务 -->
+	<dubbo:reference id="topicService"
+		interface="com.iflytek.vie.app.api.topic.TopicService" version="1.0"
+		retries="0" timeout="180000"/>
+
+	<dubbo:reference id="topicCustomService"
+		interface="com.iflytek.vie.custom.api.topic.TopicCustomService" version="1.0"
+		retries="0" timeout="180000"/>
+
+	<dubbo:reference id="funnelService"
+		interface="com.iflytek.vie.app.api.topic.FunnelService" version="1.0"
+		retries="0" timeout="180000"/>
+		
+	<dubbo:reference id="topicExportService" interface="com.iflytek.vie.app.api.topic.TopicExportService"
+		version="1.0" retries="0" timeout="180000" />
+		
+	<dubbo:reference id="topicHotWordTaskService"
+		interface="com.iflytek.vie.app.api.topic.TopicHotWordTaskService" version="1.0"
+		retries="0" timeout="60000"/>
+		
+	<dubbo:reference id="modelApplyService"
+		interface="com.iflytek.vie.app.api.model.ModelApplyService" version="1.0"
+		retries="0" timeout="60000"/>
+	
+	<dubbo:reference id="modelAccuracyService"
+		interface="com.iflytek.vie.app.api.model.ModelAccuracyService" version="1.0"
+		retries="0" timeout="1800000"/>
+			
+	<dubbo:reference id="topicGroupService"
+		interface="com.iflytek.vie.app.api.topicgroup.TopicGroupService" version="1.0"
+		retries="0" timeout="600000"/>	
+	
+	<dubbo:reference id="reportService"
+		interface="com.iflytek.vie.app.api.report.ReportService" version="1.0"
+		retries="0" timeout="60000"/>
+		
+	<dubbo:reference id="reportGroupService"
+		interface="com.iflytek.vie.app.api.report.ReportGroupService" version="1.0"
+		retries="0" timeout="60000"/>
+		
+	<dubbo:reference id="reportChartViewService"
+		interface="com.iflytek.vie.app.api.report.ReportChartViewService" version="1.0"
+		retries="0" timeout="90000"/>
+		
+	<dubbo:reference id="reportDownloadService"
+		interface="com.iflytek.vie.app.api.report.ReportDownloadService" version="1.0"
+		retries="0" timeout="60000"/>		
+			
+	<!-- 基础服务 -->	
+	<dubbo:reference id="modelService"
+		interface="com.iflytek.vie.app.api.model.ModelService"
+		version="1.0" retries="0" timeout="1800000" />
+		
+	<dubbo:reference id="modelGroupService"
+		interface="com.iflytek.vie.app.api.model.ModelGroupService"
+		version="1.0" retries="0" timeout="60000"/>
+	
+	<dubbo:reference id="modelFragmentService"
+		interface="com.iflytek.vie.app.api.model.ModelFragmentService"
+		version="1.0" retries="0" timeout="60000"/>
+	
+	<dubbo:reference id="hotWordService"
+		interface="com.iflytek.vie.app.api.dimension.HotWordService" version="1.0"
+		retries="0" timeout="60000"/>
+		
+	<dubbo:reference id="fetchHotWordService"
+		interface="com.iflytek.vie.app.api.dimension.FetchHotWordService" version="1.0"
+		retries="0" timeout="60000"/>
+	
+	<dubbo:reference id="wordAssociationService"
+		interface="com.iflytek.vie.app.api.tools.WordAssociationService" version="1.0"
+		retries="0" timeout="60000"/>	
+	
+	<dubbo:reference id="dimensionService"
+		interface="com.iflytek.vie.app.api.dimension.DimensionService" version="1.0"
+		retries="0" timeout="60000"/>	
+		
+	<dubbo:reference id="clusterService" interface="com.iflytek.vie.app.api.datamining.ClusterService"
+		version="1.0" retries="0" timeout="60000"/>	
+		
+	<dubbo:reference id="dataHandleStatusService" interface="com.iflytek.vie.app.api.datahandle.DataHandleStatusService"
+		version="1.0" retries="0" timeout="60000"/>		
+	
+		
+	<!-- 测听服务  -->       
+     <dubbo:reference id="dataQueryService" interface="com.iflytek.vie.app.api.dataquery.DataQueryService"
+               version="1.0" retries="0" timeout="60000"/> 
+               
+    <!--播放器-->
+	<dubbo:reference id="playerService" interface="com.iflytek.vie.app.api.player.PlayerService"
+	 version="1.0" retries="0"  timeout="60000"/>
+
+	<dubbo:reference id="playerCustomService" interface="com.iflytek.vie.custom.api.player.PlayerCustomService"
+					 version="1.0" retries="0"  timeout="60000"/>
+	 
+	 <!-- 数据分析服务 -->
+	 <dubbo:reference id="dataDrillService" interface="com.iflytek.vie.app.api.datadrill.DataDrillService"
+	 version="1.0" retries="0"  timeout="60000"/>
+	 
+	 <!--搜索服务-->
+	 <dubbo:reference id="searchService" interface="com.iflytek.vie.app.api.search.SearchService"
+	 version="1.0" retries="0" timeout="300000"/>
+	<!--索引数据获取服务-->
+	<dubbo:reference id="esDataService" interface="com.iflytek.vie.app.api.esdata.EsDataService"
+					 version="1.0" retries="0" timeout="300000"/>
+	 <dubbo:reference id="callFilterService" interface="com.iflytek.vie.app.api.call.CallFilterService" 
+	 version="1.0" timeout="30000" retries="0"/>
+	<dubbo:reference id="filterService" interface="com.iflytek.vie.app.api.filter.FilterService"
+					 version="1.0" timeout="30000" retries="0"/>
+	<!-- 获取当前数据源列表服务 -->
+	<dubbo:reference id="dataSourceService"
+		interface="com.iflytek.vie.app.api.dataSource.DataSourceService" version="1.0"
+		retries="0" timeout="60000"/>
+			
+	<!-- 
+	<dubbo:reference id="getPropertyUtilImpl" interface="com.iflytek.vie.app.api.utils.GetPropertyUtil"
+					 version="1.0" timeout="3000" retries="0"/> -->
+					 
+	<dubbo:reference id="reportDownloadCustomService"
+		interface="com.iflytek.vie.custom.api.report.ReportDownloadCustomService" version="1.0"
+		retries="0" timeout="60000"/>
+		
+	<dubbo:reference id="searchCustomService"
+		interface="com.iflytek.vie.custom.api.search.SearchCustomService" version="1.0"
+		retries="0" timeout="60000" />
+</beans>

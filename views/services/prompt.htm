@@ -1,0 +1,25 @@
+﻿<div class="dialog-prompt-wrap">
+    <div class="dialog-content">
+        <p class="message">
+            {{message}}
+        </p>
+    </div>
+    <div class="dialog-prompt-content">
+        <input type="text" ng-model="prompt" maxlength="20">
+    </div>
+    <div class="dialog-footer prompt-wrap">
+        <ul class="culum-wrap culum-wrap-x2">
+            <li>
+                <button ng-click="confirmBtn()" class="primary">
+                    确定
+                </button>
+            </li>
+            <li>
+                <button ng-click="closeThisDialog()">
+                    取消
+                </button>
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>

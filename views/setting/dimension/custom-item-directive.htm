@@ -1,0 +1,24 @@
+﻿<div class="dimension-zdy-item">
+    <label class="item-label-list" title="添加枚举项">
+        添加枚举项：
+    </label>
+    <div class="enum-item">
+        <ul class="enum-item-header">
+            <li class="enum-name">
+                名称
+            </li>
+            <li class="enum-color">
+                标签颜色
+            </li>
+            <li class="enum-order">
+                拖动排序
+            </li>
+        </ul>
+        <div class="enum-lists" id="sortable">
+            <div class="enum-list-wrap">
+                <enum-item ng-repeat="value in item.dimensionValues" item="value" colors="colors" index="{{$index}}" sort-drag="" drag-stop="strop(value)"></enum-item>
+            </div>
+            <input type="button" ng-click="addItemValue()" class="dim-value-btn" value="+">
+        </div>
+    </div>
+</div>

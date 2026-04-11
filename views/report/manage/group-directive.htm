@@ -1,0 +1,11 @@
+﻿<dd class="item" ng-class="{'item-ext': item.id === 0, 'active':mgroup === item.id}">
+    <a class="level-children-{{item.hierarchy}} common-overflow group-name" ng-href="#/report/manage/{{item.id}}/{{item.isEdit}}/list" title="{{item.name}}" ng-class="{true:'active'}[mgroup === item.id]" ng-if="!item.isAdd && !item.isEditGroup">{{item.name}}</a>
+    <input type="text" class="report-group-input" ng-if="item.isAdd" ng-keydown="enterSubmitKey()" ng-model="item.name" maxlength="20">
+    <input type="text" class="report-group-input" ng-if="item.isEditGroup" ng-keydown="enterSubmitKey()" ng-model="item.name" maxlength="20">
+    <i class="picture picture-submit-add" ng-if="item.isEditGroup || item.isAdd" ng-click="saveOrUpdate()"></i>
+    <i class="picture picture-submit-cancel" ng-if="item.isEditGroup || item.isAdd" ng-click="cancelUpdate()"></i>
+    <div class="report-group-opt hidden" ng-show="!item.isAdd && !item.isEditGroup">
+        <i class="picture picture-group-bianji" ng-click="editReportGroup()" ng-if="editAuth"></i>
+        <i class="picture picture-group-del" ng-click="deleteReportGroup(item.id,item.name)" ng-if="delAuth"></i>
+    </div>
+</dd>

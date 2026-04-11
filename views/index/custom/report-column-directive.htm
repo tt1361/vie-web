@@ -1,0 +1,24 @@
+﻿<div class="custom-enum-wrapper" ng-class="{'oddp':$parent.$parent.$odd}">
+    <div class="custom-enum-header">
+        <div class="custom-enum-left-header">
+            <span><a class="index-detail-href" ng-href="#/report/indexDetail/{{item.id}}/lineColumChart">{{item.moduleName}}</a></span>
+            <p>
+                <span class="gray-time">{{time.timeText}}({{time.timeRange}})</span>
+            </p>
+        </div>
+        <div class="custom-enum-right-header">
+            <i class="picture picture-huizong" ng-class="{'active':chartType === 'all', 'aside': contentParam.chartParams.xAxis!='dimHour' && contentParam.chartParams.xAxis!='dimDay' && contentParam.chartParams.xAxis!='dimMonth' && contentParam.chartParams.xAxis!='dimYear'}" ng-click="changeChartType('all')"></i>
+            <i class="picture picture-zhuzhuangtu" ng-class="{'active':chartType === 'column', 'aside': contentParam.chartParams.xAxis!='dimHour' && contentParam.chartParams.xAxis!='dimDay' && contentParam.chartParams.xAxis!='dimMonth' && contentParam.chartParams.xAxis!='dimYear'}" ng-click="changeChartType('column')"></i>
+            <i class="picture picture-zhexiantu" ng-class="{'active':chartType === 'line', 'aside': contentParam.chartParams.xAxis!='dimHour' && contentParam.chartParams.xAxis!='dimDay' && contentParam.chartParams.xAxis!='dimMonth' && contentParam.chartParams.xAxis!='dimYear'}" ng-click="changeChartType('line')"></i>
+            <selection-time type="{{item.contentType}}" ng-if="contentParam.chartParams.xAxis=='dimHour' || contentParam.chartParams.xAxis=='dimDay' || contentParam.chartParams.xAxis=='dimMonth' || contentParam.chartParams.xAxis=='dimYear'" time="contentParam.chartParams.xAxis"></selection-time>
+            <div class="clear"></div>
+        </div>
+        <i class="picture picture-del custom" ng-click="delModel()"></i>
+    </div>
+    <div class="custom-enum-map-header">
+        <span class="data-text">{{time.timeRange}}</span>
+    </div>
+    <div class="custom-enum-content">
+        <div id="lineChartColumnData_{{index}}" class="lineChartColumnData"></div>
+    </div>
+</div>

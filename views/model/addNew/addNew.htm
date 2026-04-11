@@ -1,0 +1,81 @@
+﻿<div class="model-view-wrapper">
+    <!-- 头部开始 -->
+    <div class="model-view-header">
+        <p>
+            <span>当前位置： <a class="location-group" ng-href="#/model/{{model.modelGroupId}}/list">{{groupName}}</a> <span class="location-group" title="{{model.modelName}}">&gt; {{model.modelName}}</span> </span>
+        </p>
+        <p>
+            <div class="model-search-wrap">
+                <i class="picture picture-offline" title="下线" ng-click="offlineModel()" ng-if="status === -1 && offlineAuth"></i>
+                <i class="picture picture-online" title="上线" ng-click="onlineModel()" ng-if="status != -1 && status != 0 && onlineAuth"></i>
+                <i class="picture picture-detail" title="模型信息" ng-click="modelDetail()" ng-if="editAuth"></i>
+                <i class="picture picture-save" title="保存" ng-click="addModel()" ng-if="status != -1 && status != 0 && saveAuth"></i>
+                <i class="picture picture-unsave" title="保存" ng-if="(status === -1 || status === 0) && saveAuth"></i>
+                <i class="picture picture-return" title="返回" ng-click="retBack()" ng-if="returnAuth"></i>
+            </div>
+        </p>
+    </div>
+    <!-- 头部结束 -->
+    <!-- 条件筛选开始 -->
+    <div class="condition-screen">
+        <div class="condition-inner">
+            <div class="condition-list condition-list-filter-calc" style="width: 330px; z-index: 666; margin-left: 40px;">
+                <ul class="condition-wrapper">
+                    <calendar item="timesRange" status="{{status}}" type="modelAdd"></calendar>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <!-- 模型上线成功状态或处于上线中状态时对筛选条件添加遮罩层 -->
+            <!-- <div ng-if="status == -1 || status == 0" 
+				 style="display: inline-block; width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; z-index: 6; border-radius: 4px 4px 0px 0px;background-color: #C2C2C2;opacity: 0.2;"
+				 ng-click="dimensionTips()">
+			</div> -->
+            &nbsp
+            <whole-filter a="a" b="b" c="modelFilterId"></whole-filter>
+        </div>
+    </div>
+    <!-- 条件筛选结束 -->
+    <div class="content-model-wrapper">
+        <!-- 左侧规则开始 -->
+        <model-struct model="model" ng-if="model.previewId && model != null" preview="preview()" status="{{status}}" preview-auth="{{previewAuth}}" ng-class="{'hide-left':hideOpen}" silence-screen="silenceScreen"></model-struct>
+        <!-- 左侧规则结束 -->
+        <div class="icon-font model" ng-click="hideLeft()" ng-class="{'active':hideOpen}"></div>
+        <!-- 右侧结果显示开始 -->
+        <div class="model-content-result" ng-class="{'active':hideOpen}">
+            <div class="data-outer-header">
+                <ul class="tabs">
+                    <li class="analyse-tab" ng-class="{'active': showTab == 0}" ng-click="showPreivewResult(0)">
+                        <a class="ell" title="匹配通话">匹配通话</a>
+                    </li>
+                    <li class="analyse-tab" ng-class="{'active': showTab == -1}" ng-show="isSearchShowTab">
+                        <i class="picture picture-del frag-del" ng-click="hideSearch()"></i>
+                        <a class="ell" title="搜索" ng-click="showPreivewResult(-1)">搜索</a>
+                    </li>
+                    <li class="analyse-tab" ng-repeat="frag in previewFrags" ng-click="showPreivewResult(frag.fragmentNum)" ng-class="{'active': showTab == frag.fragmentNum}">
+                        <i class="picture picture-del frag-del" ng-click="removePrewViewFrag(frag)"></i>
+                        <a class="ell" title="片段{{frag.fragmentNum}}">片段{{frag.fragmentNum}}</a>
+                    </li>
+                </ul>
+                <div class="tabs-right">
+                    <div class="tabs-search" ng-show="isSearch">
+                        <input type="text" placeholder="请输入搜索内容" ng-model="searchKeyword" ng-keyup="enterKey($event)">
+                        <i class="icon icon-search icon-inner" ng-click="searchBeforeResult()"></i>
+                    </div>
+                    <i class="icon icon-search icon-outer" ng-show="!isSearch && searchAuth" ng-click="showSearch()"></i>
+                    <div class="total-count">
+                        录音量
+                        <span class="count-num">{{previewReuslt.total}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="data-outer-result">
+                <!-- 模型匹配的 -->
+                <model-result type="model" ng-show="showTab == 0" index="-1"></model-result>
+                <model-result type="fragment" ng-repeat="fragment in previewFrags" frag="fragment" ng-show="showTab == fragment.fragmentNum" index="{{$index}}"></model-result>
+                <search-view ng-show="isSearchShow" time="timesRange" condition="preDimensions" is-search-show="{{isSearchShow}}"></search-view>
+            </div>
+        </div>
+        <!-- 右侧结果显示结束 -->
+    </div>
+    <div class="clear"></div>
+</div>

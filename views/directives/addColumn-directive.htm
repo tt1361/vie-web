@@ -1,0 +1,54 @@
+﻿<div class="detail_chart_condition" style="position:relative">
+    显示字段 :
+    <a class="add-a" ng-click="addColumn()">+增加</a>
+    <div class="add-dialog md" ng-show="showdialog">
+        <i class="triangle-up"></i>
+        <div class="push-model-dialog">
+            <div class="push-model-search-wrap">
+                <div class="all-choose-btn">
+                    <button ng-click="toggleAllChecked()">
+                        全&nbsp;选
+                    </button>
+                </div>
+                <div class="push-model-search">
+                    <input type="text" placeholder="请输入搜索内容" maxlength="20" ng-model="searchContent" class="ng-pristine ng-valid">
+                    <input type="button" class="icon icon-search">
+                </div>
+            </div>
+            <p>
+                <i class="picture" ng-class="{true:'down',false:'up'}[showD]" ng-click="showDi()"></i>
+                维度
+            </p>
+            <div class="content-wrap" ng-show="showD">
+                <div class="dimension-wrap" ng-class="{true: 'active'}[item.hasAdd]" ng-repeat="item in mddimensions | filter:{name:searchContent}" ng-click="addTotable(item.key,item.name,'dimension',item)" ng-hide="item.key == 'keyword' && tableDefault.tableType == 'stats'">
+                    <span class="common-overflow" title="{{item.name}}">{{item.name | subData: 6}}</span>
+                </div>
+            </div>
+            <p ng-if="tableDefault.tableType != 'detail'">
+                <i class="picture" ng-class="{true:'down',false:'up'}[showM]" ng-click="showMe()"></i>
+                指标
+            </p>
+            <div ng-if="tableDefault.tableType != 'detail'" class="content-wrap" ng-show="showM">
+                <div class="dimension-wrap" ng-class="{true: 'active'}[item.hasAdd]" ng-repeat="item in mdmeasures | filter:{measureName:searchContent}" ng-click="addTotable(item.measure,item.measureName,'measure',item)">
+                    <span class="common-overflow" title="{{item.measureName}}">{{item.expressionParam}}-{{item.measureName | subData: 6}}</span>
+                </div>
+            </div>
+            <computerlist ng-show="tableDefault.tableType != 'detail'" mdcomputers="mdcomputers" table-default="tableDefault" search-content="searchContent"></computerlist>
+            <div class="push-model-btn">
+                <button ng-click="saveColumn()">
+                    保&nbsp;存
+                </button>
+            </div>
+        </div>
+    </div>
+    <i class="pre-icon" ng-class="{'disabled':!showPre}" ng-click="prePage()"></i>
+    <div class="swiper-container">
+        <div class="swiper-wrapper" ng-style="left">
+            <div class="Axis column" ng-repeat="obj in tableDefault.column" on-finish-render="" sort-drag="" drag-stop="stop()" drag-data="{{obj}}">
+                <i class="picture icon-delete-s" ng-click="onColumnDelete($index, obj.type, obj.filed)"></i>
+                {{obj.name}}
+            </div>
+        </div>
+    </div>
+    <i class="next-icon" ng-class="{'disabled':!showNext}" ng-click="nextPage()"></i>
+</div>

@@ -1,0 +1,144 @@
+﻿<div class="result-list-content">
+    <div class="result-list-wrapper">
+        <div class="result-list-header-wrapper">
+            <table>
+                <thead>
+                    <tr class="jianbian_se">
+                        <td class="condition-set">
+                            <i title="维度项选择" class="picture picture-set" ng-click="setDimension();"></i>
+                        </td>
+                        <td ng-repeat="column in searchListHead">
+                            <span title="{{column.columnName}}">{{column.columnName | subData: 8}}</span>
+                            <div class="sort-btn" ng-if="column.column != 'keyword' && column.column !='modelName'">
+                                <span class="btn-up" ng-class="{'btn-up-selected':btnUp===column.column}" ng-click="remarkSort(column.column,'asc')"> </span>
+                                <span class="btn-down" ng-class="{'btn-down-selected':btnDown===column.column}" ng-click="remarkSort(column.column,'desc')"></span>
+                            </div>
+                        </td>
+                        <td class="condition-set" ng-if="!mark1">
+                        </td>
+                        <td class="condition-set1" ng-if="mark1">
+                        </td>
+                    </tr>
+                </thead>
+                <tbody ng-if="showIsByTaskId" ng-repeat="item in searchListResult" ng-init="p_index=$index">
+                    <tr class="indexOfSearchListBackground1" ng-class="{'first-list':{{$index}}===0}" ng-class-even="'color-even'">
+                        <td class="task-id">
+                            <span class="task-id-detail"> <span class="handlerOfIndex" ng-click="showDetailsByTaskId(item.id)" ng-class="mark && voi==item.id?'triangle-bottomOfSearch':'triangle-rightOfSearch'"> </span> </span>
+                        </td>
+                        <td ng-repeat="column in searchListHead">
+                            <div class="keyword-show-inner" ng-if="column.column === 'keyword'">
+                                <bubble ng-repeat="keyword in item.keyword | subList:4" item="keyword" call-id="item.id" tr-index="{{p_index}}" voice-id="keyword.voiceId">
+                                </bubble>
+                                <span ng-if="item.keyword | showKeyLength:4">...</span>
+                                <more-key item="item.keyword" call-id="item.id" ng-if="item.keyword | showKeyLength:4">
+                                </more-key>
+                            </div>
+                            <div ng-if="column.column === 'modelName'" class="handlerOfModelName" title="{{item.modelName | showModelKey}}" ng-click="showModelDialog(item)">
+                                <span ng-repeat="model in item.modelName track by $index"> {{model}} </span>
+                            </div>
+                            <span ng-if="column.column !== 'keyword' && column.column !== 'voiceId' && column.column !== 'id' && column.column !== 'modelName' "> <p class="data-overflow" title="{{column.column | celData : item}}">
+                                    {{column.column | celData : item}}
+                                </p> </span>
+                            <span ng-if="column.column === 'id'" class="voice_id_call">
+                                <a id="search-item-id_{{item.id}}" class="item-id" ng-if="browser === 'chrome'" ng-href="playH5.html#?taskId={{item.id}} " target="_blank" ng-click="markListView(item)"> <p class="data-overflow" title="{{column.column | celData : item}}">
+                                        {{(column.column | celData : item)|subData: 30}}
+                                    </p> </a>
+                                <a id="search-item-id_{{item.id}}" class="item-id" ng-if="browser === 'msie'" ng-href="play.html#?taskId={{item.id}}" target="_blank" ng-click="markListView(item)"> <p class="data-overflow" title="{{column.column | celData : item}}">
+                                        {{(column.column | celData : item)|subData: 30}}
+                                    </p> </a>
+                                <a id="search-item-id_{{item.id}}" class="item-id" ng-if="browser === 'other'" ng-href="play.html#?taskId={{item.id}}" target="_blank" ng-click="markListView(item)"> <p class="data-overflow" title="{{column.column | celData : item}}">
+                                    {{(column.column | celData : item)|subData: 30}}
+                                </p> </a>
+                            </span>
+                        </td>
+                        <td ng-if="!mark1" class="condition-set">
+                        </td>
+                        <td ng-if="mark1" class="condition-set1">
+                        </td>
+                    </tr>
+                    <tr ng-if="mark && voi==item.id">
+                        <td class="condition-set">
+                        </td>
+                        <td ng-repeat="column in voiceCallListHead">
+                            <strong><span title="{{column.columnName}}">{{column.columnName | subData: 8}}</span></strong>
+                        </td>
+                    </tr>
+                    <tr class="indexOfSearchLisTr1" ng-if="mark && voi==item.id" ng-repeat="ite in voiceCallListBody">
+                        <td class="condition-set">
+                        </td>
+                        <td ng-repeat="col in voiceCallListHead">
+                            <div class="keyword-show-inner" ng-if="col.column === 'keyword'">
+                                <bubble ng-repeat="keyword in ite.keyword | subList:4" item="keyword" voice-id="ite.voiceId" call-id="item.id" tr-index="{{p_index}}">
+                                </bubble>
+                                <span ng-if="ite.keyword | showKeyLength:4">...</span>
+                                <more-key item="ite.keyword" task-id="item.id" call-id="ite.voiceId" ng-if="ite.keyword | showKeyLength:4">
+                                </more-key>
+                            </div>
+                            <div class="handlerOfModelName" title="{{ite.modelName}}" ng-if="col.column === 'modelName'" ng-click="showModelDialog(ite,item.id)">
+                                <span> {{ite.modelName}} </span>
+                            </div>
+                            <span ng-if="col.column !== 'keyword' && col.column !== 'voiceId' && col.column !== 'modelName' "> <p class="data-overflow" title="{{col.column | celData : ite}}">
+                                    {{col.column | celData : ite}}
+                                </p> </span>
+                            <span id="search-item-id_{{ite.voiceId}}" class="voice_id_call" ng-if="col.column === 'voiceId' ">
+                                <a class="item-id" ng-if="browser === 'chrome'" ng-href="playH5.html#?voiceId={{ite.voiceId}}&taskId={{item.id}}" target="_blank" ng-click="markListView(ite)"> <p class="data-overflow" title="{{col.column | celData : ite}}">
+                                        {{(col.column | celData : ite)|subData: 30}}
+                                    </p> </a>
+                                <a id="search-item-id_{{ite.voiceId}}" ng-if="browser === 'msie'" ng-href="play.html#?voiceId={{ite.voiceId}}&taskId={{item.id}}" target="_blank" class="item-id" ng-click="markListView(ite)"> <p class="data-overflow" title="{{col.column | celData : item}}">
+                                        {{(col.column | celData : ite)|subData: 30}}
+                                    </p> </a>
+                                <a id="search-item-id_{{ite.voiceId}}" ng-if="browser === 'other'" ng-href="play.html#?voiceId={{ite.voiceId}}&taskId={{item.id}}" target="_blank" class="item-id" ng-click="markListView(ite)"> <p class="data-overflow" title="{{col.column | celData : item}}">
+                                    {{(col.column | celData : ite)|subData: 30}}
+                                </p> </a>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="indexOfSearchListBackground2" ng-if="mark && voi==item.id && voiceCallListTotal && voiceCallListTotal>10">
+                        <td class="condition-set indexOfSearchListBackground2">
+                        </td>
+                        <td class="indexOfSearchListBackground2" colspan="{{colSpanNum}}">
+                            <div class="indexOfSearchLisDiv">
+                                <newpaging class="list-pager indexOfSearchListBackground2" page-options="pageOptionsOfVoiceList" total-counts="voiceCallListTotal" update="findVoicesById(item.id,pageOptionsOfVoiceList)"></newpaging>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="!showIsByTaskId">
+                    <tr ng-class="{'first-list':{{$index}}===0}" ng-init="p_index=$index" ng-repeat="item in searchListResult" ng-class-even="'color-even'">
+                        <td class="condition-set">
+                        </td>
+                        <td ng-repeat="column in searchListHead">
+                            <div class="keyword-show-inner" ng-if="column.column === 'keyword'">
+                                <bubble ng-repeat="keyword in item.keyword | subList:4" item="keyword" call-id="item.id" tr-index="{{p_index}}">
+                                </bubble>
+                                <span ng-if="item.keyword | showKeyLength:4">...</span>
+                                <more-key item="item.keyword" call-id="item.id" ng-if="item.keyword | showKeyLength:4">
+                                </more-key>
+                            </div>
+                            <div class="{{item.modelName | getLength :8}} 
+                                        handlerOfModelName" ng-if="column.column === 'modelName'" title="{{item.modelName | showModelKey}}" ng-click="showModelDialog(item)">
+                                <span ng-repeat="model in item.modelName track by $index"> {{model}} </span>
+                            </div>
+                            <span ng-if="column.column !== 'keyword' && column.column !== 'id' && column.column !== 'modelName'"> <p class="data-overflow" title="{{column.column | celData : item}}">
+                                    {{column.column | celData : item}}
+                                </p> </span>
+                            <span ng-if="column.column === 'id'" class="voice_id_call">
+                                <a id="search-item-id_{{item.voiceId}}" class="item-id" ng-if="browser === 'chrome'" ng-href="playH5.html#?voiceId={{item.id}}" target="_blank" ng-click="markListView(item)"> <p class="data-overflow" title="{{column.column | celData : item}}">
+                                        {{column.column | celData : item}}
+                                    </p> </a>
+                                <a ng-if="browser === 'msie'" id="search-item-id_{{item.voiceId}}" class="item-id" ng-href="play.html#?voiceId={{item.id}}" target="_blank" ng-click="markListView(item)"> <p class="data-overflow" title="{{column.column | celData : item}}">
+                                        {{column.column | celData : item}}
+                                    </p> </a>
+                                <a ng-if="browser === 'other'" id="search-item-id_{{item.voiceId}}" class="item-id" ng-href="play.html#?voiceId={{item.id}}" target="_blank" ng-click="markListView(item)"> <p class="data-overflow" title="{{column.column | celData : item}}">
+                                    {{column.column | celData : item}}
+                                </p> </a>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <newpaging class="list-pager" ng-if="counts" page-options="pageOptions" total-counts="counts" update="getSearchListResult(pageOptions)">
+    </newpaging>
+</div>

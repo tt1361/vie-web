@@ -1,0 +1,13 @@
+﻿<li class="level-{{node.hierarchy}}" ng-class="{'active':isActive}" uid="{{uid}}">
+    <span class="name" ng-click="toggle($event)" title="{{node.resourceName}}"> <i class="icon {{node.icon}}"></i> <div class="level-hover" ng-class="{'active':node.isShow}">
+            <ul>
+                <li>
+                    <a class="title" ng-href="{{view}}" title="{{node.resourceName}}">{{node.resourceName|subData:8}}</a>
+                    <menu-add node="node"></menu-add>
+                </li>
+            </ul>
+            <ul ng-if="node.childRes" class="level-children">
+                <menu-children ng-repeat="resource in node.childRes" item="resource"></menu-children>
+            </ul>
+        </div> </span>
+</li>

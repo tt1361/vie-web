@@ -1,0 +1,20 @@
+﻿<li class="advance-chanel">
+    <label class="search-label" title="声道">
+        声道来源:
+    </label>
+    <input class="common-overflow" type="text" value="{{item.chanelName}}" title="{{item.chanelName}}" readonly ng-click="showTimeOpen()">
+    <i class="picture picture-select-down newtab" ng-click="showTimeOpen()" ng-class="{'active':isOpen}"></i>
+    <div class="advance-time-search chanel" ng-class="{'active':isOpen}">
+        <ul>
+            <li ng-click="setChanel(2)" ng-class="{'active':item.chanel===2}">
+                全部声道
+            </li>
+            <li ng-click="setChanel(0)" ng-class="{'active':item.chanel===0}">
+                坐席声道
+            </li>
+            <li ng-click="setChanel(1)" ng-class="{'active':item.chanel===1}">
+                客户声道
+            </li>
+        </ul>
+    </div>
+</li>

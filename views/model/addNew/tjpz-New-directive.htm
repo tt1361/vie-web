@@ -1,0 +1,21 @@
+﻿<div class="tjpz-outer-wrap">
+    <i class="tjpz-arrow-tip"></i>
+    <div class="tjpz-new-wrap">
+        <div class="znzs-new-wrap-hrader tpj">
+            <div class="tpj-left">
+                <span>条件配置</span>
+            </div>
+            <div class="tpj-right" ng-click="addCondition()">
+                <span>+添加对象</span>
+            </div>
+        </div>
+        <div class="tjpz-new-content-wrap">
+            <screen-new ng-repeat="screening in condition" item="screening" index="{{$index}}" tag-dimension="tagDimension" status="{{status}}"></screen-new>
+        </div>
+        <div class="tjpz-footer-wrap">
+            <button class="btn model" ng-click="birthScreen()">
+                生成条件
+            </button>
+        </div>
+    </div>
+</div>

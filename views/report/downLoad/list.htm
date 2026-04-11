@@ -1,0 +1,87 @@
+﻿<div class="download-header jianbian_se">
+    <div class="report-title">
+        <a href="#/report/download/0/list" ng-class="{'active':status === 0}">下载中</a>
+        <span>|</span>
+        <a href="#/report/download/1/list" ng-class="{'active':status === 1}">已完成</a>
+    </div>
+    <div class="download-del-right">
+        <!-- 暂时不支持批量导出 -->
+        <!-- <iframe style="display:none" name="ifr"></iframe>
+        <form method="post" action="" target="ifr" id="frm" ng-if="exportAuth">
+            <input type="hidden" value="{{item.id}}" name ="reportID"/>
+        </form> -->
+        <a class="picture picture-delete" ng-click="batchDelete()" title="删除" ng-if="delAuth"></a>
+    </div>
+    <div class="download-search-right">
+        <input type="text" class="search-input-download" placeholder="请输入搜索内容" ng-model="keyword" ng-keydown="enterKey($event)" maxlength="20">
+        <input type="button" class="icon icon-search" ng-click="search()">
+    </div>
+</div>
+<div class="list-outer-wrap">
+    <div class="list-inner-wrap">
+        <div>
+            <div class="list-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <td class="download-td-120-1">
+                                <input type="checkbox" ng-click="checkAll()" ng-checked="allchecked">
+                            </td>
+                            <td class="download-td-50"></td>
+                            <td id="download-title-reportname">
+                                报表名称
+                            </td>
+                            <td class="download-td-60"></td>
+                            <td>
+                                下载时间
+                            </td>
+                            <td>
+                                下载链接
+                            </td>
+                            <td class="download-td-280">
+                                下载进度
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in reports" on-finish-render="" broadcasteventname="colResizable" class="del-wrapper" ng-class-even="'color-even'">
+                            <td>
+                                <input type="checkbox" ng-checked="item.checked" ng-model="item.checked" ng-change="checkedThis(item)">
+                            </td>
+                            <td></td>
+                            <td>
+                                <span title="{{item.downloadName}}" class="name-overflow">{{item.downloadName}}</span>
+                            </td>
+                            <td class="download-td-60">
+                                <div class="del-wrap hidden" id="del-wrap_{{item.id}}">
+                                    <iframe class="display-iframe" name="ifr"></iframe>
+                                    <form method="post" action="" target="ifr" id="frm_{{item.id}}" ng-if="exportAuth">
+                                        <input type="hidden" value="{{item.id}}" name="reportId">
+                                        <input type="button" class="picture picture-single-export" value="" ng-if="status" ng-click="oneExport(item.id)" title="导出">
+                                    </form>
+                                    <a class="picture picture-single-delete" ng-click="oneDelete(item.id)" title="删除" ng-if="delAuth"></a>
+                                </div>
+                            </td>
+                            <td>
+                                {{item.downloadDate}}
+                            </td>
+                            <td>
+                                <span title="{{item.fileDir}}" class="common-overflow over">{{item.fileDir}}</span>
+                            </td>
+                            <td>
+                                <div class="process">
+                                    <div class="process-bar" ng-style="{'width':item.progressRate*142/100}"></div>
+                                </div>
+                                <span class="link-orange" ng-if="item.progressRate<100&&item.progressRate>0" progress-action="" item="item">{{item.progressRate}}%</span>
+                                <span class="link-green" ng-if="item.progressRate==100">{{item.progressRate}}%</span>
+                                <span class="link-grey" ng-if="item.progressRate==0">{{item.progressRate}}%</span>
+                                <span class="link-red" ng-if="item.progressRate<0">失败</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <newpaging class="list-pager" ng-if="counts>0" page-options="pageOptions" total-counts="counts" update="getDownloadReportList()"></newpaging>
+        </div>
+    </div>
+</div>

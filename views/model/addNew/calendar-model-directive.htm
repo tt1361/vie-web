@@ -1,0 +1,96 @@
+﻿<li class="condition-time" uid="{{uid}}" style="margin-left: 8px; width: 330px;">
+    <label class="dimension-culum" ng-if="type!='topic'" style="width:60px ! important; text-align: right;">
+        <span ng-if="!type" title="起止时间">起止时间</span>
+        <span ng-if="type && type!='topic-right'">起止时间:</span>
+        <span ng-if="type==='topic-right'">选择时间:</span>
+    </label>
+    <input style="width: 255px;" type="text" placeholder="选择时间" readonly ng-model="inputTime" ng-click="showOpen()">
+    <div class="datarangepicker-wrap" ng-class="{'active':isOpen, 'calendar-show':isCalendarOpen}" style="width: 550px;">
+        <div class="datepicker-wrap calendar" ng-class="{'active': isCalendarOpen}" style="overflow: hidden; left: 0;">
+            <div class="time-range-select">
+                <input type="hidden" name="startDate" class="startAdDateInput" value="{{item.defaultStart}}">
+                <div class=" startDatepicker calendar"></div>
+                <!-- 石勇 新增 开始时间-->
+                <div style="position: absolute; bottom: 5px; left: 5px; width: 136px; height: 20px;">
+                    <ul class="show-time" style="line-height: 19px;">
+                        <li style="border-right: 1px solid #bababa; width: 40px; height: 19px; text-align: center;">
+                            时间
+                        </li>
+                        <!-- 小时 -->
+                        <li style="margin-left: 5px;">
+                            <input style="cursor: pointer; border: 0px solid black; width: 16px; height: 16px; padding-left: 0px; text-align: center; line-height: 16px; color: #01aead;" type="text" ng-click="DatetimeChoose(1)" ng-model="hourValue" value="00" readonly>
+                            :
+                        </li>
+                        <!-- 分钟 -->
+                        <li>
+                            <input style="cursor: pointer; border: 0px solid black; width: 16px; height: 16px; padding-left: 0px; text-align: center; line-height: 16px; color: #01aead;" type="text" ng-click="DatetimeChoose(2)" ng-model="minValue" value="00" readonly>
+                            :
+                        </li>
+                        <!-- 秒 -->
+                        <li>
+                            <input style="border: 0px solid black; width: 16px; height: 16px; padding-left: 0px; text-align: center; line-height: 16px; color: #01aead;" type="text" value="00" readonly>
+                        </li>
+                    </ul>
+                    <div class="choose-hour" ng-class="{'choose-min':judeg}" ng-if="chooseDatetime">
+                        <div class="close-datetime">
+                            <span ng-click="closeChooseDatetime(event)">×</span>
+                        </div>
+                        <div style="width: 100%;">
+                            <span class="chooseDatetimeTest" ng-if="!judeg" ng-class="{'chooseedDatetime':{{item}} == hourValue}" ng-repeat="item in datetimeTemp" ng-click="chooseResult(item)" title="{{item}}">{{item}}</span>
+                            <span class="chooseDatetimeTest" ng-if="judeg" ng-class="{'chooseedDatetime':{{item}} == minValue}" ng-repeat="item in datetimeTemp" ng-click="chooseResult(item)" title="{{item}}">{{item}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <input type="hidden" name="endDate" class="endAdDateInput" value="{{item.defaultEnd}}">
+                <div class="inline-picker endDatepicker calendar"></div>
+                <!-- 石勇 新增 结束时间-->
+                <div style="position: absolute; bottom: 5px; right: 120px; width: 136px; height: 20px;">
+                    <ul class="show-time" style="line-height: 19px;">
+                        <li style="border-right: 1px solid #bababa; width: 40px; height: 19px; text-align: center;">
+                            时间
+                        </li>
+                        <!-- 小时 -->
+                        <li style="margin-left: 5px;">
+                            <input style="cursor: pointer; border: 0px solid black; width: 16px; height: 16px; padding-left: 0px; text-align: center; line-height: 16px; color: #01aead;" type="text" ng-click="endDatetimeChoose(1)" ng-model="endHourValue" value="00" readonly>
+                            :
+                        </li>
+                        <!-- 分钟 -->
+                        <li>
+                            <input style="cursor: pointer; border: 0px solid black; width: 16px; height: 16px; padding-left: 0px; text-align: center; line-height: 16px; color: #01aead;" type="text" ng-click="endDatetimeChoose(2)" ng-model="endMinValue" value="00" readonly>
+                            :
+                        </li>
+                        <!-- 秒 -->
+                        <li>
+                            <input style="border: 0px solid black; width: 16px; height: 16px; padding-left: 0px; text-align: center; line-height: 16px; color: #01aead;" type="text" value="59" readonly>
+                        </li>
+                    </ul>
+                    <div class="choose-hour" ng-class="{'choose-min':endJudeg}" ng-if="endChooseDatetime">
+                        <div class="close-datetime">
+                            <span ng-click="closeChooseEndDatetime()">×</span>
+                        </div>
+                        <div style="width: 100%;">
+                            <span class="chooseDatetimeTest" ng-if="!endJudeg" ng-repeat="item in endDatetimeTemp" ng-class="{'chooseedDatetime':{{item}} == endHourValue}" ng-click="chooseEndResult(item)" title="{{item}}">{{item}}</span>
+                            <span class="chooseDatetimeTest" ng-if="endJudeg" ng-repeat="item in endDatetimeTemp" ng-class="{'chooseedDatetime':{{item}} == endMinValue}" ng-click="chooseEndResult(item)" title="{{item}}">{{item}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="set-now" style="bottom:50px; z-index: 11111111;">
+            <input type="checkbox" ng-checked="item.isToNow" ng-click="setToNow()">
+            至今
+        </div>
+        <div class="time-btn-wrap calendar" ng-show="isCalendarOpen" style="margin-left: 150px;">
+            <button ng-click="setDateRange()" class="btn btn-primary small">
+                应&nbsp;用
+            </button>
+            <button ng-click="closeDialog()" class="btn btn-nomal small">
+                取消
+            </button>
+        </div>
+        <div class="clear"></div>
+    </div>
+</li>

@@ -1,0 +1,56 @@
+﻿<div class="dialog-wrap">
+    <div class="dialog-header-wrap jianbian_se">
+        基本信息
+    </div>
+    <div class="dialog-content">
+        <ul class="model-detail-label">
+            <li>
+                <label class="dimension-culum">
+                    模型名称：
+                </label>
+                <input type="text" placeholder="请输入模型名称" ng-model="model.modelName" maxlength="100" id="modelName" ng-if="!status || (status != -1 && status != 0)">
+                <input type="text" placeholder="请输入模型名称" ng-model="model.modelName" maxlength="100" id="modelName" readonly ng-if="status && (status == -1 || status == 0)">
+                <div class="error-tip" ng-show="msg">
+                    {{msg}}
+                </div>
+            </li>
+            <li uid="{{uid}}">
+                <label class="dimension-culum">
+                    所属模型组：
+                </label>
+                <input type="text" placeholder="请选择所属模型组" readonly ng-click="showOpen()" ng-model="groupName" ng-disabled="topicId || (status &&status != -2)">
+                <i class="picture picture-select-down newtab" ng-if="status && (status == -1 || status == 0)"></i>
+                <i class="picture picture-select-down newtab" ng-class="{'active':open}" ng-click="showOpen()" ng-if="!status || (status != -1 && status != 0)"></i>
+                <ul class="model-call" ng-class="{'active':open}">
+                    <new-group ng-repeat="item in modelGroup" item="item" model="model" type="model"></new-group>
+                </ul>
+                <div class="error-tip" ng-show="groupMsg">
+                    {{groupMsg}}
+                </div>
+            </li>
+            <li>
+                <label class="dimension-culum">
+                    备注：
+                </label>
+                <input type="text" placeholder="请输入模型备注" ng-model="model.modelComment" maxlength="20" ng-if="!status || (status != -1 && status != 0)">
+                <input type="text" placeholder="请输入模型备注" ng-model="model.modelComment" maxlength="20" readonly ng-if="status && (status == -1 || status == 0)">
+            </li>
+        </ul>
+    </div>
+    <div class="dialog-footer">
+        <ul class="culum-wrap culum-wrap-x2">
+            <li>
+                <button ng-click="addModel()" class="primary">
+                    确&nbsp;认
+                </button>
+            </li>
+            <li>
+                <button ng-click="closeThisDialog(0)">
+                    取&nbsp;消
+                </button>
+            </li>
+            <div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>

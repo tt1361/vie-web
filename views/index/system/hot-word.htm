@@ -1,0 +1,90 @@
+﻿<div class="busy">
+    <div class="section-header-index">
+        <div class="fl">
+            <p class="fl">
+                热词分析
+            </p>
+            <a href="javascript:;" class="fl btn-tip btn-tip-hot-point"> <span class="tip-arrow-index"></span> <div class="tip-wrapper-index">
+                    <span class="tip-title-index">热词分析：</span>
+                    <span class="tip-content-index">根据词频统计展示所选时间段top10（可在占比和变化率排序方式下切换），可通过删除直接屏蔽相关关键词</span>
+                </div> </a>
+        </div>
+        <!-- 词汇类型下拉框 -->
+        <div class="fr-hotword index">
+            <div class="pos-rel">
+                <input type="text" class="ell vocabulary-type" readonly value="{{selectHotWordType}}" ng-click="vocabularyShow()">
+                <i class="picture picture-select-down newtab vocabulary" ng-class="{'active': optionShowHotWord}" ng-click="vocabularyShow()"></i>
+                <ul class="select vocabulary-options hidden" ng-class="{'show': optionShowHotWord}">
+                    <li class="sys-vocabulary vocabulary-opt" ng-repeat="item in hotWordTypes" ng-class="{'vocabulary-choosed':selectHotWordVal === item.value}" ng-click="vocabularySelect(item)">
+                        {{item.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <a ng-click="gotoMore()" class="more-hot-analysis">更多>></a>
+    </div>
+    <!-- 排序列表内容开始 -->
+    <div class="section-content-index">
+        <div class="section-content-options">
+            <a href="javascript:;" class="fl rate" ng-class="{'rate-choosed': kwType === 'kwd'}" ng-click="toggle('', 'kwd')">词&nbsp;&nbsp;频</a>
+            <a href="javascript:;" class="fl rate changed-rate" ng-class="{'rate-choosed': kwType === 'voice'}" ng-click="toggle('', 'voice')">音&nbsp;&nbsp;频</a>
+            <a href="javascript:;" class="f-right rate changed-rate" ng-class="{'rate-choosed': order === 'percent'}" ng-click="toggle('percent', '')">占&nbsp;&nbsp;比</a>
+            <a href="javascript:;" class="f-right rate" ng-class="{'rate-choosed': order === 'range'}" ng-click="toggle('range', '')">变化率</a>
+            <div class="clear"></div>
+        </div>
+        <!-- 展示列表 -->
+        <div class="fl rate-list-wrap rate-list-left" ng-if="hotVocabularyList.length">
+            <hotword-header kw-type="{{kwType}}" is-sametime="isSametime"></hotword-header>
+            <hotword-list ng-repeat="item in hotVocabularyList" item="item" ng-if="$index < 5" ng-class="{'vocabulary-list-choosed':listChoosed == {{$index}}}" ng-class-even="'color-even'" index="{{$index}}" is-sametime="isSametime">
+            </hotword-list>
+        </div>
+        <div class="fl rate-list-wrap" ng-if="hotVocabularyList.length">
+            <hotword-header kw-type="{{kwType}}" is-sametime="isSametime"></hotword-header>
+            <hotword-list ng-repeat="item in hotVocabularyList" item="item" ng-if="$index >= 5" ng-class="{'vocabulary-list-choosed':listChoosed == {{$index}}}" ng-class-odd="'color-even'" index="{{$index}}" is-sametime="isSametime">
+            </hotword-list>
+        </div>
+        <div class="empty-data hotword" ng-if="!hotVocabularyList.length"></div>
+    </div>
+    <!-- 排序列表内容结束 -->
+    <!-- 近一周热词排行 -->
+    <div class="mask-wrap hidden" ng-class="{'show':maskShow}"></div>
+    <div class="rank-list-wrap hidden" ng-class="{'show':maskShow}">
+        <table>
+            <thead>
+                <tr>
+                    <th class="date-th">
+                        日期
+                    </th>
+                    <th>
+                        排名
+                    </th>
+                    <th>
+                        占比
+                    </th>
+                    <th style="width: 36px;">
+                        <img style="margin: -0px 10px 0 0;" class="close-icon" ng-click="closeDialog()" src="images/close-icon.png" alt="">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in rankList">
+                    <td class="date-td">
+                        {{item.lastWeek}}
+                    </td>
+                    <td>
+                        <p class="ell rankNum" title="{{item.rank}}">
+                            {{item.rank}}
+                        </p>
+                    </td>
+                    <td colspan="2">
+                        <p class="fl total-bar" style="color: #fff;">
+                            {{item.rate}}
+                        </p>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 近一周热词排行 end -->
+</div>

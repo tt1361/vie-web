@@ -1,0 +1,52 @@
+﻿<div class="model-keyword-wrapper">
+    <div class="model-keyword-search-wrapper">
+        <input type="text" placeholder="请输入要搜索模型" ng-model="modelKeyword" ng-keydown="enterModelKey($event)" maxlength="100">
+        <input type="button" class="icon icon-search" ng-click="search()">
+    </div>
+    <div class="model-keyword-content-wrapper">
+        <div class="model-keyword-content-header">
+            <table>
+                <thead>
+                    <tr class="jianbian_se">
+                        <td class="mdOfHeadStyle">
+                            模型
+                        </td>
+                        <td>
+                            关键词
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="model-keyword-content-body">
+            <table>
+                <tbody>
+                    <tr ng-repeat="item in modelResult" ng-init="p_index=$index" ng-class-even="'color-even'">
+                        <td class="modelKeywordOfBodyTr" title="{{item.modelName}}">
+                            {{item.modelName | subData:10}}
+                        </td>
+                        <td ng-if="!isShowByTask">
+                            <div class="keyword-show-inner">
+                                <bubble ng-repeat="keyword in item.keyword | subList_voice:20" item="keyword" call-id="id" tr-index="{{p_index}}"></bubble>
+                                <a ng-if="browser === 'chrome' && item.keyword | showKeyLength_voice:20" ng-href="playH5.html#?voiceId={{id}}" class="more-key-bubble" target="_blank">查看更多</a>
+                                <a ng-if="browser === 'msie' && item.keyword | showKeyLength_voice:20" ng-href="play.html#?voiceId={{id}}" class="more-key-bubble" target="_blank">查看更多</a>
+                            </div>
+                        </td>
+                        <td ng-if="isShowByTask">
+                            <div class="keyword-show-inner">
+                                <bubble ng-repeat="keyword in item.keyword | subList_search:20" item="keyword" call-id="id" voice-id="keyword.voiceId" tr-index="{{p_index}}"></bubble>
+                                <a ng-if="browser === 'chrome' && mark &&item.keyword | showKeyLength_search:20" ng-href="playH5.html#?taskId={{id}}" class="more-key-bubble" target="_blank">查看更多</a>
+                                <a ng-if="browser === 'msie' && mark &&item.keyword | showKeyLength_search:20" ng-href="play.html#?taskId={{id}}" class="more-key-bubble" target="_blank">查看更多</a>
+                                <a ng-if="browser === 'chrome' && !mark &&item.keyword | showKeyLength_search:20" ng-href="playH5.html#?taskId={{id}}&voiceId={{voiceId}}" class="more-key-bubble" target="_blank">查看更多</a>
+                                <a ng-if="browser === 'msie' && !mark &&item.keyword | showKeyLength_search:20" ng-href="play.html#?taskId={{id}}&voiceId={{voiceId}}" class="more-key-bubble" target="_blank">查看更多</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="model-keyword-page">
+        <newpaging ng-if="counts" page-options="pageModelOptions" total-counts="counts" update="getModelKeyword(pageModelOptions)"></newpaging>
+    </div>
+</div>

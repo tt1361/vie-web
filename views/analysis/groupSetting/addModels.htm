@@ -1,0 +1,36 @@
+﻿<div class="push-model-dialog" ng-init="queryModels()">
+    <div class="push-model-header">
+        <span> <label title="{{path}}" style="cursor: pointer" ng-repeat="path in paths track by $index">
+                <i ng-if="$index>0">|</i>
+                {{path | getPaths:5}}
+            </label> <label style="cursor: pointer">
+                - 添加模型
+            </label> </span>
+        <i class="picture picture-close" ng-click="closeThisDialog()"></i>
+    </div>
+    <div class="model-group-layer" style="overflow-y: auto;">
+        <div class="model-group-list" ng-repeat="group in modelGroupList">
+            <div class="model-group-header">
+                {{group.modelGroup}}
+            </div>
+            <div class="model-group-item-container">
+                <div class="model-group-item" ng-repeat="model in group.value">
+                    <div title="{{model.value}}">
+                        <span>{{model.value}}</span>
+                    </div>
+                    <a href="javascript:void(0)" ng-if="unAdded(model)" ng-click="selectModel(model)"> <i ng-if="model.selected" title="取消添加" class="fa fa-remove unAdded"></i> <i ng-if="!model.selected" title="添加" class="fa fa-plus unAdded"></i> </a>
+                    <i title="已添加" ng-if="!unAdded(model)" class="fa fa-check"></i>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="model-group-footer">
+        <button ng-click="commit()">
+            提交
+        </button>
+        <button ng-click="closeThisDialog()">
+            取消
+        </button>
+    </div>
+</div>

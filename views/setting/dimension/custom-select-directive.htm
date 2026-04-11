@@ -1,0 +1,21 @@
+﻿<div class="dimension-zdy-item">
+    <label class="item-label-list" title="维度类型">
+        维度类型：
+    </label>
+    <div class="type-select">
+        <div class="enum-select">
+            <input type="text" readonly ng-model="item.typeName" ng-click="showSelectValue()">
+            <i class="picture picture-select-down newtab" ng-class="{'active':selectValueOpen}" ng-click="showSelectValue()"></i>
+        </div>
+        <div class="enum-select-value" ng-class="{'active':selectValueOpen}">
+            <ul>
+                <li ng-class="{'active':item.dimensionType==='mulSel'}" ng-click="setType('mulSel')">
+                    枚举
+                </li>
+                <li ng-class="{'active':item.dimensionType==='mulEqu'}" ng-click="setType('mulEqu')">
+                    输入
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿<div class="hotWordanalysis">
+    <div class="hotWordanalysis-list-header">
+        <p>
+            当前位置：
+            <a ng-click="gotoAnalysis()" class="location-group green">专题</a>
+            >
+            <span class="location-group">热词分析</span>
+        </p>
+        <a title="返回首页" class="picture back-setting" ng-click="callback()"></a>
+    </div>
+    <div class="hotWordanalysis-list-histogram">
+        <table>
+            <tr class="hotWordanalysis-list-histogram-hot">
+                <td>
+                    <div class="call-interval condition-list hotword">
+                        <ul class="condition-wrapper">
+                            <calendar item="timesRange" status="-2" type="hotwordListAnalysis" class="analyse-hw"></calendar>
+                        </ul>
+                    </div>
+                    <div class="section-content-options-hot">
+                        <a href="javascript:;" class="fl rate" ng-class="{'rate-choosed':type === 'systemKwd'}" ng-click="toggle('systemKwd')">系统热词</a>
+                        <a href="javascript:;" class="fl rate changed-rate" ng-class="{'rate-choosed': type === 'focusKwd'}" ng-click="toggle('focusKwd')">关注热词</a>
+                        <div class="clear"></div>
+                    </div>
+                    <a ng-href="#/setting/hotword" class="peizhi" ng-if="setAuth">配置</a>
+                </td>
+            </tr>
+        </table>
+        <div class="search-hotword-index-div">
+            <input type="text" class="search-hotword-index" placeholder="请输入搜索内容" ng-model="keyword" ng-keyup="enterKey($event)" maxlength="20">
+            <i class="icon icon-hotword-search" ng-click="search()"></i>
+        </div>
+    </div>
+    <div class="hotWordanalysis-top-wrapper">
+        <div class="hotWordanalysis-list-inner-wrap">
+            <hotword-analyse-list voice-list="hotList" type="kwd" is-sametime="isSametime" order="order"></hotword-analyse-list>
+            <newpaging ng-if="counts>10" page-options="pageOptions" total-counts="counts" update="findList(pageOptions, 'kwd')"></newpaging>
+        </div>
+        <div class="hotWordanalysis-list-inner-right">
+            <hotword-analyse-list voice-list="hotVoiceList" type="voice" is-sametime="isSametime" order="orderVoice"></hotword-analyse-list>
+            <newpaging ng-if="countsVoice>10" page-options="pageOptionsVoice" total-counts="countsVoice" update="findList(pageOptionsVoice, 'voice')"></newpaging>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

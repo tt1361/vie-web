@@ -1,0 +1,12 @@
+﻿<li class="value-list">
+    <div class="dimension-culum">
+        <span title="{{item.name}}" class="dimension-span" ng-click="setPathDimValue()">{{item.name | subData: 10}}</span>
+        <i class="picture picture-condition-dim-del" ng-click="deleteDim()"></i>
+        <a ng-click="pushIntoRoute()" class="dimension-add-font" ng-if="item.operateType===0">添加</a>
+        <a class="dimension-add-font added" ng-if="item.operateType===1">已添加</a>
+        <a ng-click="updateIntoRoute()" class="dimension-add-font update" ng-if="item.operateType===2">更新</a>
+        <a class="dimension-add-font added" ng-if="item.operateType===3">已更新</a>
+    </div>
+    <input type="text" class="input-wrap common-overflow dimension-value-wrap-inputter" readonly title="{{item.inputValue}}" ng-model="item.inputValue" ng-click="setPathDimValue()">
+    <div class="clear"></div>
+</li>

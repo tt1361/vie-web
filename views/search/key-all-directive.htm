@@ -1,0 +1,20 @@
+﻿<div class="key-all-wrapper">
+    <i class="picture picture-close-search" ng-click="hideKeyAllMapper()"></i>
+    <div class="key-all-search">
+        <div class="key-all-search-div">
+            <input type="text" ng-model="searchKeyword" placeholder="请输入搜索内容" ng-keydown="enterKey($event)">
+            <i class="picture search-group-btn key-all" ng-click="searchKey()"></i>
+        </div>
+    </div>
+    <div class="key-all-content">
+        <div class="key-all-content-header">
+            {{callId}}:全部关键词
+        </div>
+        <div class="key-all-content-body">
+            <div class="key-all-word-mapper">
+                <bubble ng-repeat="keyword in showItem" item="keyword" call-id="callId" voice-id="keyword.voiceId"></bubble>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,115 @@
+﻿<div>
+    <div ng-if="showFunnel" id="funnel-chart" style="background: #fff">
+        <div style="width: 100%;height: auto" id="funnelChart">
+            <div class="conversion-rate-div">
+                <span class="rate-value">{{conversionRate}}</span>
+                <span class="rate-text">总体转化率</span>
+            </div>
+            <div class="rote-chart">
+                <div class="rote-repeat" ng-repeat="item in funnelList.name track by $index">
+                    <div class="rote-text">
+                        <a title="{{item}}" class="rote-name-flow" href="javaScript:void(0);">{{item | subData: 4}}</a>
+                    </div>
+                    <div class="rote-length">
+                        <div class="rote-ground">
+                            <div class="rote-current" ng-style="{'background-color' :($index | findList: dataColor),'width': ($index | findList: dataRate)}" ng-click="getFunnelTable($index)"></div>
+                        </div>
+                        <span ng-style="{'color' : ($index | findList: dataColor)}">{{$index | findList: funnelList.data}}</span>
+                    </div>
+                    <div class="percent-model" ng-if="$index < (funnelList.rate.length)">
+                        <div class="percent-rate" ng-style="{'background-color' : (($index + 1) | findList: dataColor)}" ng-click="getFunnelTable($index + 1)">
+                            {{$index | findList: funnelList.rate}}
+                        </div>
+                        <div class="down-triangle" ng-style="{'border-top-color' : (($index + 1) | findList: dataColor)}"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div ng-if="allTable">
+                <div>
+                    <div class="funnel-list-wrapper">
+                        <table id="funnel_table_detail" ng-class="{'hidden':optionFalse}" class="top-line">
+                            <thead>
+                                <tr class="jianbian_se">
+                                    <td>
+                                        <div class="table_head funnel-table-column-overflow">
+                                            &nbsp;
+                                        </div>
+                                    </td>
+                                    <td ng-repeat="column in tableList.column track by $index" on-finish-render="" broadcasteventname="colResizable">
+                                        <div class="table_head funnel-table-column-overflow" title="{{column}}">
+                                            {{column}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="table_head funnel-table-column-overflow">
+                                            数量
+                                        </div>
+                                    </td>
+                                    <td ng-repeat="item in tableList.num track by $index" title="{{item}}" class="cursor-pointer" ng-click="getFunnelList($index, 0)">
+                                        <div class="table_head funnel-table-column-overflow">
+                                            {{item}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="color-even">
+                                    <td>
+                                        <div class="table_head funnel-table-column-overflow">
+                                            占比
+                                        </div>
+                                    </td>
+                                    <td ng-repeat="item in tableList.rate track by $index" title="{{item}}">
+                                        <div class="table_head funnel-table-column-overflow">
+                                            {{item}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="!allTable">
+                <div>
+                    <div class="funnel-list-wrapper">
+                        <table id="funnel_table_detail" ng-class="{'hidden':optionFalse}" class="top-line">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <div class="table_head funnel-table-column-overflow">
+                                            &nbsp;
+                                        </div>
+                                    </td>
+                                    <td ng-repeat="column in tableList.column track by $index" on-finish-render="" broadcasteventname="colResizable">
+                                        <div class="table_head funnel-table-column-overflow" title="{{column}}">
+                                            {{column}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="table_head funnel-table-column-overflow" title="{{currentName}}">
+                                            {{currentName}}
+                                        </div>
+                                    </td>
+                                    <td ng-repeat="item in tableList.num track by $index" title="{{item}}" ng-class="{'cursor-pointer': ($index < 2)}" ng-click="getFunnelList($index, 1)">
+                                        <div class="table_head funnel-table-column-overflow">
+                                            {{item}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <funnel-call-list path-id="pathId" is-num-data="isNumData" condition="condition" topic-id="topicId" ng-if="!showFunnel" current-name="currentName" show-funnel="showFunnel"></funnel-call-list>
+</div>

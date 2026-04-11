@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+</head>
+<body>
+    <form id="distribution-form" class="distribution-form" data-value="0">
+        <input type="hidden" name="userId" value="">
+        <table id="searchTableform" class="bsgrid">
+            <thead>
+                <tr>
+                    <th style="width:48px;">
+                        <input class="user-select-all" type="checkbox">
+                    </th>
+                    <th style="width:70%;">
+                        角色名称
+                    </th>
+                    <th style="width:30%;">
+                        状态
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input class="user-select-single" type="checkbox" name="roleIds" value="648">
+                    </td>
+                    <td title="谌祥">
+                        <pre class="ell tl">谌祥</pre>
+                    </td>
+                    <td>
+                        启用
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="user-select-single" type="checkbox" name="roleIds" value="628">
+                    </td>
+                    <td title="pjtest11">
+                        <pre class="ell tl">pjtest11</pre>
+                    </td>
+                    <td>
+                        启用
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="user-select-single" type="checkbox" name="roleIds" value="590">
+                    </td>
+                    <td title="pjtest10">
+                        <pre class="ell tl">pjtest10</pre>
+                    </td>
+                    <td>
+                        启用
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="user-select-single" type="checkbox" name="roleIds" value="589">
+                    </td>
+                    <td title="pjtest9">
+                        <pre class="ell tl">pjtest9</pre>
+                    </td>
+                    <td>
+                        启用
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="user-select-single" type="checkbox" name="roleIds" value="588">
+                    </td>
+                    <td title="pjtest8">
+                        <pre class="ell tl">pjtest8</pre>
+                    </td>
+                    <td>
+                        启用
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <!-- 翻页 -->
+    <div id="pagation" class="pagation-warp show-paging">
+        <table class="bsgridPaging noPageSizeSelect self-pagation">
+            <tbody>
+                <tr>
+                    <td class="prev-btn">
+                        <input class="undefined firstPage disabledCls" type="button" id="first_page" value="">
+                        <input class="undefined prevPage disabledCls" type="button" id="prev_page" value="">
+                    </td>
+                    <td class="next-btn">
+                        <input class="undefined nextPage" type="button" id="next_page" value="">
+                        <input class="undefined lastPage" type="button" id="last_page" value="">
+                    </td>
+                    <td class="grid-page">
+                        <div>
+                            <span id="cur_page">1</span>
+                            &nbsp;/&nbsp;
+                            <span id="total_pages">13</span>
+                        </div>
+                        <div>
+                            页
+                        </div>
+                    </td>
+                    <td class="cur-page">
+                        当前显示:&nbsp;
+                        <span id="start_row">1</span>
+                        &nbsp;-&nbsp;
+                        <span id="end_row">5</span>
+                    </td>
+                    <td>
+                        ，共:&nbsp;
+                        <span id="total_rows">62</span>
+                        条记录
+                    </td>
+                    <td class="gotopage">
+                        <input class="gotoPageInput" type="text" id="goto_Input">
+                        &nbsp;
+                        <input class="pagingBtn gotoPage" type="button" id="goto_page" value="跳转">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="clear"></div>
+    </div>
+    <span id="selectRoles_error" class="drop-hide-error">指定复核人必须选择</span>
+</body>
+</html>

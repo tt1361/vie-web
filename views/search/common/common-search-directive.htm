@@ -1,0 +1,17 @@
+﻿<div class="search-wrapper">
+    <div class="search-content">
+        <img src="images/voice-discovery.png">
+        <div class="search-input-wrap">
+            <input class="search-input-content-wrapper" type="text" ng-model="searchKeyword" ng-keydown="enterSearchCommonKey($event)" ng-show="searchAuth" placeholder="请输入搜索内容">
+            <input class="search-input-content-wrapper" type="text" ng-model="searchKeyword" ng-show="!searchAuth" placeholder="请输入搜索内容">
+            <button ng-click="showViewResult(1)" ng-if="searchAuth">
+                搜索
+            </button>
+            <a ng-click="showViewResult(2,0)" ng-if="advanceSearchAuth">高级搜索</a>
+        </div>
+        <div class="search-dimension">
+            <time-range item="time" type="0"></time-range>
+            <chanel-select item="chanelItem" type="0"></chanel-select>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,325 @@
+﻿<div class="center-download-wrap">
+    <div class="report-header">
+        <div class="report-title">
+            <span class="tab-title">下载中心</span>
+        </div>
+    </div>
+    <div class="center-download-filter">
+        <div class="inline-block">
+            <label class="download-label">
+                下载时间：
+            </label>
+            <ul class="filter-calendar">
+                <calendar class="calendar-topic" item="timesRange" status="-2" type="topic" ng-if="true"></calendar>
+            </ul>
+        </div>
+        <div class="inline-block">
+            <label class="download-label">
+                模块：
+            </label>
+        </div>
+        <div class="inline-block">
+            <label class="download-label">
+                下载进度：
+            </label>
+        </div>
+        <div class="inline-block download-search">
+            查询
+        </div>
+    </div>
+    <div class="list-inner-wrap centerdownload-list-wrap">
+        <div class="list-wrap">
+            <form id="form" method="post" enctype="multipart/form-data" action="model/exportSingleRule.do">
+                <!-- 删除action中的值 -->
+                <input type="hidden" name="modelId" class="exportExcle">
+                <table class="model-table-font">
+                    <thead class="table-bold">
+                        <tr>
+                            <td style="width:190px">
+                                模型
+                            </td>
+                            <td class="td80" style="width:235px;">
+                                文件名
+                            </td>
+                            <td>
+                                文件大小
+                                <div class="sort-btn" style="position: relative;display: inline;">
+                                    <span class="btn-up" ng-class="{'btn-up-selected':btnUp == 'createTime'}" ng-click="remarkSort('createTime','asc')"></span>
+                                    <span class="btn-down" ng-class="{'btn-down-selected':btnDown == 'createTime'}" ng-click="remarkSort('createTime','desc')"></span>
+                                </div>
+                            </td>
+                            <td>
+                                下载时间
+                                <div class="sort-btn" style="position: relative;display: inline;">
+                                    <span class="btn-up" ng-class="{'btn-up-selected':btnUp == 'releasetime'}" ng-click="remarkSort('releasetime','asc')"></span>
+                                    <span class="btn-down" ng-class="{'btn-down-selected':btnDown == 'releasetime'}" ng-click="remarkSort('releasetime','desc')"></span>
+                                </div>
+                            </td>
+                            <td>
+                                操作
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ok1
+                            </td>
+                            <td class="ell" title="okddddddddddddddddddddddddd1">
+                                okddddddddddddddddddddddddd1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                            <td>
+                                ok1
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <newpaging class="list-pager" ng-if="true" page-options="pageOptions" total-counts="counts" update="findModels(pageOptions)"></newpaging>
+    </div>
+</div>

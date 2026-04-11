@@ -1,0 +1,21 @@
+﻿<li class="item model" id="item-model_{{item.id}}">
+    <i class="picture picture-addGroup-model" ng-if="item.children.length" ng-class="{'multi': item.isShow}" ng-click="showOpen()"></i>
+    <div class="model-group-name" ng-class="{'active':groupId===item.id}">
+        <a href="#/model/-1/list" class="font14" ng-if="item.id === 0 && !item.isEdit && !item.isAdd" title="{{item.text}}"> {{item.text}} </a>
+        <a href="#/model/{{item.id}}/list" class="font14" ng-if="item.id != 0 && !item.isEdit && !item.isAdd" title="{{item.text}}"> {{item.text}} </a>
+        <input class="model-name-input" type="text" ng-model="item.text" ng-if="item.isEdit" ng-keydown="enterSubmitKey()" maxlength="100">
+        <input class="model-name-input" type="text" ng-model="item.text" ng-if="item.isAdd" ng-keydown="enterSubmitKey()" maxlength="100">
+        <i class="picture picture-submit-add" ng-if="item.isEdit || item.isAdd" ng-click="saveOrUpdate()"></i>
+        <i class="picture picture-submit-cancel" ng-if="item.isEdit || item.isAdd" ng-click="cancelAdd()"></i>
+        <div class="add-more-group-opt hidden" ng-show="!item.isAdd && !item.isEdit" id="model-group-edit-wrap_{{item.id}}">
+            <i class="picture picture-group-xinzeng" ng-if="item.treeNum<4 && addAuth" ng-click="newOrEditModelGroup('add')"></i>
+            <i class="picture picture-group-bianji" ng-if="item.id != 0 && editAuth" ng-click="newOrEditModelGroup('edit')"></i>
+            <i class="picture picture-group-del" ng-if="item.id != 0 && delAuth" ng-click="deleteModelGroup()"></i>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <ul ng-if="item.isShow" class="children-group">
+        <model-new-group ng-repeat="item in item.children" item="item" group-id="groupId" add-auth="{{addAuth}}" edit-auth="{{editAuth}}" del-auth="{{delAuth}}"></model-new-group>
+    </ul>
+    <div class="clear"></div>
+</li>

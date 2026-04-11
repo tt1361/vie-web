@@ -1,0 +1,26 @@
+﻿<div class="custom-enum-content">
+    <div class="conversion-rate-div conversion-rate-div-custom">
+        <span class="rate-value">{{conversionRate}}</span>
+        <span class="rate-text">总体转化率</span>
+    </div>
+    <div class="rote-chart-custom">
+        <div class="rote-repeat" ng-repeat="item in funnelList.name track by $index">
+            <div class="rote-text">
+                <a title="{{item}}" class="rote-name-flow" href="javaScript:void(0);">{{item | subData: 3}}</a>
+            </div>
+            <div class="rote-length">
+                <div class="rote-ground">
+                    <div class="rote-current" ng-style="{'background-color' :($index | findList: dataColor),'width': ($index | findList: dataRate)} "></div>
+                </div>
+                <span ng-style="{'color' : ($index | findList: dataColor)}" style="font-size:12px;">{{$index | findList: funnelList.data}}</span>
+            </div>
+            <div class="percent-model" ng-if="$index < (funnelList.rate.length)">
+                <div class="percent-rate" ng-style="{'background-color' : (($index + 1) | findList: dataColor)}">
+                    {{$index | findList: funnelList.rate}}
+                </div>
+                <div class="down-triangle" ng-style="{'border-top-color' : (($index + 1) | findList: dataColor)}"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

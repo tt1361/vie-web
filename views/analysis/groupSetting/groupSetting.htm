@@ -1,0 +1,36 @@
+﻿<div style="width: 100%;height: 30px;font-size:12px;font-weight: bold;">
+    <label style="cursor: pointer">
+        当前位置
+    </label>
+    &gt;
+    <a ng-href="{{dataPage.url}}"><label style="cursor: pointer; color: #00bcba;">
+            {{dataPage.name}}
+        </label></a>
+    &gt;
+    <label style="cursor: pointer">
+        {{dataPage.settingName}}
+    </label>
+</div>
+<div class="groupSetting">
+    <group-setting-tree></group-setting-tree>
+    <div class="group-detail" style="overflow-y: auto;height: 415px;">
+        <div class="detail-top jianbian_se">
+            <span ng-repeat="path in paths track by $index"><label ng-if="$index>0">
+                    &gt;
+                </label>{{path}}</span>
+        </div>
+        <div class="button-layer">
+            <button class="add" ng-click="addModel()" ng-if="selectedGroup">
+                添加模型
+            </button>
+        </div>
+        <div class="group-model-list">
+            <div class="group-model-item" ng-repeat="model in modelList">
+                <div title="{{model.modelName}}">
+                    <span>{{model.modelName}}</span>
+                </div>
+                <a href="javascript:void(0)" ng-click="deleteModel(model)"> <i class="fa fa-remove"></i></a>
+            </div>
+        </div>
+    </div>
+</div>

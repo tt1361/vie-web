@@ -1,0 +1,33 @@
+﻿<div>
+    <p>
+        <i class="picture" ng-class="{true:'down',false:'up'}[showC]" ng-click="showCom()"></i>
+        计算项
+        <i title="新建计算项" class="picture picture-add-active" ng-click="addComputer()"></i>
+        <span class="error">{{message}}</span>
+    </p>
+    <div class="create-wrap" ng-show="showCreate">
+        <lable>
+            名称:
+        </lable>
+        <input type="text" class="computer-inp" ng-model="computer.text" placeholder="请输入表达式名称">
+        <lable>
+            表达式:
+        </lable>
+        <input placeholder="请输入指标编号进行计算" type="text" class="computer-inp exp" ng-class="{true: 'pie'}[isPie||isColum]" ng-model="computer.expression">
+        <myselect ng-if="!isPie && !isColum" class="xAxis" selvalue="showTypeText" sel="computer.showType" list="showTypeList" type="xAxis"></myselect>
+        <i title="保存" class="save-icon" ng-click="saveComputer(computer)"></i>
+        <i title="放弃" class="abandon-icon" ng-click="abandonOperation()"></i>
+    </div>
+    <div class="content-wrap" ng-show="showC" ng-if="tableDefault.type != 'lineColumChart'">
+        <div class="dimension-wrap" ng-class="{true: 'active'}[item.hasAdd]" ng-repeat="item in mdcomputers | filter:{text:searchContent}">
+            <span class="common-overflow measure" title="{{item.text}}" ng-click="addTotable(item.filed, item.text, 'computer', item, $index)">{{item.text | subData: 6}}</span>
+            <div class="icon-warp">
+                <i class="chart-type edit" ng-click="addComputer($index)"></i>
+            </div>
+            <i class="picture computer-delete" ng-if="!showCreate" ng-click="onComputerDelete($index,item)"></i>
+        </div>
+    </div>
+    <div class="content-wrap" ng-show="showC" ng-if="tableDefault.type == 'lineColumChart'">
+        <div computer="" ng-repeat="computer in mdcomputers" item="computer" value="value" index="$index" show-create="showCreate"></div>
+    </div>
+</div>

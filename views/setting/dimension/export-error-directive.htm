@@ -1,0 +1,14 @@
+﻿<div class="export-wrapper">
+    <div class="export-header-wrapper">
+        <a class="dim-tab" ng-click="update()"> 返回任务管理 </a>
+    </div>
+    <div class="export-content-wrapper">
+        <ul>
+            <li ng-repeat="item in errorList track by $index">
+                <span class="index-num-content">{{item.indexNum}}</span>
+                {{item.content}}
+            </li>
+        </ul>
+        <newpaging ng-if="counts" page-options="pageOptions" total-counts="counts" update="getDimensionValueMessage(pageOptions)"></newpaging>
+    </div>
+</div>

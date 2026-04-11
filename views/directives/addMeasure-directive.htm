@@ -1,0 +1,37 @@
+﻿<div class="detail_chart_condition" style="position:relative" uid="{{uid}}">
+    <span ng-if="value=='2' ">副Y轴 :</span>
+    <span ng-if="value=='1' ">主Y轴 :</span>
+    <a class="add-a" ng-click="addMeasure()">+增加</a>
+    <div class="add-dialog measure" ng-show="showMdialog">
+        <i class="triangle-up"></i>
+        <div class="push-model-dialog">
+            <p>
+                <i class="picture" ng-class="{true:'down',false:'up'}[showM]" ng-click="showMe()"></i>
+                指标
+            </p>
+            <div class="content-wrap" ng-show="showM">
+                <div measure="" ng-repeat="measure in mdMeasures" item="measure" value="value" index="$index" ng-if="measure.measure !== 'keyword'"></div>
+            </div>
+            <computerlist mdcomputers="mdcomputers" table-default="tableDefault" value="value"></computerlist>
+            <div class="push-model-btn">
+                <button ng-click="saveMeasure()">
+                    保&nbsp;存
+                </button>
+            </div>
+        </div>
+    </div>
+    <i class="pre-icon" ng-class="{'disabled':!showPre}" ng-click="prePage()"></i>
+    <div class="swiper-container">
+        <div class="swiper-wrapper" ng-style="left">
+            <div ng-if="value == '1'" class="Axis main" ng-repeat="mainAxis in tableDefault.mainAxis" on-finish-render="">
+                <i class="picture icon-delete-s" ng-click="onAxisDelete(mainAxis, mainAxis.type, 'main',$index)"></i>
+                {{mainAxis.text}}
+            </div>
+            <div ng-if="value == '2'" class="Axis secondary" ng-repeat="secondaryAxis in tableDefault.secondaryAxis" on-finish-render="">
+                <i class="picture icon-delete-s" ng-click="onAxisDelete(secondaryAxis, secondaryAxis.type, 'secondary',$index)"></i>
+                {{secondaryAxis.text}}
+            </div>
+        </div>
+    </div>
+    <i class="next-icon" ng-class="{'disabled':!showNext}" ng-click="nextPage()"></i>
+</div>

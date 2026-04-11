@@ -1,0 +1,31 @@
+﻿<ul class="fl vocabulary-list">
+    <!-- 排名 -->
+    <li class="{{!isSametime?'ell top-num-differ':'ell top-num'}}">
+        {{item.rn}}
+    </li>
+    <!-- 关键词 -->
+    <li class="{{!isSametime?'change-top-word':'top-word'}}">
+        <span class="ell" title="{{item.hotVocabulary}}" ng-click="rankShow(item.hotVocabulary)">{{item.hotVocabulary}}</span>
+        <img class="del-opt tm" title="删除" ng-click="delVocabulary(item.hotVocabulary)" src="images/del-icon.png">
+    </li>
+    <!-- 名次变化 -->
+    <li class="ell top-increment immutability" title="{{item.increment}}" ng-if="item.increment == 0 &&isSametime">
+        {{item.increment}}
+    </li>
+    <li class="ell top-increment increase" title="{{item.increment}}" ng-if="item.increment > 0 && isSametime">
+        <img src="images/up-triangle.png">
+        {{item.increment}}
+    </li>
+    <li class="ell top-increment decline" title="{{item.increment}}" ng-if="item.increment < 0 && isSametime">
+        <img src="images/down-triangle.png">
+        {{item.increment}}
+    </li>
+    <!-- 词频或音频占比 -->
+    <li class="{{!isSametime?'change-top-date':'top-date'}}">
+        <p class="fl total-bar">
+            {{item.rate}}
+        </p>
+        <div class="clear"></div>
+    </li>
+    <div class="clear"></div>
+</ul>

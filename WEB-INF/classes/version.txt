@@ -1,0 +1,368 @@
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1002
+Created-Time:2016-10-28
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1002
+SQL:
+======================================================
+更改记录：
+无
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1003
+Created-Time:2016-10-28
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1003
+SQL:
+======================================================
+更改记录：
+1.模型
+2.自定义专题
+3.重点推送
+4.维度配置
+5.搜索
+6.系统首页
+
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1010
+Created-Time:2016-11-15
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1010
+SQL:
+======================================================
+更改记录：
+修改的接口：
+1.4.8.1获取所有报表组
+2.4.8.3新建报表组
+3.4.8.5编辑报表组
+4.4.8.10分页获取常用报表列表
+5.4.8.13根据报表id查询报表详细信息
+6.4.8.17置顶/取消置顶报表
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1013
+Created-Time:2016-11-15
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1013
+SQL:
+======================================================
+更改记录：
+修改的接口：
+4.8.12分页获取所有报表列表
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1018
+Created-Time:2016-11-23
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1018
+SQL:
+======================================================
+更改记录：
+无
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1019
+Created-Time:2016-11-24
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1019
+SQL:
+======================================================
+更改记录：
+无
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1020
+Created-Time:2016-11-25
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1020
+SQL:
+======================================================
+更改记录：
+1、专题-NEW_专题-NEW_编辑专题偶尔出现保存失败和保存无反应的情况；
+2、专题-NEW_从自定义概览页面的专题路径的展示图停在聚类页面，进入专题页面，不论聚类是什么状态，进入 到专题页面都是一个状态开始聚类；
+3、首页-NEW_首页聚类钻取的通话列表页面，点击时间页面展示混乱。
+4、修复bug 专题-NEW_专题管理页面搜索并翻页之后，搜索框输入为空，无法检索出全部数据
+5、解决自定义首页X轴下拉框多余空位的问题
+6、专题路径提示语修改
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1021
+Created-Time:2016-11-28
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1021
+SQL:
+======================================================
+更改记录：
+1.专题-NEW_路径中添加流水号维度保存时 ，页面报组装统计查询条件出错；
+2.专题-NEW_输入类的维度，漏斗分析的统计数据有误；
+3.优化：getPathData,getTogatherData,getMarkData三个接口去掉关键词信息
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1022
+Created-Time:2016-11-29
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1022
+SQL:
+======================================================
+更改记录：
+1.修复bug 专题-NEW_输入类的维度是排除类型时，再次编辑；控件展示有误；按钮是包含；但是输入框内有特殊符号
+2.专题-NEW_添加的维度出现点击保存路径之后，已添加的维度就不在已添加维度的展示区展示了；
+3.专题-NEW—新建路径，添加维度，发现路径之间的维度条件选择会相互影响；
+4.专题-NEW_维度输入异常字符之后，点击取消按钮，再次查看该维度，依旧展示上一次取消输入的异常字符 
+5.专题-NEW_专题路径添加通话时长：1-1；点击保存，页面报错
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1023
+Created-Time:2016-11-30
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1023
+SQL:
+======================================================
+更改记录：
+1、去除专题切换中不必要的请求；
+2、修复搜索时提示包含特殊字符还进行请求的问题；
+3、专题-NEW_专题-NEW_编辑专题偶尔出现保存失败和保存无反应的情况。
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1024
+Created-Time:2016-12-01
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1024
+SQL:
+======================================================
+更改记录：
+1.报表-NEW_报表编辑模式下，可修改报表名称，此处缺少同名验证
+2.允许测听页面选择自定义维度为空
+3.修复增加备注信息—topicid未做异常：不存在的情况；依然能添加到数据库中；
+4.优化H5播放器模型片段播放及进度条定点播放功能
+5.允许测听页面选择自定义维度为空
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1025
+Created-Time:2016-12-02
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1025
+SQL:
+======================================================
+更改记录：
+1.播放器测听_被选中的自定义维度值在全选维度之后标记丢失；
+2.DB层做预编译优化，影响的接口：
+	1、创建热词分析任务addHotWordTask 
+	2、获取热词分析任务状态getHotWordTaskStatus 
+	3、获取热词分析上次刷新时间getHotWordLastFlushTime
+	4、获取漏斗分析总体转化率getTotalRate
+	5、获取漏斗分析图表getFunnelChart
+	6、获取漏斗分析表格getFunnelTable
+	7、获取漏斗详细列表getFunnelList
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1026
+Created-Time:2016-12-05
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1026
+SQL:
+======================================================
+更改记录：
+1、报表-NEW—选中某一报表组，发现展示的信息总数不是该报表组对应有的数据
+2、专题-NEW—新建报表，新建表格，选择维度有效时长，呼叫量，进行钻取，发现未正常展示钻取结果
+3、修复模型、报表、专题名称及搜索时输入转义符号可能引起的异常
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1027
+Created-Time:2016-12-06
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1027
+SQL:
+======================================================
+更改记录：
+1.报表-NEW—新建报表，新建表格，添加的字段包含时长的，预览后，提示获取报表表格数据接口出错；
+2.模型-NEW_查看已上线模型的详细通话列表页面，17万数据报查询超时；见截图
+3.模型通话列表的统计报表添加跨步处理
+4.专题编辑添加重命名特殊字符验证
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1028
+Created-Time:2016-12-07
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1028
+SQL:
+======================================================
+更改记录：
+报表-NEW—新建报表，条件筛选先选一个，保存后，再选一个，退出该报表，再次进行查看时，发现选择的条件缺失
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1029
+Created-Time:2016-12-08
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1029
+SQL:
+======================================================
+更改记录：
+1.修复BUG模型-NEW_模型关键词查看更多的弹框打开后，点击backspace按钮返回到上一个操作页面，该弹框不关闭
+2.web应用的日志级别修改为INFO
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1030
+Created-Time:2016-12-09
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1030
+SQL:
+======================================================
+更改记录：
+专题-NEW_数据库中维度表的is_analysis字段为0的维度依旧在专题的统计报表处可选
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1031
+Created-Time:2016-12-13
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1031
+SQL:
+======================================================
+更改记录：
+1、专题-NEW_数据库中维度表的is_analysis字段为0的维度依旧在专题的统计报表处可选
+2、报表-NEW_从自定义概览页面查看概览到详细报表查看页面，无下载按钮和返回按钮
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1032
+Created-Time:2016-12-14
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1032
+SQL:
+======================================================
+更改记录：
+1、报表-NEW_报表组新建一个保存之后，编辑名称重新保存，之后再次编辑该报表组名称，取消保存，报表组显示的是新建时的名称并不是编辑保存时的名称
+2、报表-NEW_从自定义概览页面选择饼状图进入饼状图详细查看页面，无法选择计算项作为参数
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1033
+Created-Time:2016-12-15
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1033
+SQL:
+======================================================
+更改记录：
+1.修复BUG 专题-NEW_浏览器缓存清除之后，首次查看专题，柱折图处的y轴名称无法展示；且匹配数据为0
+2.测听页面免登陆的配套改造
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1035
+Created-Time:2016-12-19
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1035
+SQL:
+======================================================
+更改记录：
+1、修复报表-表格未预览情况下，点击下载传参缺失问题
+2、修复bug 模型-IE8,模型关键字集合里的关键字不能修改
+3、解决平安现场模型导入导出问题
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1037
+Created-Time:2016-12-26
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1037
+SQL:
+======================================================
+更改记录：
+1.修复模型导出未导出静音规则缺陷；
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1038
+Created-Time:2016-12-28
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1038
+SQL:
+======================================================
+更改记录：
+1、新增模型静音规则导入功能
+2、修复bug：专题-NEW_专题路径中的模型条件中不支持非条件
+3、修复bug:专题-NEW_专题漏斗分析的详细通话列表页面，偶尔出现翻页控件被遮住的情况；
+4、修复bug:搜索-NEW_搜索模块的列表导出只能导出默认的展示列
+5、IE8兼容性_专题将模型添加全局路径时，提示出现及消失的速度太快，其他提示也有类似情况
+6、修复bug：报表new  IE8兼容性_报表下载名称乱码，有的时候格式也有问题，无法正常打开（黄全全帮忙解决的）
+7、修复bug：报表new  IE8兼容性_报表布局需优化
+8、修复bug：专题new  IE8兼容性_新建报表时，报表名称输入框大小有误
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1039
+Created-Time:2017-1-8
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1039
+SQL:
+======================================================
+更改记录：
+1、修正bug：IE8兼容性_通话列表模块，先添加全部维度后，再取消全部维度，页面展示不自适应
+2、修复bug：报表-NEW_柱折图报表展示，切换柱折图的按钮展示有问题
+3、模型-NEW_模型规则导入失败之后，点击模型新建页面的功能按钮，均不发请求
+4、新增建行模型组展示增加宽度和显示字数需求
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1040
+Created-Time:2017-1-11
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1040
+SQL:
+======================================================
+更改记录：
+1、修复：模型-NEW_首页切换成时的时候，标题显示依旧是“近一周”不是“昨天”，与需求不符
+2、修复bug:首页-NEW_查看首页的模型匹配数据的详细通话列表时，回传回来的时间不正确，导致检索出的数据不正确
+3、模型筛选条件中含英文字符的)会被剔除的缺陷修复
+4、规则导出结构化编辑为空，报错问题
+5、报表-NEW_饼状图的类别个数超过10个之后，饼状图只展示10个类别，类别展示不全，数据不准确；见截图
+6、报表-NEW_详细报表选择了模型和关键词之后，预览浏览器和后台报错；见截图
+7、增加操作日志。
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1041
+Created-Time:2017-1-12
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1041
+SQL:
+======================================================
+更改记录：
+1.首页-NEW_在首页的快速模型预览处，点击柱状图进入详细通话列表页面，无法查看该模型匹配的详细通话
+2.修复bug：模型-NEW_导出一个已经删除了静音规则的模型规则，导出的模型规则中依旧包含已删除的静音规则；
+3.模型筛选条件中含英文字符的)会被剔除的缺陷修复--补充
+4.修复bug 模型-NEW_模型规则导入静音规则为空的规则之后，点击添加静音规则，模型上线，模型保存，预览按钮，浏览器报错
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1042
+Created-Time:2017-1-13
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1042
+SQL:
+======================================================
+更改记录：
+1、报表-NEW—点击报表组新增后，不输入内容，点击取消，输入框未正常取消；
+2、模型-NEW_模型预览页面，关键词过长时，预览列表的关键词查看更多按钮展示有问题
+3、模型-NEW_导出一个已经删除了静音规则的模型规则，导出的模型规则中依旧包含已删除的静音规则；且静音规则删除无效
+4、测听-NEW—片段播放到末尾不返回到初始状态
+5、模型-NEW_模型规则导入静音规则为空时，不覆盖原先存在的静音规则
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1044
+Created-Time:2017-1-18
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1044
+SQL:
+======================================================
+更改记录：
+1、首页-NEW_IE8浏览器首页的模型组下拉框的滚动条查看不灵敏
+2、报表-NEW—点击报表组新增后，不输入内容，点击取消，输入框未正常取消；
+3、IE8兼容性_模型规则导入无效，且导入文件格式不对无提示
+4、IE8兼容性_导入自定义维度成功后，页面不刷新
+5、IE8兼容性_自定义维度导入无提示
+6、支持weblogic部署。
+VIEWEB.war\WEB-INF\classes\config\standard\config.properties文件增加以下配置：
+#(Tomcat,Jetty,JBoss)defaultServletName:default
+#(WebLogic)defaultServletName:FileServlet
+#(WebSphere)defaultServletName:SimpleFileServlet
+defaultServletName=default
+说明：当服务器中间件为JBoss、Tomcat等，defaultServletName=default；当服务器中间件为WebLogic时，defaultServletName=FileServlet。其他配置见上述说明
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1045
+Created-Time:2017-1-21
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1045
+SQL:
+======================================================
+更改记录：
+1、解决weblogic下面无法部署的问题
+2、修复 报表中自定义维度被删除后，预览及保存仍然存在该条件的缺陷
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1045-1
+Created-Time:2017-1-21
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1045
+SQL:
+======================================================
+更改记录：
+1、解决jboss下首页跳转问题
+======================================================
+iFlyTEK Update-History file
+Build: VIE61_APP_Build1046
+Created-Time:2017-2-7
+Tags:https://svn.iflytek.com:8888/svn/SE_VIE61/Tags/CodeBase/标准应用/VIE61_APP_Build1046
+SQL:
+======================================================
+更改记录：
+1、报表传参优化处理
+2、修复导出搜索结果时缺失条件的缺陷
+3、处理报表value未定义报错的问题
+================================================================
+Time:20190110
+Tag:https://svn.iflytek.com:8888/svn/ZNFW_JR_VIE61_Stable_Custom/Tags/CodeBase/定制产品/VIE61pufaBank/VIE61_pufaBank_Build1007/ZhiNengKeFu-VIE61pufaBank-VIEWEB

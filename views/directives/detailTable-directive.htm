@@ -1,0 +1,106 @@
+﻿<div class="report-outter-panel">
+    <div class="detail_condition_wrapper">
+        <button class="show-button" ng-click="setShow()">
+            预览
+        </button>
+        <addtoindex type="table" config="viewConfig" op-type="opType" default-page="pageId" report-name="moduleName" record-id="moduleId" table-default="tableDefault" isPreview="isPreview" data="rows"></addtoindex>
+        <div class="detail_chart_condition">
+            表格类型 :
+            <label ng-if="opType == 'add' || (opType == 'update' && tableDefault.tableType == 'stats')">
+                <input type="radio" name="tableType" ng-model="tableDefault.tableType" value="stats">
+                统计报表
+            </label>
+            <label ng-if="opType == 'add' || (opType == 'update' && tableDefault.tableType == 'detail')">
+                <input type="radio" name="tableType" ng-model="tableDefault.tableType" value="detail">
+                详细报表
+            </label>
+        </div>
+        <addcolumn measures="measures" dimensions="dimensions" computers="computers" table-default="tableDefault" has-time-dim="hasTimeDim"></addcolumn>
+        <div ng-show="hasTimeDim" class="detail_chart_condition condition_sort">
+            统计周期 :
+            <myselect class="timedim" selvalue="tableDefault.timeDimText" sel="tableDefault.timeDimKey" list="timeDimList" type="timeDim"></myselect>
+        </div>
+    </div>
+    <div class="bread-nav">
+        <span class="poiter nav-item" ng-click="setShow()">全部报表</span>
+        <span ng-repeat="p in paramList" class="poiter nav-item" ng-click="dirllBack($index,p,$last)">>{{p.text.name}}<span ng-if="p.text.condition">:{{p.text.condition}}</span></span>
+    </div>
+    <div ng-if="drillType != 'measure'" class="detail-table list-wrap" style="overflow: auto;">
+        <table id="detail_table" ng-class="{'hidden':optionFalse}">
+            <thead>
+                <tr>
+                    <td ng-repeat="column in viewConfig.column">
+                        <span class="table_head table-column-overflow" title="{{column.text}}"> {{column.text | subData: 8}} </span>
+                        <span class="sort-icon" ng-if="column.filed != 'offLineTagId' && column.filed != 'keyword'"> <div class="asc" ng-class="{true: 'active'}[viewConfig.orderType == 'asc' && viewConfig.order == column.filed]" ng-click="sortByOrder(column.filed,'asc')">
+                            </div> <div class="desc" ng-class="{true: 'active'}[viewConfig.orderType == 'desc' && viewConfig.order == column.filed]" ng-click="sortByOrder(column.filed,'desc')">
+                            </div> </span>
+                    </td>
+                </tr>
+            </thead>
+            <tbody ng-if="showIsByTaskId">
+                <tr ng-repeat="row in rows" on-finish-render="" ng-class-even="'color-even'">
+                    <td ng-repeat="td in row track by $index" class="table-column-overflow" ng-class="{true: 'poiter'}[tableDefault.tableType == 'stats']" title="{{td.value}}" ng-click="tdClick(td.value,td.column,row,td.valueCopy)">
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'chrome'" class="poiter item-id" ng-href="playH5.html#?taskId={{td.id}}&voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'msie'" class="poiter item-id" ng-href="play.html#?taskId={{td.id}}&voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'other'" class="poiter item-id" ng-href="play.html#?taskId={{td.id}}&voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <!-- 增加任务Id的测听 -->
+                        <a ng-if="td.column.filed == 'taskId'&& browser === 'chrome'" class="poiter item-id" ng-href="playH5.html#?taskId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'taskId'&& browser === 'msie'" class="poiter item-id" ng-href="play.html#?taskId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'taskId'&& browser === 'other'" class="poiter item-id" ng-href="play.html#?taskId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <span ng-if="td.column.filed !== 'voiceId' && td.column.filed !== 'taskId'">{{td.value}}</span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-if="!showIsByTaskId">
+                <tr ng-repeat="row in rows" on-finish-render="" ng-class-even="'color-even'">
+                    <td ng-repeat="td in row track by $index" class="table-column-overflow" ng-class="{true: 'poiter'}[tableDefault.tableType == 'stats']" title="{{td.value}}" ng-click="tdClick(td.value,td.column,row,td.valueCopy)">
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'chrome'" class="poiter item-id" ng-href="playH5.html#?voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'msie'" class="poiter item-id" ng-href="play.html#?voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'other'" class="poiter item-id" ng-href="play.html#?voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <span ng-if="td.column.filed !== 'voiceId'">{{td.value}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="drillType == 'measure'" class="detail-table list-wrap" style="overflow: auto;">
+        <table id="detail_table" ng-class="{'hidden':optionFalse}">
+            <thead>
+                <tr>
+                    <td ng-repeat="column in drillViewConfig.column">
+                        <span class="table_head table-column-overflow" title="{{column.text}}"> {{column.text}} </span>
+                        <span class="sort-icon" ng-if="column.filed != 'offLineTagId' && column.filed != 'keyword'"> <div class="asc" ng-class="{true: 'active'}[drillViewConfig.orderType == 'asc' && drillViewConfig.order == column.filed]" ng-click="sortByOrder(column.filed,'asc')">
+                            </div> <div class="desc" ng-class="{true: 'active'}[drillViewConfig.orderType == 'desc' && drillViewConfig.order == column.filed]" ng-click="sortByOrder(column.filed,'desc')">
+                            </div> </span>
+                    </td>
+                </tr>
+            </thead>
+            <tbody ng-if="showIsByTaskId">
+                <tr ng-repeat="row in rows" on-finish-render="" ng-class-even="'color-even'">
+                    <td ng-repeat="td in row track by $index" class="table-column-overflow" title="{{td.value}}">
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'chrome'" class="poiter item-id" ng-href="playH5.html#?taskId={{td.id}}&voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'msie'" class="poiter item-id" ng-href="play.html#?taskId={{td.id}}&voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'other'" class="poiter item-id" ng-href="play.html#?taskId={{td.id}}&voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <!-- 增加任务Id的测听 -->
+                        <a ng-if="td.column.filed == 'taskId'&& browser === 'chrome'" class="poiter item-id" ng-href="playH5.html#?taskId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'taskId'&& browser === 'msie'" class="poiter item-id" ng-href="play.html#?taskId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'taskId'&& browser === 'other'" class="poiter item-id" ng-href="play.html#?taskId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <span ng-if="td.column.filed !== 'voiceId' && td.column.filed !== 'taskId'">{{td.value}}</span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-if="!showIsByTaskId">
+                <tr ng-repeat="row in rows" on-finish-render="" ng-class-even="'color-even'">
+                    <td ng-repeat="td in row track by $index" class="table-column-overflow" title="{{td.value}}">
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'chrome'" class="poiter item-id" ng-href="playH5.html#?voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'msie'" class="poiter item-id" ng-href="play.html#?voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <a ng-if="td.column.filed == 'voiceId'&& browser === 'other'" class="poiter item-id" ng-href="play.html#?voiceId={{td.value}}" target="_blank">{{td.value}}</a>
+                        <span ng-if="td.column.filed !== 'voiceId'">{{td.value}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <newpaging class="list-pager" ng-if="counts" page-options="pageOptions" total-counts="counts" update="getTableData()"></newpaging>
+    <div ng-if="!counts" class="detail_chart_footer"></div>
+</div>

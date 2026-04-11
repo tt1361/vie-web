@@ -1,0 +1,45 @@
+﻿<dd class="rule-text-fragment" ng-class="{'even-num': $parent.$odd}">
+    <i class="picture picture-del" ng-click="removeFragment()" ng-if="status != -1 && status != 0"></i>
+    <div class="rule-num">
+        {{item.fragmentNum}}
+    </div>
+    <div class="rule-text-content">
+        <div class="inner-content" ng-if="!isEdit">
+            <span class="condition-color" ng-if="item.isTag === 1">【条件】</span>
+            <div class="qucick-inner-wrap" title="{{item.fragmentContent}}" ng-bind-html="item.fragmentContent | highlight:pwords:'short':item.isTag" ng-dblclick="changeEdit()" ng-if="status != -1 && status != 0" ng-class="{'text-indent': item.isTag === 1}">
+            </div>
+            <div class="qucick-inner-wrap" title="{{item.fragmentContent}}" ng-bind-html="item.fragmentContent | highlight:pwords:'short':item.isTag" ng-if="status == -1 || status == 0" ng-class="{'text-indent': item.isTag === 1}">
+            </div>
+            <div class="channel-wrapper" ng-if="item.isTag === 0">
+                <i class="picture picture-frag-channel" ng-class="{'all': item.channel==2,'kehu': item.channel==1,'zuoxi': item.channel==0}" title="声道：{{channelName}}"></i>
+                <div class="channel-select-wrap" ng-class="{'edit': status != -1 && status != 0}">
+                    <i class="chanel-select-up"></i>
+                    <ul>
+                        <li ng-click="changeChannel(2)">
+                            <i class="picture picture-channel-all" ng-class="{'active': item.channel==2}"></i>
+                            <span class="font-color-channel" ng-class="{'active': item.channel==2}">投诉</span>
+                        </li>
+                        <li ng-click="changeChannel(1)">
+                            <i class="picture picture-channel-kehu" ng-class="{'active': item.channel==1}"></i>
+                            <span class="font-color-channel" ng-class="{'active': item.channel==1}">办结</span>
+                        </li>
+                        <!-- <li ng-click="changeChannel(0)">
+                            <i class="picture picture-channel-zuoxi" ng-class="{'active': item.channel==0}"></i>
+                            <span class="font-color-channel" ng-class="{'active': item.channel==0}">坐席</span>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+            <i class="picture picture-frag-unmark" ng-class="{'active':item.remark}" title="备注：{{item.remark}}" ng-click="editRemark()" ng-if="status != -1 && status != 0"></i>
+            <i class="picture picture-frag-unmark" ng-class="{'active':item.remark}" title="备注：{{item.remark}}" ng-if="status == -1 || status == 0"></i>
+        </div>
+        <div class="quickEdit-outer-content" ng-if="isEdit" uid="{{uid}}">
+            <div class="qucickEdit-inner-wrap" contenteditable="true" ng-bind-html="item.fragmentContent | highlight:pwords:'long':item.isTag" id="quickEdit_{{item.fragmentId}}">
+            </div>
+        </div>
+    </div>
+    <div class="rule-count">
+        <span class="picture" ng-class="{'init': item.count == null}" title="{{item.count}}" ng-click="previewFragment()" ng-if="status != -1 && status != 0 && previewAuth">{{item.count}}</span>
+        <span class="picture" ng-class="{'init': item.count == null}" title="{{item.count}}" ng-if="(status == -1 || status == 0) && previewAuth">{{item.count}}</span>
+    </div>
+</dd>

@@ -1,0 +1,31 @@
+﻿<div class="model-content-ruletext">
+    <div class="model-content-header">
+        <ul class="tabs">
+            <li class="analyse-tab" ng-class="{'active': isTab == 0}" ng-click="showPreGZ(0)" ng-show="!isHaveSilence">
+                <a class="ell">结构化编辑</a>
+            </li>
+            <li class="analyse-tab" ng-class="{'active': isTab == 0}" ng-show="isHaveSilence">
+                <a class="ell">结构化编辑</a>
+            </li>
+            <!-- <li class="analyse-tab" ng-class="{'active': isTab == 1}" ng-click="showPreGZ(1)" ng-show="!isHaveSilence">
+                <a class="ell">静音规则</a>
+            </li> -->
+        </ul>
+    </div>
+    <gd-rule-editor ng-show="isTab === 0" model="model" status="{{status}}" preview-auth="{{previewAuth}}" is-show-silence="{{isHaveSilence}}" tag-dimension="tagDimension"></gd-rule-editor>
+    <silent-rule ng-show="isTab === 1" condition="silenceScreen.condition" tag-dimension="tagDimension" status="{{status}}"></silent-rule>
+    <div class="rule-edit">
+        规则组合
+    </div>
+    <div class="editor-content-footer">
+        <button class="btn-preview-model-new" ng-click="preview()" ng-if="status != -1 && status != 0 && previewAuth">
+            预&nbsp;&nbsp;览
+        </button>
+        <button class="btn-preview-model-new" ng-if="(status == -1 || status == 0) && previewAuth">
+            预&nbsp;&nbsp;览
+        </button>
+        <div class="text-inner-content">
+            <textarea ng-model="model.modelFragmentRelation.fragmentContent" placeholder=" 请输入结构化片段组合规则，支持通过序号进行简单的&，|，！逻辑组合，如（1|2）&3" ng-disabled="status === -1 || status === 0"></textarea>
+        </div>
+    </div>
+</div>

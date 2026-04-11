@@ -1,0 +1,73 @@
+﻿<div class="model-wapper">
+    <div class="section-header-index">
+        <p class="fl">
+            快速模型概览
+        </p>
+        <a href="javascript:;" class="fl btn-tip btn-tip-hot-point"> <span class="tip-arrow-index"></span> <div class="tip-wrapper-index">
+                <span class="tip-title-index">快速模型概览：</span>
+                <span class="tip-content-index"> 展示所选时间段内模型准确度及匹配通话覆盖情况（时间范围内模型匹配通话量/时间范围内通话总量），并监控模型时间段内匹配量变化趋势 </span>
+            </div> </a>
+    </div>
+    <div class="fr" style="position: absolute;right: 0;top: 0;">
+        <div class="model-group-index-type">
+            <div ng-click="toogel()">
+                <span title="{{modelFirst}}" class="fr ell model-type-state">{{modelFirst}}</span>
+                <i class="picture picture-select-down newtab model-option" ng-class="{'active': optionShowModel}"></i>
+            </div>
+            <ul class="model-options hidden" ng-class="{'option-show-model':optionShowModel}">
+                <new-group ng-repeat="item in modelGroup" on-finish-render="" item="item" model="groupId"></new-group>
+            </ul>
+        </div>
+    </div>
+    <div class="f1 model-body">
+        <div class="model-list">
+            <div class="model-list-wrapper">
+                <div class="pos-rel hot-word-index" ng-if="models.length">
+                    <div class="pos-header">
+                        <table class="model-ul">
+                            <thead>
+                                <tr>
+                                    <td class="t-model-name">
+                                        模型名称
+                                    </td>
+                                    <td class="t-percentage">
+                                        准确率
+                                    </td>
+                                    <td class="t-model-name">
+                                        检出数
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="pos-content">
+                        <table class="model-ul">
+                            <tbody>
+                                <tr ng-repeat="model in models" ng-class="{'modul-item':true,'model-selected':isModelItemSelected=={{$index}}}" ng-click="modelClick
+
+(model.modelId,$index,model.modelName)" class="t-left" ng-class-even="'color-even'">
+                                    <td class="ell t-model-name" title="{{model.modelName}}">
+                                        <div style="width: 100px; margin: 0 auto;" class="ell">
+                                            {{model.modelName}}
+                                        </div>
+                                    </td>
+                                    <td class="t-percentage" title="{{model.percentage}}">
+                                        {{model.percentage}}
+                                    </td>
+                                    <td class="ell t-model-name" title="{{model.modelPer}}">
+                                        <div class="ell">
+                                            {{model.modelPer}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="empty-data hotpoint" ng-if="!models.length"></div>
+            </div>
+        </div>
+        <div id="modelChart" class="model-chart" ng-if="models.length"></div>
+        <div class="empty-data hotpointModel" ng-if="!models.length"></div>
+    </div>
+</div>

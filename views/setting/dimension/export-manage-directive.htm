@@ -1,0 +1,65 @@
+﻿<div class="export-wrapper">
+    <div class="export-header-wrapper">
+        <a class="dim-tab" ng-class="{'active':dimTab ===0}" ng-click="changeDimTab(0)"> 导入配置文件 <div class="check-tag" ng-show="dimTab === 0"></div> </a>
+        <a class="dim-tab manage" ng-class="{'active':dimTab ===1}" ng-click="changeDimTab(1)"> 任务管理 <div class="check-tag" ng-show="dimTab === 1"></div> </a>
+        <iframe style="display:none" name="ifr_export_dim"></iframe>
+        <form id="form5" name="form5" method="post" action="" enctype="multipart/form-data" target="ifr_export_dim">
+            <a class="export-muban" ng-click="exportDimMB()">模板下载</a>
+        </form>
+    </div>
+    <div class="export-content-wrapper">
+        <form id="dimension_file_upload_new" class="export-content-button" ng-show="dimTab ===0" action="" method="post" enctype="multipart/form-data">
+            <!-- <input type="file" id="file" name="file"> -->
+            <input type="file" id="dimension_file_upload" name="uploadify" uploader="uploader">
+            <div class="msg err-msg" ng-if="isShowErrorMsg">
+                {{errorMsg}}
+            </div>
+            <div class="msg succes-msg" ng-if="isShowSuccessMsg">
+                操作成功，您可在
+                <a class="view-manage" ng-click="viewManage()">任务管理</a>
+                页面查看导入进度
+            </div>
+            <!-- <input type="submit" value="导入" ng-click="save()"> -->
+        </form>
+        <div class="export-content-manage" ng-show="dimTab ===1">
+            <table>
+                <thead>
+                    <tr>
+                        <td style="width:70px;">
+                            状态
+                        </td>
+                        <td style="width:180px;">
+                            任务发起时间
+                        </td>
+                        <td style="width:120px;">
+                            任务发起人
+                        </td>
+                        <td>
+                            操作
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in exportList">
+                        <td>
+                            <i class="picture picture-success-export" ng-if="item.taskState === 1"></i>
+                            <i class="picture picture-updating-export" ng-if="item.taskState === 0 ||item.taskState === 2"></i>
+                            <i class="picture picture-error-export" ng-if="item.taskState === -1"></i>
+                        </td>
+                        <td>
+                            {{item.taskTime}}
+                        </td>
+                        <td>
+                            {{item.taskUser}}
+                        </td>
+                        <td>
+                            <span ng-if="item.taskState>-1">--</span>
+                            <a class="view-result" ng-if="item.taskState === -1" ng-click="viewErrorResult(item)">查看原因</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <newpaging ng-if="counts" page-options="pageOptions" total-counts="counts" update="getManageValue(pageOptions)"></newpaging>
+        </div>
+    </div>
+</div>

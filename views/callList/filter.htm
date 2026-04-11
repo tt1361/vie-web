@@ -1,0 +1,73 @@
+﻿<div class="conditionCss" style="font-family: 'Microsoft YaHei';font-size: 12px;width: 650px">
+    <div class="overFilterCondition">
+        <div class="content-heading filter-page filter-size-font-title" style="border-top-left-radius: 3px;border-top-right-radius: 3px;height: 40px;background: #e7e7e7;line-height: 40px;text-align: center;">
+            <div style="font-size: 12px;font-family: " Microsoft="" YaHei";"="">
+                已保存筛选条件
+            </div>
+        </div>
+        <div class="bodyFilter">
+            <div ng-repeat="filterSelect in filterSelectList" style="position: relative;border-bottom: solid 1px #F2F1F1">
+                <div class="divCSS" title="{{filterSelect.filterName}}" id="{{filterSelect.id}}" ng-click="editFliter(filterSelect.id)">
+                    <span class="spanCSS" style="cursor:pointer;">{{filterSelect.filterName}}</span>
+                </div>
+                <!-- <i class="callListEdit" ng-click="editFliter(filterSelect.id)"></i> -->
+                <i class="callListDele" ng-click="deleFliter(filterSelect.id)"></i>
+            </div>
+        </div>
+    </div>
+    <div class="filterCondition">
+        <div class="content-heading filter-page filter-size-font-title" style="border-top-left-radius: 3px;border-top-right-radius: 3px;height: 40px;background: #e7e7e7;line-height: 40px;text-align: center;">
+            <div style="font-size: 12px;font-family: " Microsoft="" YaHei";"="">
+                筛选条件编辑
+            </div>
+            <i class="picture picture-close" ng-click="closeThisDialog()"></i>
+        </div>
+        <div class="content-body">
+            <div class="filterSelect">
+                <select class="filter-size-font" style="width:60px;text-align:center;height: 27px;padding: 2px 0px 2px 12px;font-size: 12px;" ng-model="andOr" id="changeFilterOptionsAndOr" onChange="changeFilterOptionsAndOr()" ng-disabled="ngDisabled" ng-class="{true:'disableCss'}[ngDisabled]">
+                    <option value="&">
+                        与
+                    </option>
+                    <option value="|">
+                        或
+                    </option>
+                </select>
+                <label class="filterSelectLabel">
+                    筛选条件名称
+                </label>
+                <input id="inputId" class="search-input-model ng-pristine ng-valid" maxlength="20" type="text" placeholder="请输入筛选条件名称" style="height:33px;width:120px;font-size: 12px;" ng-model="filterRuleName" ng-disabled="ngDisabled" ng-change="ngChangeValue()">
+                <span ng-if="filterRuleNames" style="color: #ed615f">请给这个组合起个名字吧！</span>
+                <span ng-if="filterRuleNamess" style="color: #ed615f">重名！无法保存</span>
+            </div>
+            <div class="threeSlectArea">
+                <div ng-repeat="filter in filters track by $index" style="margin-bottom: 5px;">
+                    <select ng-disabled="ngDisabled" ng-class="{true:'disableCss'}[ngDisabled]" class="threeSlect filter-size-font" style="width:140px;white-space: nowrap;text-overflow: ellipsis;font-size: 12px;padding: 2px 0px 2px 1px;height: 27px" ng-model="filter.key" id="{{filter.key}}" ng-change="filterChange(filter.key)" ng-options="callCulumns.key as callCulumns.name for callCulumns in callCulumnsSelect">
+                    </select>
+                    <select ng-disabled="ngDisabled" ng-class="{true:'disableCss'}[ngDisabled]" class="threeSlect filter-size-font" style="width:100px;padding:0 0 0 6px;font-size: 12px;padding: 2px 0px 2px 1px;height: 27px" ng-model="filter.rule" ng-options="callfilterRules.value as callfilterRules.text for callfilterRules in filterRules">
+                    </select>
+                    <input ng-disabled="ngDisabled" id="{{$index}}" style="width:140px;font-size: 12px;height: 27px" placeholder="请输入筛选条件" ng-model="filter.inputValue" class="search-input-model ng-pristine ng-valid filter-size-font" onfocus="immediatelyChange(this.id)">
+                    <span ng-if="filter.ngIf" style="color: #ed615f" ng-mouseover="ngMouseover($index)">请输入该项</span>
+                    <button class="btn btn-primary" style="height: 27px;" ng-if="!(filter.ngIf || ngDisabled)" ng-click="deleteFilter($index)" ng-mouseleave="ngMouseleave($index)" ng-disabled="ngDisabled">
+                        删除
+                    </button>
+                </div>
+                <div class="filterSpanScrollTop" style="margin-top: 10px;">
+                    <span class="filterSpan" ng-click="addFilter()" ng-if="!ngDisabled">+筛选条件</span>
+                </div>
+            </div>
+            <div style="line-height: 47px;width: 500px;display: block;overflow: hidden;background: #ffffff;">
+                <div style="float: left">
+                    <span class="filterSpan2" ng-click="clearFilter()" ng-if="editShow">新增筛选条件&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                </div>
+                <div style="float: right;">
+                    <button class="btn btn-primary" style="height: 27px;margin-right: 27px" ng-click="saveFilter()">
+                        保存
+                    </button>
+                    <button class="btn btn-primary" style="margin-right: 20px;height: 27px;" ng-click="actionFilter()">
+                        筛选
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,149 @@
+﻿<div>
+    <!--热词开始-->
+    <div ng-if="!analysisingFinished">
+        <div ng-if="!analysisFailed">
+            <a href="javascript:;" class="btn-start-clustering" ng-if="!isStartAnalysising" ng-click="startAnalysising(true)">开始分析</a>
+            <a ng-if="isStartAnalysising" class="btn-start-clustering start-clustering">{{analysisProcessText}}</a>
+        </div>
+        <div ng-if="analysisFailed">
+            <a href="javascript:;" class="btn-failed-analysising" ng-click="startAnalysising(true)"></a>
+        </div>
+    </div>
+    <div ng-if="analysisingFinished">
+        <manual-refresh ng-show="manual" path-id="pathId" topic-id="topicId" type="3"></manual-refresh>
+        <div class="hot-word-search">
+            <div class="hot-word-tab">
+                <a href="javascript:;" class="fl rate first-word" ng-class="{'rate-choosed': type === 'systemKwd'}" ng-click="toggle('systemKwd')">系统热词</a>
+                <a href="javascript:;" class="fl rate changed-rate" ng-class="{'rate-choosed':type === 'focusKwd'}" ng-click="toggle('focusKwd')">关注热词</a>
+            </div>
+            <div class="hot-word-search-input">
+                <input type="text" class="search-input-manage" placeholder="请输入搜索内容" ng-model="hotKeyWord" ng-keyup="enterHotWordKey($event)" maxlength="20" id="hotWordKeyWord">
+                <input type="button" class="icon icon-search" ng-click="searchHotWord()">
+            </div>
+        </div>
+        <div class="title-head">
+            <span>词频</span>
+        </div>
+        <div class="hot-word-table" ng-if="counts>0">
+            <table>
+                <thead>
+                    <tr class="jianbian_se">
+                        <td>
+                            排名
+                        </td>
+                        <td>
+                            关键词
+                        </td>
+                        <td ng-if="showIncrement">
+                            名次变化
+                            <div class="div-change">
+                                <span class="row-up" ng-class="{'word-up-choosed':isWord==1}" ng-click="remarkChange('asc',1,'range','kwd')"></span>
+                                <span class="btn-down-hot-word" ng-class="{'word-down-choosed':isWord==2}" ng-click="remarkChange('desc', 2, 'range', 'kwd')"></span>
+                            </div>
+                        </td>
+                        <td>
+                            词频占比
+                            <div class="div-change">
+                                <span class="row-up1" ng-class="{'word-up-choosed':isWord==3}" ng-click="remarkChange('asc',3, 'percent', 'kwd')"></span>
+                                <span class="btn-down-hot-voice" ng-class="{'word-down-choosed':isWord==4}" ng-click="remarkChange('desc',4, 'percent', 'kwd')"></span>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in hotList" ng-class-even="'color-even'">
+                        <td>
+                            {{item.rn}}
+                        </td>
+                        <td>
+                            {{item.hotVocabulary}}
+                        </td>
+                        <td class="ell top-increment increase" ng-if="item.increment > 0 && showIncrement">
+                            <img src="images/up-triangle.png">
+                            {{item.increment}}
+                        </td>
+                        <td class="increment-blue" ng-if="item.increment === 0 && showIncrement">
+                            {{item.increment}}
+                        </td>
+                        <td class="ell top-increment decline" ng-if="item.increment < 0 && showIncrement">
+                            <img src="images/down-triangle.png">
+                            {{item.increment}}
+                        </td>
+                        <td class="ratecolor">
+                            {{item.rate}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="page-hotword" ng-if="counts>0">
+            <newpaging page-options="pageOptions" total-counts="counts" update="findList(pageOptions)"></newpaging>
+        </div>
+        <div class="empty-data hot-word" ng-if="counts<=0">
+        </div>
+        <div class="title-head">
+            <span>音频</span>
+        </div>
+        <div class="hot-word-table" ng-if="countsVoice>0">
+            <table>
+                <thead>
+                    <tr class="jianbian_se">
+                        <td>
+                            排名
+                        </td>
+                        <td>
+                            关键词
+                        </td>
+                        <td ng-if="showVoiceIncrement">
+                            <div class="td-change">
+                                名次变化
+                            </div>
+                            <div class="div-change">
+                                <span class="row-up" ng-class="{'voice-up-choosed':isVoice==1}" ng-click="remarkChange('asc',1, 'range', 'voice')"></span>
+                                <span class="btn-down-hot-word" ng-class="{'voice-down-choosed':isVoice==2}" ng-click="remarkChange('desc',2, 'range', 'voice')"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="td-percent">
+                                音频占比
+                            </div>
+                            <div class="div-change">
+                                <span class="row-up1" ng-class="{'voice-up-choosed':isVoice==3}" ng-click="remarkChange('asc',3, 'percent', 'voice')"></span>
+                                <span class="btn-down-hot-voice" ng-class="{'voice-down-choosed':isVoice==4}" ng-click="remarkChange('desc',4, 'percent', 'voice')"></span>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in hotListVoice" ng-class-even="'color-even'">
+                        <td>
+                            {{item.rn}}
+                        </td>
+                        <td>
+                            {{item.hotVocabulary}}
+                        </td>
+                        <td class="ell top-increment increase" ng-if="item.increment > 0 && showVoiceIncrement">
+                            <img src="images/up-triangle.png">
+                            {{item.increment}}
+                        </td>
+                        <td class="increment-blue" ng-if="item.increment === 0 && showVoiceIncrement">
+                            {{item.increment}}
+                        </td>
+                        <td class="ell top-increment decline" ng-if="item.increment < 0 && showVoiceIncrement">
+                            <img src="images/down-triangle.png">
+                            {{item.increment}}
+                        </td>
+                        <td class="ratecolor">
+                            {{item.rate}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="page-hotword" ng-if="countsVoice>0">
+            <newpaging page-options="pageOptionsVoice" total-counts="countsVoice" update="findListVoice(pageOptionsVoice)"></newpaging>
+        </div>
+        <div class="empty-data hot-word" ng-if="countsVoice<=0">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿<div>
+    <div class="dataSource-container">
+        <div class="dataSource-header">
+            <span>选择业务系统</span>
+        </div>
+        <div class="dataSource-content">
+            <span ng-repeat="data in dataSourceList" class="dataSourceSpan" ng-class="action === data.businessCode || data.type == 1?'action':''" title="{{data.name}}" ng-click="selectDataSrc(data.businessCode,data.dimensionName)">{{data.name}}</span>
+        </div>
+        <div class="dataSource-footer">
+            <span ng-click="recallSystem()">确定</span>
+        </div>
+    </div>
+</div>

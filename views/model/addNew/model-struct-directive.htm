@@ -1,0 +1,45 @@
+﻿<div class="model-content-ruletext">
+    <div class="model-content-header">
+        <ul class="tabs">
+            <li class="analyse-tab" ng-class="{'active': isTab == 0}" ng-click="showPreGZ(0)" ng-show="!isHaveSilence">
+                <a class="ell">结构化编辑</a>
+            </li>
+            <li class="analyse-tab" ng-class="{'active': isTab == 0}" ng-show="isHaveSilence">
+                <a class="ell">结构化编辑</a>
+            </li>
+            <li class="analyse-tab" ng-class="{'active': isTab == 1}" ng-click="showPreGZ(1)" ng-show="!isHaveSilence">
+                <a class="ell">静音规则</a>
+            </li>
+        </ul>
+    </div>
+    <rule-editor ng-show="isTab === 0" model="model" status="{{status}}" preview-auth="{{previewAuth}}" is-show-silence="{{isHaveSilence}}" tag-dimension="tagDimension"></rule-editor>
+    <silent-rule ng-show="isTab === 1" condition="silenceScreen.condition" tag-dimension="tagDimension" status="{{status}}"></silent-rule>
+    <div class="rule-edit">
+        <p>
+            规则组合
+        </p>
+        <div class="sequential-model">
+            <label ng-show="isTab == 0">
+                <input type="checkbox" ng-model="model.choose" title="最多支持5个片段规则的顺序模式" ng-disabled="model.modelFragments.length > 5">
+                <span ng-style="{color:(model.modelFragments.length > 5)?'rgb(214, 209, 209)':''}" title="最多支持5个片段规则的顺序模式">顺序模式</span>
+                <a href="javascript:;" class="fl btn-tip-hot-point" style="position: relative; display: block; float: right; width: 16px; margin-left: 5px; height: 16px; background: url(images/orderTips.png);"> <span class="tip-arrow-index"></span> <div class="tip-wrapper-index">
+                        <span class="tip-title-index">顺序模式：</span>
+                        <span class="tip-content-index">顺序模式下，模型片段不得超过5个且规则组合不可编辑</span>
+                    </div> </a>
+            </label>
+        </div>
+    </div>
+    <div class="editor-content-footer">
+        <button class="btn-preview-model-new" ng-click="preview()" ng-if="status != -1 && status != 0 && previewAuth">
+            预&nbsp;&nbsp;览
+        </button>
+        <button class="btn-preview-model-new" ng-if="(status == -1 || status == 0) && previewAuth">
+            预&nbsp;&nbsp;览
+        </button>
+        <div class="text-inner-content">
+            <textarea ng-model="model.modelFragmentRelation.fragmentContent" placeholder=" 请输入结构化片段组合规则，支持通过序号进行简单的&，|，！逻辑组合，如（1|2）&3" ng-disabled="status === -1 || status === 0"></textarea>
+        </div>
+        <div ng-show="model.choose" class="sequential-model-cover">
+        </div>
+    </div>
+</div>

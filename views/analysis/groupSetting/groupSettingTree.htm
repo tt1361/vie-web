@@ -1,0 +1,6 @@
+﻿<div class="setting-tree">
+    <ul>
+        <li ng-class="{'selected':item.selected}" ng-repeat="item in dataSource" ng-if="isDisplay(item)" ng-include="'analysis/groupSetting/groupSettingTreeItem.htm'">
+        </li>
+    </ul>
+</div>

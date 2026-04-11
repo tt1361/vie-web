@@ -1,0 +1,9 @@
+﻿<li class="condition-time index-time">
+    <label class="dimension-culum" title="时间" ng-if="type === 'index'">
+        时间:
+    </label>
+    <label class="dimension-culum" title="选择开始时间" ng-if="type==='online'">
+        选择开始时间:
+    </label>
+    <input type="text" class="input-time-wrap timeStart" ng-model="time" placeholder="请输入时间" readonly ng-disabled="type === 'hotword'">
+</li>

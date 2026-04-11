@@ -1,0 +1,69 @@
+﻿<div class="view-content-wrapper">
+    <div class="model-view-header">
+        <p>
+            <span>当前位置： <a class="location-group" ng-click="goBack(tableData.reportGroupID)">{{reportGroupName}}</a> <span class="location-group">> {{tableData.reportName}}</span> </span>
+        </p>
+        <p>
+            <div class="model-search-wrap">
+                <i class="picture picture-down-report" ng-click="downloadReport()" title="下载" ng-if="downloadAuth"></i>
+                <i class="picture picture-detail" ng-click="editDetail()" title="报表信息"></i>
+                <i class="picture picture-save" ng-click="saveTemplate()" ng-show="saveAuth" title="保存"></i>
+                <i class="picture comment-eidt" ng-click="editComment()" title="分析小结"></i>
+                <a class="picture picture-return" ng-click="goBack()" title="返回" ng-if="returnAuth"></a>
+            </div>
+        </p>
+    </div>
+    <!-- 条件筛选开始 -->
+    <div class="condition-screen">
+        <div class="condition-inner">
+            <p>
+                <span>条件筛选</span>
+                <i class="picture picture-add-active" ng-click="addCondition()"></i>
+            </p>
+            <div class="condition-list" ng-class="{'hidden':!open}">
+                <ul class="condition-wrapper">
+                    <calendar class="report-time" ng-if="showTime" item="timesRange" status="-2"></calendar>
+                    <li class="value-list" ng-repeat="dimension in conditionDimensions">
+                        <label class="dimension-culum" title="{{dimension.name}}">
+                            {{dimension.name}}
+                        </label>
+                        <mul-equ-dimension class="dimension-condition" ng-if="dimension.type == 'mulEqu'" item="dimension" condition="condition"></mul-equ-dimension>
+                        <mul-sel-dimension class="dimension-condition" ng-if="dimension.type == 'mulSel'" item="dimension" condition="condition"></mul-sel-dimension>
+                        <range-dimension class="dimension-condition" ng-if="dimension.type == 'range'" item="dimension" condition="condition"></range-dimension>
+                        <off-line-tag-id-dimension class="dimension-condition" ng-if="dimension.type == 'offLineTagId'" item="dimension" condition="condition"></off-line-tag-id-dimension>
+                        <i class="picture condition-del" ng-click="removeCondition($index)"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="toggle-open">
+            <i class="picture condition-open" ng-class="{'hidden':open}" ng-click="showOpen()"></i>
+        </div>
+    </div>
+    <!-- 条件筛选结束 -->
+    <div class="report-content">
+        <div class="tabs-wrap">
+            <ul class="tabs">
+                <li class="tab" ng-class="{true: 'active'}[$index == currentTorC[0].index]" ng-repeat="item in result" ng-click="altDirective($index,$event)">
+                    <i class="picture icon-delete-s" ng-click="deleteTab($index,$event)"></i>
+                    <tabtitle item="item"></tabtitle>
+                </li>
+                <li class="tab tabs-s" ng-click="addTab()">
+                    <a><i class="icon icon-add-l">+</i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div ng-repeat="item in currentTorC" ng-if="currentTorC.length != 0">
+        <detailtable ng-if="item.type == 'table'" table-default="item.config" view-config="item.viewConfig" has-changed="hasChanged" op-type="opType"></detailtable>
+        <detailchartcl ng-if="item.type == 'lineColumChart'" table-default="item.config" view-config="item.viewConfig" has-changed="hasChanged" op-type="opType"></detailchartcl>
+        <detailchartp ng-if="item.type == 'pieChart'" table-default="item.config" view-config="item.viewConfig" has-changed="hasChanged" op-type="opType"></detailchartp>
+        <addtab ng-if="item.type == 'blank'" item="item"></addtab>
+    </div>
+    <div ng-if="currentTorC.length == 0">
+        <div class="report-outter-panel">
+            <div class="type-wrap">
+            </div>
+        </div>
+    </div>
+</div>

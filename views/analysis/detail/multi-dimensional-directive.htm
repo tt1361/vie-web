@@ -1,0 +1,28 @@
+﻿<div class="multi-dimension-choose online">
+    <div class="multi-choose-header">
+        新建专题信息
+    </div>
+    <div class="multi-choose-content">
+        <div class="dimension-topic-wrap newTopic">
+            <ul class="topic-value-wrap">
+                <li class="topic-name-wrap">
+                    <label class="dimension-culum">
+                        专题名称
+                    </label>
+                    <input type="text" placeholder="请输入专题名称" ng-model="name" maxlength="20">
+                </li>
+                <div class="error-topic-tip" ng-show="msg">
+                    {{msg}}
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="multi-choose-footer newTopic">
+        <button class="submit" ng-click="submitDimension()">
+            确&nbsp;定
+        </button>
+        <button class="reset" ng-click="closeThisDialog()">
+            取&nbsp;消
+        </button>
+    </div>
+</div>

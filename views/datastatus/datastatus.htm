@@ -1,0 +1,84 @@
+﻿<div class="datastatus">
+    <div class="datastatus-head">
+        <p>
+            <span class="datastatus-title">数据处理状态</span>
+        </p>
+        <div class="datastatus-time">
+            <!-- 时间展示 -->
+            <ul class="condition-wrapper">
+                <time-select-data item="callDay" type="{{type}}">
+                </time-select-data>
+            </ul>
+        </div>
+    </div>
+    <!-- 数据处理状态整体展示 -->
+    <div class="datastatus-middle">
+        <div class="datastatus-middle-first">
+            <div class="datastatus-font">
+                系统处理总量
+            </div>
+            <div class="datastatus-count">
+                {{allTotalNum}}
+            </div>
+        </div>
+        <div class="datastatus-middle-second">
+            <div class="datastatus-font">
+                当日处理量
+            </div>
+            <div class="datastatus-count">
+                {{totalNum}}
+            </div>
+        </div>
+        <div class="datastatus-middle-third">
+            <div class="datastatus-font">
+                当日处理成功量
+            </div>
+            <div class="datastatus-count">
+                {{successNum}}
+            </div>
+        </div>
+        <div class="datastatus-middle-fourth">
+            <div class="datastatus-font">
+                当日处理失败量
+            </div>
+            <div class="datastatus-count">
+                {{totalFailNum}}
+            </div>
+        </div>
+    </div>
+    <!-- 处理失败数据列表 -->
+    <div class="datastatus-foot">
+        <div class="call-list-content-wrapper">
+            <div class="call-list-inner-wrap">
+                <div class="call-list-wrap">
+                    <table>
+                        <thead>
+                            <tr class="call-list-head-font">
+                                <td ng-repeat="column in headColums">
+                                    <span title="{{column.columnName}}">{{column.columnName | subData:8}}</span>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in callLists" ng-init="p_index=$index" ng-class-even="'color-even'">
+                                <td title="{{item.voiceId}}">
+                                    <span class="calllist-over">{{item.voiceId}}</span>
+                                </td>
+                                <td title="{{item.callTime}}">
+                                    <span class="calllist-over">{{item.callTime}}</span>
+                                </td>
+                                <td class="calllist-over" title="{{item.voiceUri}}">
+                                    <span class="calllist-over">{{item.voiceUri}}</span>
+                                </td>
+                                <td title="{{item.failReason}}">
+                                    <span class="calllist-over">{{item.failReason}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <newpaging class="list-pager" ng-if="counts" page-options="pageOptions" total-counts="counts" update="getDataStatusList(pageOptions)"></newpaging>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿<div class="dialog-wrap model">
+    <div class="add-table-close" ng-click="closeThisDialog()"></div>
+    <div class="add-table-title">
+        请选择报表类型
+    </div>
+    <div class="add-table-wrapper">
+        <div ng-class="{true: 'selected'}[addType == 'table']" class="add-table-item table" ng-click="closeThisDialog('table')">
+            <i class="selected-icon"></i>
+        </div>
+        <div ng-class="{true: 'selected'}[addType == 'clChart']" class="add-table-item cl" ng-click="closeThisDialog('clChart')">
+            <i class="selected-icon"></i>
+        </div>
+        <div ng-class="{true: 'selected'}[addType == 'pieChart']" class="add-table-item pie" ng-click="closeThisDialog('pieChart')">
+            <i class="selected-icon"></i>
+        </div>
+    </div>
+</div>

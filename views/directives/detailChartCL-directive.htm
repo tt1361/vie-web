@@ -1,0 +1,26 @@
+﻿<div class="report-outter-panel">
+    <div class="detail_condition_wrapper">
+        <button class="show-button" ng-click="setShow()">
+            预览
+        </button>
+        <addtoindex type="column" config="viewConfig" op-type="opType" default-page="pageId" report-name="moduleName" record-id="moduleId" table-default="tableDefault" isPreview="isPreview"></addtoindex>
+        <adddimension items="dimensions" default-index="defaultDimensionIndex" table-default="tableDefault" value="X轴"></adddimension>
+        <addmeasure measures="measures" computers="computers" table-default="tableDefault" value="1"></addmeasure>
+        <addmeasure measures="measures" computers="computers" table-default="tableDefault" value="2"></addmeasure>
+        <div class="detail_chart_condition condition_sort">
+            排序 :
+            <myselect class="xAxis" selvalue="orderText" sel="order" list="orderAxisList" type="xAxis"></myselect>
+            <myselect ng-if="order == 'mainAxis'" class="yAxis" selvalue="orderMname" sel="tableDefault.order" list="orderList" type="yAxis"></myselect>
+            <myselect ng-if="order == 'secondaryAxis'" class="yAxis" selvalue="orderMname" sel="tableDefault.order" list="secondOrderList" type="yAxis"></myselect>
+            <myselect class="ordertype" selvalue="orderTypeText" sel="tableDefault.orderType" list="orderTypeList" type="xAxis"></myselect>
+            <div ng-if="tableDefault.xAxis=='timeDim' " style="display:inline-block">
+                统计周期 :
+                <myselect class="timedim" selvalue="tableDefault.timeDimText" sel="tableDefault.timeDimKey" list="timeDimList" type="timeDim"></myselect>
+            </div>
+        </div>
+    </div>
+    <div class="detail_chart" style="overflow-y: auto;overflow-x: hidden;">
+        <div id="cl_chart"></div>
+    </div>
+    <div class="detail_chart_footer"></div>
+</div>

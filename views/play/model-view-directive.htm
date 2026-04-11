@@ -1,0 +1,28 @@
+﻿<div class="model-view">
+    <div class="play-dimension-header model jianbian_se">
+        分模型查看
+        <i class="picture picture-select-down newtab" ng-click="showModelOpen()" ng-class="{'active':modelOpen}"></i>
+    </div>
+    <div class="model-view-content h5">
+        <div class="model-play-search-input">
+            <p>
+                {{counts}}个分类
+            </p>
+            <div class="model-view-search search-play">
+                <input type="text" class="model-view-search-input" placeholder="请输入搜索内容" ng-model="keyword" ng-keydown="enterKey($event)" maxlength="100">
+                <input type="button" class="icon icon-search" ng-click="search()">
+            </div>
+            <span class="error-play-tip">{{errorMsg}}</span>
+        </div>
+        <div class="model-view-outer-list">
+            <div class="model-view-list">
+                <mol-new ng-repeat="item in viewModels" item="item" update="chooseKeyword(item)" index="{{$index}}"></mol-new>
+            </div>
+        </div>
+        <div class="key-view-outer-list">
+            <div class="key-view-list">
+                <key-new ng-repeat="word in keywords" item="word" update="listen(word)" type="{{type}}"></key-new>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="commonService" class="com.iflytek.vie.base.CommonService">
+		<property name="userService" ref="userService" />
+		<property name="selColMap">
+            <map key-type="java.lang.String" value-type="java.lang.String">
+                <entry key="duration" value="duration"/>
+                <entry key="silenceLong" value="silenceLong"/>
+                <entry key="timeFormat" value="timeFormat"/>
+            </map>
+        </property>
+	</bean>
+	
+	<!-- swagger配置，用于Controller测试。 注意：为了安全，生产环境将下面两行配置注释掉 
+    <bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
+    <bean class="com.iflytek.vie.config.MySwaggerConfig" />-->
+	
+	<!-- aop 全局日志处理设置 -->
+	<bean id="logInterceptor" class="com.iflytek.vie.filter.LogInterceptor" >
+		<property name="logService" ref="logService" />
+		<property name="commonService" ref="commonService" />
+	</bean>
+</beans>

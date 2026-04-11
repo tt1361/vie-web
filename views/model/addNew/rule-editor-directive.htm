@@ -1,0 +1,56 @@
+﻿<div>
+    <div class="rule-edit">
+        规则编辑
+    </div>
+    <div class="ruletext-content">
+        <div class="edit-content-rule">
+            <textarea class="textarea-inner" ng-model="fragmentContent" ng-keypress="keypressAddFregment($event)" placeholder=" &，逻辑与运算，其前后的对象都要满足，如：信号&比较差；&#13;&#10;|，逻辑或运算，其前后的对象要至少满足一个，如：你好|您好；&#13;&#10;!，逻辑非运算，不能满足其后的对象，如：!(挂失|注销)；&#13;&#10;#，逻辑近运算，按顺序满足各个关键词，最后的距离配置数字指定所有关键词之间的最大字数，如：(信号#差#换#位置#6)；" ng-disabled="status == -1 || status == 0"></textarea>
+        </div>
+        <div class="edit-content-opt-btn">
+            <i class="picture picture-znzs" title="智能助手" ng-click="showZnzs()" ng-if="status != -1 && status != 0"></i>
+            <i class="picture picture-znzs" title="智能助手" ng-if="status == -1 || status == 0"></i>
+            <znzs-new update="showZnzs()" ng-show="znzs"></znzs-new>
+            <!-- <znzs-imple update="showZnzs()" ng-show="znzs"></znzs-imple> -->
+            <i class="picture picture-global" title="搜索" ng-click="showCyss()" ng-if="status != -1 && status != 0"></i>
+            <i class="picture picture-global" title="搜索" ng-if="status == -1 || status == 0"></i>
+            <cyss-new update="showCyss()" ng-show="cyss" pwords="pwords"></cyss-new>
+            <i class="picture picture-condition" title="条件配置" ng-click="showTjpz()" ng-if="status != -1 && status != 0 && isShowSilence"></i>
+            <i class="picture picture-condition" title="条件配置" ng-if="(status == -1 || status == 0) && isShowSilence"></i>
+            <tjpz-new update="showTjpz()" condition="screenings.condition" tag-dimension="tagDimension" ng-show="tjpz"></tjpz-new>
+            <i class="picture picture-inport" title="导入模型" ng-show="status != -1 && status != 0"> <input type="file" id="file_upload" name="uploadify"> </i>
+            <i class="picture picture-inport" title="导入模型" ng-show="status == -1 || status == 0"> </i>
+            <iframe style="display:none" name="ifr_export_model"></iframe>
+            <form id="form_export_model" name="form_export_model" method="post" action="" enctype="multipart/form-data" target="ifr_export_model">
+                <input type="hidden" value="{{model.modelFragmentRelation.fragmentContent}}" name="fragmentContent">
+                <input type="hidden" value="" name="modelFragments" id="modelFragments">
+                <input type="hidden" value="" name="silenceText" id="silenceText">
+                <i class="picture-export-model" title="导出模型" ng-click="exportModelFramnet()" ng-if="status != -1 && status != 0"></i>
+                <i class="picture-export-model" title="导出模型" ng-if="status == -1 || status == 0"></i>
+            </form>
+            <button ng-click="addFregment()" ng-if="status != -1 && status != 0">
+                提&nbsp;&nbsp;交
+            </button>
+            <button ng-if="status == -1 || status == 0">
+                提&nbsp;&nbsp;交
+            </button>
+        </div>
+        <div class="rule-text-list">
+            <dl>
+                <dd class="rule-text-header">
+                    <div class="rule-num">
+                        序号
+                    </div>
+                    <div class="rule-text-content">
+                        规则
+                    </div>
+                    <div class="rule-count">
+                        预览数
+                    </div>
+                </dd>
+                <div class="rule-text-middle">
+                    <fragment-new ng-repeat="item in model.modelFragments" item="item" index="{{$index}}" status="{{status}}" pwords="pwords" preview-auth="{{previewAuth}}"></fragment-new>
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>

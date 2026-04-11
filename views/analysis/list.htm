@@ -1,0 +1,67 @@
+﻿<div class="article-header">
+    <div class="model-header-left">
+        <span class="model-create-group">专题管理</span>
+    </div>
+    <div class="model-right">
+        <div class="wrap-search-model search analysis">
+            <input type="text" class="search-input-model" placeholder="请输入搜索内容" ng-model="keyword" ng-keyup="enterKey($event)" maxlength="20">
+            <input type="button" class="icon icon-search" ng-click="search()">
+        </div>
+        <div class="model-opt-btns">
+            <i title="新建" class="picture new-model" ng-if="addAuth" ng-click="addTopic()"></i>
+            <i title="删除" class="picture delete-model" ng-click="batchRemove()" ng-if="delAuth"></i>
+        </div>
+    </div>
+</div>
+<div class="special-topic-body">
+    <table class="special-topic-table">
+        <thead>
+            <tr class="special-topic-tr jianbian_se">
+                <th style="width:98px;border-radius: 4px 0px 0px 0px;">
+                    <input type="checkbox" ng-click="checkAll()" ng-checked="allchecked">
+                </th>
+                <th class="th-font" style="text-align:left">
+                    专题名称
+                </th>
+                <th style="width: 40px"></th>
+                <th class="th-font">
+                    数据源
+                </th>
+                <th class="th-font">
+                    最后修改人
+                </th>
+                <th class="th-font" style="border-radius: 0px 4px 0px 0px;">
+                    最后修改时间
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="special-topic-tr report-opt-wrapper" ng-class="{'tr-slected':item.checked}" ng-repeat="item in topics" on-finish-render="" broadcasteventname="colResizable" ng-class-even="'color-even'">
+                <td>
+                    <input type="checkbox" ng-checked="item.checked" ng-model="item.checked" ng-change="checkedThis(item)">
+                </td>
+                <td class="ell td-font" style="text-align:left">
+                    <a class="special-name common-overflow" title="{{item.topicName}}" ng-href="#/analysis/detail/{{item.topicId}}/0/1/0"><pre>{{item.topicName}}</pre></a>
+                </td>
+                <td style="text-align:left">
+                    <div class="opo-wrap hidden" id="opo-wrap_{{item.topicId}}">
+                        <i title="删除" class="picture delete-edit-model-status topic" ng-click="oneRemove(item.topicId,item.topicName)" ng-if="delAuth"></i>
+                    </div>
+                </td>
+                <td class="ell td-font data-source">
+                    <a class="pos-location"> <div class="tooltip">
+                            {{item.screening}}
+                        </div> </a>
+                    <span style="white-space: nowrap;color: #444;">{{item.screening}}</span>
+                </td>
+                <td class="ell td-font" title="{{item.updateUserName}}">
+                    {{item.updateUserName}}
+                </td>
+                <td class="ell td-font" title="{{item.updateTime}}">
+                    {{item.updateTime}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <newpaging class="list-pager" ng-if="counts>0" page-options="pageOptions" total-counts="counts" update="getAnalysisList(pageOptions)"></newpaging>
+</div>

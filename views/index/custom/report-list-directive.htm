@@ -1,0 +1,54 @@
+﻿<div class="custom-enum-wrapper" ng-class="{'oddp':$parent.$parent.$odd}">
+    <div class="custom-enum-header">
+        <div class="custom-enum-left-header">
+            <span> <a class="index-detail-href" ng-href="#/report/indexDetail/{{item.id}}/table">{{item.moduleName}}</a> </span>
+            <p>
+                <span class="gray-time">{{time.timeText}}({{time.timeRange}})</span>
+            </p>
+        </div>
+        <div class="custom-enum-right-header">
+            <selection-time type="{{item.contentType}}" ng-if="hasTimeDim" time="timeKey"></selection-time>
+        </div>
+        <i class="picture picture-del custom" ng-click="delModel()"></i>
+    </div>
+    <div class="custom-enum-map-header">
+        <span class="data-text">{{time.timeRange}}</span>
+    </div>
+    <div class="custom-enum-content">
+        <div class="rep-content">
+            <div class="index-list-wrapper">
+                <table id="table_detail">
+                    <thead>
+                        <tr>
+                            <td ng-repeat="column in tableParams.column">
+                                <span class="table_head table-column-overflow" title="{{column.text}}"> {{column.text | subData: 8}} </span>
+                                <span class="sort-icon" ng-if="column.filed != 'offLineTagId' && column.filed != 'keyword'"> <div class="asc" ng-class="{true: 'active'}[tableParams.orderType === 'asc' && tableParams.order === column.filed]" ng-click="sortByOrder(column.filed,'asc')">
+                                    </div> <div class="desc" ng-class="{true: 'active'}[tableParams.orderType === 'desc' && tableParams.order === column.filed]" ng-click="sortByOrder(column.filed,'desc')">
+                                    </div> </span>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in rows" ng-class-even="'color-even'">
+                            <td ng-repeat="td in row track by $index" class="table-content" title="{{td.value}}">
+                                <span ng-if="!isShowByTask" class="max-length">{{td.value}}</span>
+                                <span ng-if="td.column.filed !== 'voiceId' &&  isShowByTask && td.column.filed !== 'taskId'" class="max-length">{{td.value}}</span>
+                                <span ng-if="td.column.filed === 'voiceId' && isShowByTask" class="voice_id_call"> <a ng-if="browser === 'chrome' " ng-href="playH5.html#?voiceId={{td.value}}&taskId={{td.id}}" target="_blank" class="item-id" id="search-item-id_{{ite.voiceId}}"> <p class="data-overflow" title="{{td.value}}">
+                                            {{td.value}}
+                                        </p> </a> <a ng-if="browser === 'msie' && isShowByTask " ng-href="play.html#?voiceId={{td.value}}&taskId={{item.id}}" target="_blank" class="item-id"> <p class="data-overflow" title="{{td.value}}">
+                                            {{td.value}}
+                                        </p> </a> </span>
+                                <span ng-if="td.column.filed === 'taskId' && isShowByTask" class="voice_id_call"> <a ng-if="browser === 'chrome' " ng-href="playH5.html#?taskId={{td.value}}" target="_blank" class="item-id"> <p class="data-overflow" title="{{td.value}}">
+                                            {{td.value}}
+                                        </p> </a> <a ng-if="browser === 'msie' " ng-href="play.html#?taskId={{td.value}}" target="_blank" class="item-id"> <p class="data-overflow" title="{{td.value}}">
+                                            {{td.value}}
+                                        </p> </a> </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <newpaging ng-if="counts" page-options="pageOptions" total-counts="counts" update="getTableData(pageOptions)"></newpaging>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+@charset "utf-8";
+html,
+body,
+.body {
+    position: relative;
+    height: 99%;
+    font: 12px "Microsoft YaHei";
+    width: 99%;
+}
+
+html,
+body {
+    scrollbar-face-color:#bfbfbf; /*滚动条3D表面（ThreedFace）的颜色*/
+    scrollbar-highlight-color:#fff; /*滚动条3D界面的亮边（ThreedHighlight）颜色*/
+    scrollbar-shadow-color:#eeeeee; /*滚动条3D界面的暗边（ThreedShadow）颜色*/
+    scrollbar-3dlight-color:#eeeeee; /*滚动条亮边框颜色*/
+    scrollbar-arrow-color:#000; /*滚动条方向箭头的颜色 */
+    scrollbar-track-color:#fff; /*滚动条的拖动区域(TrackBar)颜色*/
+    scrollbar-darkshadow-color:#fff; /*滚动条暗边框（ThreedDarkShadow）颜色*/
+}
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+
+.test_new-wrapper{
+  	position: relative;
+  	width: 100%;
+}
+
+.test_header{
+  	height: 45px;
+  	margin: 0px auto 10px;
+  	width: 100%;
+  	background-color: #e8e8e8;
+  	border-radius: 10px;
+  	border: 1px solid #bababa;
+  	text-align: center;
+  	font-size: 16px;
+  	line-height: 40px;
+  	overflow: hidden;
+}
+
+.test_frame-wrap{
+	  width: 100%;
+}
+
+.test_frame-header{
+  	width: 100%;
+  	border: 1px solid #bababa;
+  	border-radius: 10px;
+}
+
+.test_detail-header{
+  	height: 45px;
+  	line-height: 40px;
+  	width: 99%;
+  	border-radius: 10px 10px 0px 0px;
+  	border: none;
+  	border-bottom: 1px solid #bababa;
+  	background-color: #e6e6e6;
+  	font-size: 16px;
+  	padding-left: 12px;
+  	position: relative;
+}
+
+.test_detail-header a{
+    color: #01aead;
+    position: absolute;
+    right: 40px;
+    cursor: pointer;
+}
+
+.push-model-play-up{
+    position: absolute;
+    top: -30px;
+    right: 10px;
+    border-width: 15px;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-color: #f5f5f5;
+    z-index: 9;
+}
+
+.test_detail-content{
+  	padding-top: 18px;
+  	padding-left: 24px;
+  	height: 65px;
+  	overflow-x: hidden;
+  	overflow-y: auto;
+  	position: relative;
+}
+
+.test_detail-content li{
+  	float: left;
+  	width: 250px;
+  	margin-top: 8px;
+}
+
+.test_calldetailNumOld{
+  	display: inline-block;
+  	width: 230px;
+  	overflow: hidden;
+  	white-space: nowrap;
+  	text-overflow: ellipsis;
+}
+
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>VIE</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" href="framework/angular-loading-bar/angular-loading-bar.min.css">
+    <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="framework/ng-dialog/css/ngDialog.min.css">
+    <link rel="stylesheet" href="framework/ng-dialog/css/ngDialog-theme-default.min.css">
+    <link rel="stylesheet" href="framework/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="app.css">
+    <!--[if lt IE 9]>
+        <script src="framework/html5shiv/html5shiv.min.js"></script>
+        <script src="framework/respond/respond.min.js"></script>
+    <![endif]-->
+    <script src="framework/es5-shim/es5-shim.min.js"></script>
+    <script src="crypto-js.min.js"></script>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+</head>
+<body ng-init="user = '${userName}';systemDate = '${systemDate}';isTask = ${insightType}">
+    <div class="body" ui-view=""></div>
+    <script src="framework/requirejs/require.min.js"></script>
+    <script src="bootstrap.js"></script>
+</body>
+</html>

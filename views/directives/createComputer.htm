@@ -1,0 +1,39 @@
+﻿<div class="dialog-wrap model">
+    <div class="add-table-title">
+        计算项
+    </div>
+    <div class="dialog-content single">
+        <div class="dialog-content-list">
+            名&nbsp;&nbsp;&nbsp;称
+            <input type="text" class="computer-inp" ng-model="computer.text">
+        </div>
+        <div class="dialog-content-list">
+            表达式
+            <input type="text" class="computer-inp" ng-class="{true: 'exp'}[!isPie]" ng-model="computer.expression">
+            <select class="computer-sel" ng-if="!isPie" ng-model="computer.showType">
+                <option value="value">
+                    值
+                </option>
+                <option value="percent">
+                    百分比
+                </option>
+            </select>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="dialog-footer">
+        <ul class="culum-wrap culum-wrap-x2">
+            <li>
+                <button class="primary" ng-click="changeComputer(computer)">
+                    确定
+                </button>
+            </li>
+            <li>
+                <button ng-click="closeThisDialog()">
+                    取消
+                </button>
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>

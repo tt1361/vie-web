@@ -1,0 +1,35 @@
+﻿<div class="custom-enum-content call-panel-content">
+    <div class="call-content-axis">
+        <div class="dis-inline-bl set-axis axis-x call-axis">
+            <span class="dis-inline-bl">X轴：</span>
+            <!-- 下拉列表 -->
+            <div class="dis-inline-bl pos-rel">
+                <input type="text" class="ell vocabulary-type" readonly value="{{xSelected}}" title="{{xSelected}}" ng-click="toggle('x')">
+                <i class="hot-vocabulary-select select-x picture picture-axis-select-down newtab" ng-class="{'active':axisShow}" ng-click="toggle('x')"></i>
+                <ul class="select vocabulary-options hidden index" ng-class="{'show':axisShow}">
+                    <li class="ell sys-vocabulary vocabulary-opt" title="{{item.name}}" ng-repeat="item in xSelect" ng-class="{'vocabulary-choosed':item.key === xSelectKey}" ng-click="dropClick('x',item,$index)">
+                        {{item.name}}
+                    </li>
+                    <li class="ell sys-vocabulary vocabulary-opt" title="{{item.name}}" ng-repeat="item in xSelectList  track by $index" ng-class="{'vocabulary-choosed':item.key === xSelectKey}" ng-click="dropClick('x', item, ($index+3))">
+                        {{item.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="dis-inline-bl set-axis axis-y  call-axis">
+            <span class="dis-inline-bl">Y轴：</span>
+            <div class="dis-inline-bl pos-rel">
+                <input type="text" class="ell vocabulary-type" readonly name="" value="{{ySelected}}" title="{{ySelected}}" ng-click="toggle('y')">
+                <i class="hot-vocabulary-select  select-y picture picture-axis-select-down newtab" ng-class="{'active':yOptionShow}" ng-click="toggle('y')"></i>
+                <ul class="select vocabulary-options hidden index" ng-class="{'show': yOptionShow}">
+                    <li class="ell sys-vocabulary vocabulary-opt" title="{{item.measureName}}" ng-repeat="item in ySelectList" ng-class="{'vocabulary-choosed':item.measure===ySelectKey}" ng-click="dropClick('y',item,$index)">
+                        {{item.measureName}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- class="call-content-axis" -->
+    <div id="callingChart_{{index}}" class="calling-chart" ng-if="allShow"></div>
+    <div class="empty-data index-hot-word" ng-if="!allShow"></div>
+</div>

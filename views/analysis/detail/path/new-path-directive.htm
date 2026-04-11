@@ -1,0 +1,28 @@
+﻿<div class="multi-dimension-choose online">
+    <div class="multi-choose-header">
+        新建路径
+    </div>
+    <div class="multi-choose-content">
+        <div class="dimension-topic-wrap">
+            <ul class="topic-value-wrap">
+                <li class="topic-name-wrap">
+                    <label class="dimension-culum">
+                        路径名称
+                    </label>
+                    <input type="text" placeholder="请输入路径名称" ng-model="pathName" maxlength="20">
+                </li>
+                <div class="error-topic-tip" ng-show="msg">
+                    {{msg}}
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="multi-choose-footer-path newTopic">
+        <button class="submit" ng-click="submitPathName()">
+            确&nbsp;定
+        </button>
+        <button class="reset" ng-click="closeThisDialog()">
+            取&nbsp;消
+        </button>
+    </div>
+</div>

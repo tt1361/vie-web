@@ -1,0 +1,14 @@
+﻿<li class="model-route-item">
+    <i class="picture picture-fenge" ng-if="index!=0"></i>
+    <div class="model-name common-overflow" ng-click="getNegate()">
+        <span ng-if="item.isNegate===1 && item.type==='model'">!</span>
+        <span title="{{item.name}}" ng-if="item.type==='model'" ng-class="{'disable': item.status!=2}">{{item.name}}</span>
+        <span title="{{item.name}}:{{item.value}}" ng-class="{'disable': item.notView}" ng-if="item.type==='dimension'">{{item.name}}</span>
+    </div>
+    <div class="count model-count" title="{{item.count}}" ng-if="item.count>=0">
+        <span>[</span>
+        <span class="common-count common-overflow">{{item.count}}</span>
+        <span>]</span>
+    </div>
+    <i class="picture picture-del silent route-del" ng-click="removeRouteItem()"></i>
+</li>

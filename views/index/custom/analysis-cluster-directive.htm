@@ -1,0 +1,20 @@
+﻿<div class="custom-enum-content">
+    <div ng-if="!clusteringFinished">
+        <div ng-if="!clusterFailed">
+            <a href="javascript:;" class="btn-start-clustering" ng-if="!isStartClustering" ng-click="startClustering(true, false)">开始聚类</a>
+            <a ng-if="isStartClustering" class="btn-start-clustering start-clustering">{{clusterProcessText}}</a>
+        </div>
+        <div ng-if="clusterFailed">
+            <a href="javascript:;" class="btn-failed-clustering" ng-click="startClustering(true, false)"></a>
+        </div>
+    </div>
+    <div ng-if="clusteringFinished" style="height:100%;width:100%;">
+        <div class="cluster-left">
+            <div id="clusteringTypeChart_{{index}}" class="clustering-type-chart"></div>
+            <div class="picture1 blue-arrow"></div>
+        </div>
+        <div class="cluster-right">
+            <div class="clustering-show" id="clusteringResultChart_{{index}}"></div>
+        </div>
+    </div>
+</div>

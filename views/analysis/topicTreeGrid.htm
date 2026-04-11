@@ -1,0 +1,24 @@
+﻿<div class="topic-tree-head" ng-init="init()">
+    <table>
+        <thead>
+            <tr>
+                <th class="th-{{$index+1}}" ng-repeat="column in columns">
+                    {{column.title}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in dataSource|filter:{visible:true}" ng-click="itemClick(item,$index)" ng-class="{'selected':item.selected}">
+                <td ng-repeat="column in columns" class="td-{{$index + 1}}">
+                    <div title="{{item[column.field]}}" ng-class="{'model':item.modelOrGroup==0}" ng-if="item.hasChildren" class="model-level-{{item.level}}">
+                        <i ng-if="$index==0" ng-click="toggle(item);$event.stopPropagation();" class="fa" ng-class="{true:'fa-caret-down',false:'fa-caret-right'}[item.expended]"></i>
+                        {{item[column.field]}}
+                    </div>
+                    <div title="{{item[column.field]}}" ng-if="!item.hasChildren" class="model-level-{{item.level}}">
+                        {{item[column.field]}}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

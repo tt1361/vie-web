@@ -1,0 +1,8 @@
+﻿<div class="search-section">
+    <div class="searchSectionDiv1">
+        &nbsp;
+    </div>
+    <common-search ng-show="showResult===0" search-auth="{{searchAuth}}" time="timeRange" chanel-item="chanelItem" advance-search-auth="{{advanceSearchAuth}}" search-keyword="searchKeyword"></common-search>
+    <view-search ng-show="showResult===1" search-auth="{{searchAuth}}" time="timeRange" chanel-item="chanelItem" advance-search-auth="{{advanceSearchAuth}}" opt-type="optType" search-keyword="searchKeyword" show-tab="showTab" advance-dim="advanceDim" columns="columns"></view-search>
+    <advance-search ng-show="showResult===2" time="timeRange" chanel-item="chanelItem" search-auth="{{searchAuth}}" reset-auth="{{resetAuth}}" opt-type="optType" search-keyword="searchKeyword" advance-dim="advanceDim" com-from="comFrom"></advance-search>
+</div>
