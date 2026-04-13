@@ -265,7 +265,7 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
             gramControl.beginUpdate();
             try {
                 gramControl.layout.setVisibleParts(976);
-                var playUrl, gramUrl;
+                var playUrl, gramUrl, loadingMode;
 
                 // 新录音：voicePath === '02' 且有 listenUrl
                 if (voicePath === '02' && listenUrl) {
@@ -274,18 +274,16 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
                               '&macTag=' + encodeURIComponent(macTag) +
                               '&listenUrl=' + encodeURIComponent(listenUrl) +
                               '&dataSource=' + $scope.dataSource;
-                    gramUrl = 'player/getGramData?voicePath=' + encodeURIComponent(voicePath) +
-                              '&macTag=' + encodeURIComponent(macTag) +
-                              '&listenUrl=' + encodeURIComponent(listenUrl) +
-                              '&durationMs=' + encodeURIComponent($scope.totalTime || 0) +
-                              '&dataSource=' + $scope.dataSource;
+                    gramUrl = playUrl;
+                    loadingMode = voiceGram.builder.LoadingMode.audioContext;
                 } else {
                     // 老录音：原有逻辑
                     playUrl = 'player/play?macTag=' + macTag + '&voicePath=' + voicePath + '&dataSource=' + $scope.dataSource;
                     gramUrl = 'player/getGramData?macTag=' + macTag + '&voicePath=' + voicePath + '&dataSource=' + $scope.dataSource;
+                    loadingMode = voiceGram.builder.LoadingMode.http;
                 }
 
-                voiceGram.builder.addWavGram(gramControl, 1, {
+                voiceGram.builder.addWavGram(gramControl, loadingMode, {
                     isThumbnailGram: false,
                     gramUrl: gramUrl,
                     playUrl: playUrl
