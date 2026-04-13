@@ -273,11 +273,12 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
                     playUrl = 'player/play?voicePath=' + encodeURIComponent(voicePath) +
                               '&macTag=' + encodeURIComponent(macTag) +
                               '&listenUrl=' + encodeURIComponent(listenUrl) +
-                              '&dataSource=' + encodeURIComponent($scope.dataSource);
+                              '&dataSource=' + $scope.dataSource;
                     gramUrl = 'player/getGramData?voicePath=' + encodeURIComponent(voicePath) +
                               '&macTag=' + encodeURIComponent(macTag) +
                               '&listenUrl=' + encodeURIComponent(listenUrl) +
-                              '&dataSource=' + encodeURIComponent($scope.dataSource);
+                              '&durationMs=' + encodeURIComponent($scope.totalTime || 0) +
+                              '&dataSource=' + $scope.dataSource;
                 } else {
                     // 老录音：原有逻辑
                     playUrl = 'player/play?macTag=' + macTag + '&voicePath=' + voicePath + '&dataSource=' + $scope.dataSource;
