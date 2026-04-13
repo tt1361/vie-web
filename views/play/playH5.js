@@ -247,16 +247,17 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
             .then(function (result) {
                 var macTag = result.value.macTag || [];
                 var voicePath = result.value.voicePath || [];
+                var listenUrl = result.value.listenUrl;  // 新增
                 if (voicePath.indexOf('#') > -1) {
                     voicePath = voicePath.replace(/#/g, '|$|');
                 }
 
-                $scope.showSingleFile(macTag, voicePath);
+                $scope.showSingleFile(macTag, voicePath, listenUrl);
             });
     };
 
     /*单声道语音*/
-    $scope.showSingleFile = function (macTag, voicePath) {
+    $scope.showSingleFile = function (macTag, voicePath, listenUrl) {
         var macTag = macTag;
         var voicePath = voicePath;
         if (gramControl) {
@@ -264,8 +265,25 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
             gramControl.beginUpdate();
             try {
                 gramControl.layout.setVisibleParts(976);
-                var playUrl = 'player/play?macTag=' + macTag + '&voicePath=' + voicePath +'&dataSource='+ $scope.dataSource;
-                var gramUrl = 'player/getGramData?macTag=' + macTag + '&voicePath=' + voicePath +'&dataSource='+ $scope.dataSource;
+                var playUrl, gramUrl;
+
+                // 新录音：voicePath === '02' 且有 listenUrl
+                if (voicePath === '02' && listenUrl) {
+                    // 新录音使用 listenUrl
+                    playUrl = 'player/play?voicePath=' + encodeURIComponent(voicePath) +
+                              '&macTag=' + encodeURIComponent(macTag) +
+                              '&listenUrl=' + encodeURIComponent(listenUrl) +
+                              '&dataSource=' + encodeURIComponent($scope.dataSource);
+                    gramUrl = 'player/getGramData?voicePath=' + encodeURIComponent(voicePath) +
+                              '&macTag=' + encodeURIComponent(macTag) +
+                              '&listenUrl=' + encodeURIComponent(listenUrl) +
+                              '&dataSource=' + encodeURIComponent($scope.dataSource);
+                } else {
+                    // 老录音：原有逻辑
+                    playUrl = 'player/play?macTag=' + macTag + '&voicePath=' + voicePath + '&dataSource=' + $scope.dataSource;
+                    gramUrl = 'player/getGramData?macTag=' + macTag + '&voicePath=' + voicePath + '&dataSource=' + $scope.dataSource;
+                }
+
                 voiceGram.builder.addWavGram(gramControl, 1, {
                     isThumbnailGram: false,
                     gramUrl: gramUrl,
@@ -425,10 +443,11 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
                         var totalTime = data.childDuration;
                         var macTag = data.childMachineId;
                         var voicePath = data.childVoiceUri;
+                        var listenUrl = data.listenUrl;  // 新增
                         var a = $('.' + newVoiceId).offset().top;
                         var b = $('.' + oldVoiceId).offset().top;
                         var c = a - b;
-                        $scope.showSingleFile(macTag, voicePath);
+                        $scope.showSingleFile(macTag, voicePath, listenUrl);
                         $timeout(function () {
                             $('#play-content-text').animate({
                                 scrollTop: c
@@ -563,7 +582,8 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
             });
             var macTag = newArr[0].childMachineId;
             var voicePath = newArr[0].childVoiceUri;
-            $scope.showSingleFile(macTag, voicePath);
+            var listenUrl = newArr[0].listenUrl;  // 新增
+            $scope.showSingleFile(macTag, voicePath, listenUrl);
             $timeout(function () {
                 $scope.totalTime2 = 0;
                 $scope.totalTime = newArr[0].childDuration;
