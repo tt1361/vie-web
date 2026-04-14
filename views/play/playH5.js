@@ -67,6 +67,7 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
 
     /*播放器定时器*/
     var myPlay = '';
+    $scope.currentPlaybackUsesAudioDuration = false;
 
     /*浏览器为谷歌浏览器采用H5播放器*/
     if (window.navigator.userAgent.toLowerCase().indexOf('chrome') > 0) {
@@ -127,7 +128,8 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
         /*监空播放器是否在播放状态*/
         myPlay = setInterval(function () {
             var playback = gramControl.playback;
-            if (!playback.getState()) {
+            var audio = getAudioElement();
+            if (audio && !audio.ended && audio.currentTime === 0 && audio.readyState >= 2 && !playback.getState()) {
                 playback.play();
             }
 
@@ -144,7 +146,7 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
             $('.play-mPlay').css('display', 'inline-block');
             $('.play-mPause').css('display', 'none');
             $scope.uiValue = ui.value;
-            $scope.startime = (ui.value / 100000) * $scope.totalTime;
+            $scope.startime = (ui.value / 100000) * getCurrentDurationMs();
             gramControl.gramCursor.setPosition($scope.startime);
             gramControl.playback.play();
         }
@@ -174,6 +176,46 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
     /*音量调用函数*/
     var setVolume = function (myVolume) {
         gramControl.playback.setVolume(myVolume);
+    };
+
+    var getAudioElement = function () {
+        return $('audio')[0] || null;
+    };
+
+    var getCurrentDurationMs = function () {
+        var audio = getAudioElement();
+        if ($scope.currentPlaybackUsesAudioDuration && audio && isFinite(audio.duration) && audio.duration > 0) {
+            return Math.round(audio.duration * 1000);
+        }
+        return $scope.totalTime || 0;
+    };
+
+    var syncDurationFromAudio = function () {
+        var durationMs = getCurrentDurationMs();
+        if (durationMs > 0 && durationMs !== $scope.totalTime) {
+            $scope.totalTime = durationMs;
+            $scope.totalTime1 = Number((durationMs / 1000).toFixed(3));
+            $scope.totalTime2 = Math.round(durationMs / 1000);
+            if (!$scope.$$phase) {
+                $scope.$applyAsync();
+            }
+        }
+    };
+
+    var bindAudioLifecycle = function () {
+        var audio = getAudioElement();
+        if (!audio) {
+            return;
+        }
+
+        $(audio).off('.playH5Duration');
+        $(audio).on('loadedmetadata.playH5Duration durationchange.playH5Duration', function () {
+            syncDurationFromAudio();
+        });
+        $(audio).on('ended.playH5Duration', function () {
+            $('#progress>div:first').css('width', '100%');
+            $('#progress>a:first').css('left', '100%');
+        });
     };
 
     /*数据光标移动回调事件*/
@@ -260,6 +302,7 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
     $scope.showSingleFile = function (macTag, voicePath, listenUrl) {
         var macTag = macTag;
         var voicePath = voicePath;
+        $scope.currentPlaybackUsesAudioDuration = false;
         if (gramControl) {
             gramControl.clear();
             gramControl.beginUpdate();
@@ -276,6 +319,7 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
                               '&dataSource=' + $scope.dataSource;
                     gramUrl = playUrl;
                     loadingMode = voiceGram.builder.LoadingMode.audioContext;
+                    $scope.currentPlaybackUsesAudioDuration = true;
                 } else {
                     // 老录音：原有逻辑
                     playUrl = 'player/play?macTag=' + macTag + '&voicePath=' + voicePath + '&dataSource=' + $scope.dataSource;
@@ -288,6 +332,11 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
                     gramUrl: gramUrl,
                     playUrl: playUrl
                 });
+                $('#progress>div:first').css('width', '0%');
+                $('#progress>a:first').css('left', '0%');
+                $('#barTime').html('0');
+                $scope.barTime = 0;
+                bindAudioLifecycle();
             }
             finally {
                 gramControl.endUpdate();
@@ -377,8 +426,10 @@ app.controller('playH5Ctrl', function ($scope, $http, $location, $sce, $window, 
             playbackState = voiceGram.enums.PlaybackState,
             position = playback.getState() == playbackState.stopped ? gramControl.gramCursor.getPosition() : gramControl.playbackCursor.getPosition();
         var rate;
-        if (position) {
-            rate = position / ($scope.totalTime / 1000);
+        var durationMs = getCurrentDurationMs();
+        if (position && durationMs > 0) {
+            rate = position / (durationMs / 1000);
+            rate = Math.max(0, Math.min(rate, 1));
             $('#progress>div:first').css('width', rate * 100 + '%');
             $('#progress>a:first').css('left', rate * 100 + '%');
         }
